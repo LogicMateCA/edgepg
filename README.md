@@ -4,7 +4,7 @@
 
 EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compatibility to Cloudflare applications backed by D1 and Durable Objects. Existing web applications can keep familiar `pg` APIs, ORM workflows, and PostgreSQL operational tooling without putting a separate connector in the application hot path.
 
-[Open All2CF Database](https://app.all2cf.com/databases) · [Tests & commands](TESTING.md) · [Functions & operators](FUNCTIONS.md) · [Compatibility](COMPATIBILITY.md) · [Performance](PERFORMANCE.md) · [Roadmap](ROADMAP.md) · [Releases](CHANGELOG.md) · [License](LICENSE.md)
+[Manual deployment](DEPLOYMENT.md) · [Tests & commands](TESTING.md) · [Functions & operators](FUNCTIONS.md) · [Compatibility](COMPATIBILITY.md) · [Performance](PERFORMANCE.md) · [Roadmap](ROADMAP.md) · [Releases](CHANGELOG.md) · [License](LICENSE.md)
 
 > **Commercial release repository.** This repository publishes immutable EdgePG packages, release manifests, compatibility status, performance results, and the public roadmap. Product source code is not published here.
 >
@@ -37,6 +37,8 @@ npm install ./edgepg-0.8.1-rc.14.tgz
 ```
 
 [Download the immutable rc.14 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.14/edgepg-0.8.1-rc.14.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.14/edgepg-0.8.1-rc.14-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.14-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+
+EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
 ### What changed in rc.14
 
