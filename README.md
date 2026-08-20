@@ -4,9 +4,11 @@
 
 EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compatibility to Cloudflare applications backed by D1 and Durable Objects. Existing web applications can keep familiar `pg` APIs, ORM workflows, and PostgreSQL operational tooling without putting a separate connector in the application hot path.
 
-[Open All2CF Database](https://app.all2cf.com/databases) · [Tests & commands](TESTING.md) · [Functions & operators](FUNCTIONS.md) · [Compatibility](COMPATIBILITY.md) · [Performance](PERFORMANCE.md) · [Roadmap](ROADMAP.md) · [Releases](CHANGELOG.md)
+[Open All2CF Database](https://app.all2cf.com/databases) · [Tests & commands](TESTING.md) · [Functions & operators](FUNCTIONS.md) · [Compatibility](COMPATIBILITY.md) · [Performance](PERFORMANCE.md) · [Roadmap](ROADMAP.md) · [Releases](CHANGELOG.md) · [License](LICENSE.md)
 
 > **Commercial release repository.** This repository publishes immutable EdgePG packages, release manifests, compatibility status, performance results, and the public roadmap. Product source code is not published here.
+>
+> **License.** Personal and noncommercial use is permitted under PolyForm Strict 1.0.0. Individuals and companies may evaluate EdgePG for fewer than 32 consecutive days under PolyForm Free Trial 1.0.0. Commercial use requires a separate written LogicMate license. See [LICENSE.md](LICENSE.md).
 
 ## Why EdgePG
 
@@ -179,5 +181,6 @@ Passing a higher stage never replaces the lower-stage correctness contract.
 - [Report a public bug](../../issues/new?template=bug.yml)
 - [Request a feature](../../issues/new?template=feature.yml)
 - [All2CF Support](https://app.all2cf.com/?support=ticket&source=github-edgepg) for private or customer-specific help
+- [Commercial licensing](COMMERCIAL-LICENSE.md)
 
 EdgePG is an independent LogicMate product. It is not affiliated with or endorsed by Cloudflare, Inc. or the PostgreSQL Global Development Group. Names are used only to describe compatibility and deployment targets.
