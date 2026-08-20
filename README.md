@@ -34,7 +34,7 @@ sha256sum edgepg-0.8.1-rc.11.tgz
 npm install ./edgepg-0.8.1-rc.11.tgz
 ```
 
-[Download the immutable rc.11 package](releases/edgepg-0.8.1-rc.11.tgz) · [Release manifest](releases/0.8.1-rc.11.json) · [Checksums](releases/SHA256SUMS)
+[Download the immutable rc.11 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.11/edgepg-0.8.1-rc.11.tgz) · [Release manifest](releases/0.8.1-rc.11.json) · [Checksums](releases/SHA256SUMS)
 
 ## Verified capabilities
 
