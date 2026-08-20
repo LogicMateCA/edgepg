@@ -111,9 +111,9 @@ Passing a higher stage never replaces the lower-stage correctness contract.
 
 ## Community
 
-- [Ask a question or share an idea](https://github.com/LogicMateCA/edgepg/discussions)
-- [Report a public bug](https://github.com/LogicMateCA/edgepg/issues/new?template=bug.yml)
-- [Request a feature](https://github.com/LogicMateCA/edgepg/issues/new?template=feature.yml)
+- [Ask a question or share an idea](../../discussions)
+- [Report a public bug](../../issues/new?template=bug.yml)
+- [Request a feature](../../issues/new?template=feature.yml)
 - [All2CF Support](https://app.all2cf.com/?support=ticket&source=github-edgepg) for private or customer-specific help
 
 EdgePG is an independent LogicMate product. It is not affiliated with or endorsed by Cloudflare, Inc. or the PostgreSQL Global Development Group. Names are used only to describe compatibility and deployment targets.
