@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "description": "PostgreSQL-compatible database runtime for Cloudflare",
+  "version": "0.8.1-rc.11",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "799a5055fd678af5c143ce419c770ab6d7409554",
+    "evidenceHead": "ced051ed437380ed123bec320038b8b88817c6ed",
+    "artifactFile": "edgepg-0.8.1-rc.11.tgz",
+    "artifactBytes": 1211548,
+    "artifactSha256": "c0922a0e8649f324747b3311e5d9b23e661acde5ac97f18fae657dd12f7a08bd",
+    "sourceFingerprint": "f61fa73cac8aa5c27f16ec7b2189e296cdd3af6b82a71db70c6556169edc56d2",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "8a08f097e971143d68783b9975c29e46a4c0034054f5a898e8783963733c560e"
+  },
+  "releaseGates": {
+    "workerTypecheck": "passed",
+    "installedPackage": "passed",
+    "pgwireTests": { "passed": 53, "failed": 0 },
+    "copyCommitRows": 4000,
+    "copyCommitChunks": 2,
+    "copyFailureInputRows": 8001,
+    "copyFailureChunks": 5,
+    "copyFailureSqlstate": "22P02",
+    "failedTransactionSqlstate": "25P02",
+    "copyFailurePersistedRows": 0,
+    "precisionAndOids": "passed",
+    "serviceBinding": "passed",
+    "connector": "passed",
+    "concurrency": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteSha256": "645c42a9008263e43eb7c4bfaee7c955ee84e7133f08275aa871f07f1c5ed4e7",
+    "independentSha256": "27326f0f9c635942ef90d16ccee4cfe9ed949943d5b1e0f57c3bb7ebc528ab4d"
+  },
+  "boundaries": [
+    "No full PostgreSQL server-internal compatibility claim",
+    "No global business-data latency claim",
+    "No arbitrary native C extension loading inside Workers"
+  ]
+}

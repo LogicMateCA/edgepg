@@ -1,4 +1,4 @@
-# Contributing
+# Contributing to EdgePG
 
 Thanks for helping improve All2CF.
 
@@ -11,5 +11,6 @@ Before posting:
 - include the affected product version and a minimal reproduction when possible;
 - use All2CF Support for account, billing, authorization, or customer-specific deployment problems.
 
-Pull requests are welcome only where the repository contains contribution-ready source or documentation. Product repositories marked closed source do not accept product source submissions.
+Pull requests are welcome for public documentation, compatibility-ledger corrections, and reproducible evidence-format improvements. Proprietary product source is not hosted here and product source submissions are not accepted.
 
+When correcting a compatibility or performance claim, include the exact EdgePG version, artifact SHA-256, environment, and evidence scope.
