@@ -1,5 +1,11 @@
 import type { PostgresCatalogTableReference, RelationRewrite, ResultColumnReference, SourceRewrite, TableConstraintCommand, TableInheritanceAlterationReference, TableInheritanceReference } from "./types";
+export type TableInheritanceEdge = {
+    parent_physical_name: string;
+    child_physical_name: string;
+    ordinal: number;
+};
 export declare function ensureTableInheritanceSchema(db: D1Database): Promise<void>;
+export declare function tableInheritanceEdgesStatement(db: D1Database): D1PreparedStatement;
 export declare function inheritedCreateTableSql(db: D1Database, reference: TableInheritanceReference, own: PostgresCatalogTableReference): Promise<string>;
 export declare function registerTableInheritance(db: D1Database, reference: TableInheritanceReference, own: PostgresCatalogTableReference): Promise<void>;
 export declare function alterTableInheritance(db: D1Database, reference: TableInheritanceAlterationReference): Promise<{
@@ -16,7 +22,7 @@ export declare function inheritedNotNullMetadataStatements(db: D1Database, refer
 export declare function tableInheritanceSourceRewrites(db: D1Database, references: RelationRewrite[], sql: string, resultColumns?: ResultColumnReference[], tableoidReferences?: Array<{
     start: number;
     end: number;
-}>): Promise<{
+}>, prefetchedEdges?: TableInheritanceEdge[]): Promise<{
     rewrites: SourceRewrite[];
     consumedLocations: Set<number>;
     consumedTableoidStarts: Set<number>;

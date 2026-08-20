@@ -151,7 +151,7 @@ import{typedJsonRow as Ce}from"./json-row";import{d1CacheKey as d}from"./d1-cach
       (SELECT schema_version FROM __edgepg_commit_meta WHERE key='commit-schema') AS schema_version,
       (SELECT count(*) FROM sqlite_master WHERE type='table' AND name IN (${n})) AS required_tables,
       EXISTS(SELECT 1 FROM sqlite_master
-        WHERE type='trigger' AND name='__edgepg_commit_versions_after_insert') AS trigger_present`).bind(...t).first();return Number(r?.schema_version||0)===ne&&Number(r?.required_tables||0)===t.length&&Number(r?.trigger_present||0)>0}catch(t){if(/no such table:\s*__edgepg_commit_meta/iu.test(h(t)))return!1;throw t}}function St(){return`CREATE TRIGGER __edgepg_commit_versions_after_insert
+        WHERE type='trigger' AND name='__edgepg_commit_versions_after_insert') AS trigger_present`).bind(...t).first();return Number(r?.schema_version||0)===ne&&Number(r?.required_tables||0)===t.length&&Number(r?.trigger_present||0)>0}catch(t){if(/no such table:\s*__edgepg_commit_meta/iu.test(h(t)))return!1;throw t}}function St(){return`CREATE TRIGGER IF NOT EXISTS __edgepg_commit_versions_after_insert
     AFTER INSERT ON __edgepg_commits
     WHEN NEW.command <> 'DDL TRANSACTION'
     BEGIN

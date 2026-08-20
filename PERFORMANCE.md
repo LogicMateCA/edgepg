@@ -14,7 +14,7 @@ Performance results are kept as a time series so each optimization can be compar
 
 The ordinary workload baseline is presented before optimization deltas. It answers the practical question: how long do common reads, writes and transactions take in the isolated EdgePG runtime?
 
-Exact `0.8.1-rc.10` package, retained by rc.11; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
+Exact `0.8.1-rc.10` package baseline, retained by rc.14; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
 
 ### Reads
 
@@ -48,25 +48,26 @@ Two additional fixed scenarios were measured as totals rather than distributions
 
 This local baseline is not a Cloudflare edge-latency claim. Its purpose is to expose runtime regressions and call amplification under repeatable conditions.
 
-## Daily read baseline — real Cloudflare
+## Hot business reads — real Cloudflare
 
-A temporary `0.8.1-rc.6` Worker/D1 run observed Worker colo **YVR** (Calgary) and D1 service region **WNAM/SJC**. Fixture: 1,000 rows, 2 warmups, 10 measured samples.
+The current hot-read record uses one temporary Worker/D1 fixture with 1,000 rows and a fixed San Jose probe colocated with the Worker and D1 primary in **SJC/WNAM**. Each workload reused one connected client. Setup, cold start, connect, and close are excluded.
 
-| Workload | p50 | p95 | Result shape |
-|---|---:|---:|---|
-| Point read | 212 ms | 227 ms | 1 row |
-| Tenant join | 304 ms | 386 ms | 1 row |
-| Auth existence read | 213 ms | 248 ms | 1 row |
-| JSON profile | 185 ms | 196 ms | 1 row |
-| Range aggregate | 181 ms | 238 ms | 1 row |
-| Prepared filter | 221 ms | 247 ms | 10 rows |
-| Array filter | 172 ms | 214 ms | 1 aggregate row |
-| Exact numeric order | 231 ms | 266 ms | 5 rows |
-| Catalog probe | 2,488 ms | 2,842 ms | metadata-heavy path |
+| Workload | rc.12 p50/p95 (`n=100`) | rc.13 p50/p95 (`n=50`) | Directional change |
+|---|---:|---:|---:|
+| Point read | 76 / 160 ms | **28 / 39 ms** | p50 −63%, p95 −76% |
+| Tenant join | 75 / 107 ms | **26 / 33 ms** | p50 −65%, p95 −69% |
+| Auth existence | 60 / 124 ms | **43 / 63 ms** | p50 −28%, p95 −49% |
+| JSON profile | 64 / 96 ms | **30 / 51 ms** | p50 −53%, p95 −47% |
 
-Temporary resources were deleted and absence was confirmed. This is a single-entry Cloudflare baseline, not a global latency claim. The catalog probe is shown separately from normal business reads because it materializes substantially more compatibility metadata.
+The workload shape and location were fixed, but sample counts differ, so this is a directional before/after record rather than a laboratory-perfect A/B. rc.14 is a correctness release and retains the rc.13 implementation; it does not relabel these measurements as a new rc.14 benchmark. Temporary resources were deleted and absence was confirmed.
+
+For context, an earlier YVR→SJC non-colocated rc.6 run measured 172–304 ms p50 across common reads and 2,488 ms for a metadata-heavy catalog probe. That older network shape is retained as historical evidence, not as the current hot-read headline.
 
 ## Optimization deltas
+
+### 0.8.1-rc.12 → rc.13 — hot read path
+
+The real Cloudflare comparison above reduced repeated relation/catalog work while preserving the same D1 primary and query results. Fixed-shape p95 improved by 47–76% across the four measured business reads. Independent Service Binding validation also measured a warm three-statement pure-SELECT batch at `92/109 ms` total p50/p95 and a catalog-inclusive batch at `125/189 ms`, with transaction semantics retained.
 
 ### 0.8.1-rc.10 → rc.11 — COPY metadata optimization and correctness closure
 
@@ -89,7 +90,7 @@ The 4,000-row/two-chunk diagnostic:
 
 Correctness remained intact: 4,000 rows committed, the failure case left zero rows, affected COPY/PGWire/commit tests passed `27/27`, and the 12,000-row wide-row atomic case passed.
 
-rc.11 retains this optimization and closes the transport-level failed-transaction gap discovered during independent validation. The independent rc.11 gate committed 4,000 rows in two client chunks, then proved that an 8,001-row failure returns `22P02`, rejects the next statement with `25P02`, and rolls back every flushed chunk. The performance numbers above are the fixed rc.9→rc.10 A/B; they were not re-labeled as a new rc.11 speed measurement.
+rc.14 retains this optimization and the rc.11 transport-level failed-transaction closure. The independent gate committed 4,000 rows in two client chunks, then proved that an 8,001-row failure returns `22P02`, rejects the next statement with `25P02`, and rolls back every flushed chunk. The performance numbers above remain the fixed rc.9→rc.10 A/B.
 
 ### 0.8.1-rc.9 — Transaction metadata optimization
 
@@ -118,7 +119,28 @@ This real Cloudflare shadow run proves deterministic candidate/origin response p
 
 ### Global business-data latency
 
-⬜ **Not tested yet.** Global compute placement is valuable, but data location, consistency routing, cache hit rate, and origin distance decide the database result. EdgePG will not turn cross-region parity into an unsupported global latency claim.
+✅ A fixed rc.12 experiment measured D1 primary and read-replica routes from WNAM, WEUR, and APAC. The fixture used one temporary Worker, one 1,000-row D1 database, one probe per region, eight business-read workloads, five warmups, and 20 measured samples per primary/replica route. Response checksums matched and cleanup was confirmed.
+
+| Driver region | Primary p50/p95 | Replica p50/p95 | Interpretation |
+|---|---:|---:|---|
+| WNAM | 140 / 280 ms | 152 / 295 ms | Already near the SJC primary; replica routing offered no advantage |
+| WEUR | 793 / 824 ms | **174 / 206 ms** | Local FRA replicas materially reduced read latency |
+| APAC | 536 / 557 ms | **136 / 149 ms** | Local KIX replicas materially reduced read latency |
+
+Per-workload p95 evidence:
+
+| Workload | WEUR primary → replica | APAC primary → replica |
+|---|---:|---:|
+| Point read | 811 → 117 ms | 464 → 81 ms |
+| Tenant join | 699 → 112 ms | 478 → 74 ms |
+| Auth existence | 693 → 89 ms | 495 → 77 ms |
+| JSON profile | 696 → 126 ms | 478 → 78 ms |
+| Range aggregate | 870 → 415 ms | 589 → 320 ms |
+| Prepared filter | 1,034 → 135 ms | 729 → 131 ms |
+| Array filter | 893 → 443 ms | 610 → 334 ms |
+| Exact numeric order | 896 → 211 ms | 615 → 100 ms |
+
+Across the eight workloads, the experiment's average p95 reduction was about **75.6% in WEUR** and **74.0% in APAC**. This is a single-probe, fixed-fixture experiment—not a global average, production SLA, or guarantee that every query benefits. WNAM is intentionally shown because it demonstrates that replication should not be marketed as universally faster.
 
 ## Historical Cloudflare accelerator A/B
 
@@ -132,17 +154,9 @@ Three synthetic dashboard runs used temporary Worker, D1, and KV resources. Thes
 
 Per run: baseline `n=12`, KV `n=12`, strict `n=10`, warmups excluded. Responses were byte-consistent and resources were removed.
 
-## Fixed global benchmark matrix
+## Global benchmark discipline
 
-The next multi-region run must publish all fields below before EdgePG claims global read performance:
-
-| Release | Driver region | Observed colo | Data region | Workload | Mode | n | p50 | p95 | p99 | Correctness | Status |
-|---|---|---|---|---|---|---:|---:|---:|---:|---|---|
-| rc.11 | WNAM | — | — | business point read | direct | — | — | — | — | — | ⬜ |
-| rc.11 | WEUR | — | — | business point read | direct | — | — | — | — | — | ⬜ |
-| rc.11 | APAC | — | — | business point read | direct | — | — | — | — | — | ⬜ |
-
-Required evidence: exact artifact identity, UTC time, observed `request.cf.colo`, actual data region, row count, warmup/measured samples, concurrency, p50/p95/p99/max, cache hit/miss and origin calls, D1 statements/rows, response checksum, and cleanup state.
+Every future multi-region update must retain exact artifact identity, UTC time, observed `request.cf.colo`, actual D1 region/colo, row count, warmup/measured samples, concurrency, p50/p95/p99/max, route, response checksum, and cleanup state. A result is never promoted from experiment to SLA without repeated probes, dates, workloads, and production-grade statistical controls.
 
 ## Optimization timeline
 
@@ -154,4 +168,4 @@ Required evidence: exact artifact identity, UTC time, observed `request.cf.colo`
 | P1 | Cold-start/package loading tiers | 🟨 | Same exports and capability gates |
 | P1 | Common read-path call amplification | 🟨 | One D1 path where semantics permit |
 | P2 | Optional global read acceleration | 🟨 | Read-after-write and tenant isolation |
-| P2 | Multi-region business-data benchmark | ⬜ | Fixed matrix above |
+| P2 | Multi-region business-data benchmark | ✅ experiment | Repeat over time before any SLA claim |

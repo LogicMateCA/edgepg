@@ -313,7 +313,7 @@ import{quoteIdentifier as f}from"./sql-quoting";import{formatPostgresArrayLitera
         ) WHERE kind='enum' AND sort_orders_json IS NULL`).run();const o=await e.prepare("PRAGMA table_info('__edgepg_type_identities')").all();o.results.some(s=>s.name==="oid")||await e.prepare("ALTER TABLE __edgepg_type_identities ADD COLUMN oid INTEGER").run(),o.results.some(s=>s.name==="array_oid")||await e.prepare("ALTER TABLE __edgepg_type_identities ADD COLUMN array_oid INTEGER").run()}if(await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_oid_allocator (
           id INTEGER PRIMARY KEY CHECK(id=1), next_oid INTEGER NOT NULL)`),e.prepare("INSERT OR IGNORE INTO __edgepg_oid_allocator(id,next_oid) VALUES (1,50000)"),e.prepare(`UPDATE __edgepg_oid_allocator SET next_oid=MAX(next_oid,50000,
           COALESCE((SELECT MAX(oid)+1 FROM __edgepg_type_identities),50000),
-          COALESCE((SELECT MAX(array_oid)+1 FROM __edgepg_type_identities),50000)) WHERE id=1`),e.prepare("DROP TRIGGER IF EXISTS __edgepg_type_identities_assign_oid"),e.prepare(`CREATE TRIGGER __edgepg_type_identities_assign_oid
+          COALESCE((SELECT MAX(array_oid)+1 FROM __edgepg_type_identities),50000)) WHERE id=1`),e.prepare("DROP TRIGGER IF EXISTS __edgepg_type_identities_assign_oid"),e.prepare(`CREATE TRIGGER IF NOT EXISTS __edgepg_type_identities_assign_oid
           AFTER INSERT ON __edgepg_type_identities WHEN NEW.oid IS NULL OR NEW.array_oid IS NULL BEGIN
             UPDATE __edgepg_type_identities SET
               oid=COALESCE(NEW.oid,(SELECT next_oid FROM __edgepg_oid_allocator WHERE id=1)),

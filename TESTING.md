@@ -8,6 +8,8 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
+Current public candidate: `edgepg@0.8.1-rc.14`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+
 ## How results are compared
 
 Applicable differential tests compare more than returned values:
@@ -112,7 +114,7 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | Gate collection | Status | Covered contract |
 |---|---:|---|
 | node-postgres | ✅ | Client/Pool, prepared parameters, rows, fields/OIDs, errors and transactions |
-| CRUD and relational SQL | ✅ | Reads, writes, RETURNING, joins, subqueries, aggregates, CTEs, set operations and windows |
+| CRUD and relational SQL | ✅ | Reads, writes, RETURNING, joins, subqueries and common Web aggregate/CTE/set/window shapes |
 | Concurrency | ✅ | Row/advisory locks, NOWAIT, commit/rollback/disconnect release and failed state |
 | Types | ✅ | JSON/JSONB, arrays, bigint/numeric precision and temporal types |
 | Migration/catalog | ✅ | Common schema DDL, constraints, sequences, views, RLS, `pg_catalog` and `information_schema` |
@@ -121,5 +123,24 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## rc.14 affected release gate
+
+| Layer | Result | Scope |
+|---|---:|---|
+| PostgreSQL 18.4 oracle | ✅ | `bool_or`, `bool_and`, `every`; mixed/NULL/empty, grouping, nullable join, prepared, `FILTER`, `DISTINCT` |
+| Targeted runtime | ✅ 2/2 | Exact production-shaped `VALUES`, aliases, OID 16, explicit transaction |
+| Transaction regression | ✅ 54/54 | No regression in transaction and failed-state behavior |
+| Worker compiler | ✅ 19/19 | Real workerd compiler/runtime cases |
+| Installed package | ✅ | Exact TGZ identity and all public entrypoint imports |
+| Service Binding / production probe | ✅ | Function semantics, metadata, `42P01`, same-session recovery |
+
+This closes the named boolean-aggregate defect. The complete PostgreSQL `aggregates` regression file remains pending because unrelated aggregate grammar and server behaviors have not all been promoted.
+
+## Named functions and operators
+
+The function ledger tracks exact names and boundaries for aggregates, JSON/JSONB, arrays, temporal expressions, catalog functions, advisory locks, LIKE/SIMILAR predicates and PostgreSQL deparser operators.
+
+[Open the function and operator checklist →](FUNCTIONS.md)
 
 See [COMPATIBILITY.md](COMPATIBILITY.md) for the P0–P4 product ledger and [PERFORMANCE.md](PERFORMANCE.md) for daily workload measurements.

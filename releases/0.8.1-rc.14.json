@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "description": "PostgreSQL-compatible database runtime for Cloudflare",
+  "version": "0.8.1-rc.14",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "5eb7469c795593ad62e850b720a94fe0fb1800c9",
+    "evidenceHead": "beb664ce652801362aaac3bacbcf56f3d0f21f45",
+    "artifactFile": "edgepg-0.8.1-rc.14.tgz",
+    "artifactBytes": 1212502,
+    "artifactSha256": "06da999e695d96634edadbe05a21124c5f9b3ee42e9575bdb78b6f6a01ac3897",
+    "sourceFingerprint": "1a00755bf915f533d717b4fcdbbebe46d182082ff2a0fadf7657d871fb9a8bd0",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "c07a492683f90357d9252a8635d573ed0f6adabcd51b11e311cfefa1b8d0e708"
+  },
+  "releaseGates": {
+    "postgres18Oracle": "passed",
+    "workerTypecheck": "passed",
+    "targetedRuntimeTests": 2,
+    "transactionRegressionTests": 54,
+    "workerCompilerCases": 19,
+    "workerDependency": "passed",
+    "installedPackage": "passed",
+    "serviceBinding": "passed",
+    "productionProbe": "passed",
+    "cleanup": "passed"
+  },
+  "functionCoverage": {
+    "bool_or": "passed",
+    "bool_and": "passed",
+    "every": "passed",
+    "cases": [
+      "true/false/null",
+      "all-null",
+      "empty input",
+      "GROUP BY",
+      "LEFT JOIN nullable expression",
+      "prepared boolean parameter",
+      "FILTER and DISTINCT",
+      "transaction",
+      "boolean RowDescription OID 16"
+    ]
+  },
+  "evidence": {
+    "suiteSha256": "21e37015afb3bd1984612e9d6bca52f53efde71509b73ce5b6d433a31d63f865",
+    "productionSha256": "e57a27c5a57becbe03bf1da5ed8ec3404f242ecbafde10d0160ac1d17284a908"
+  },
+  "performance": {
+    "codeBaseline": "0.8.1-rc.13",
+    "note": "rc.14 is a correctness release and retains rc.13 read-path optimizations without relabeling the rc.13 measurements"
+  },
+  "boundaries": [
+    "Named function passes do not imply the complete PostgreSQL aggregates regression file passes",
+    "Multi-region measurements are fixed-fixture experiments, not a latency SLA",
+    "No full PostgreSQL server-internal compatibility claim",
+    "No arbitrary native C extension loading inside Workers"
+  ]
+}

@@ -2,7 +2,7 @@
 
 This is the public capability and development ledger. Every area is marked so future work can be planned without turning an untested feature into an implied promise.
 
-For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL command families, see [TESTING.md](TESTING.md). This page tracks product capability stages rather than duplicating the test ledger.
+For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL command families, see [TESTING.md](TESTING.md). Named built-ins and operators are listed in [FUNCTIONS.md](FUNCTIONS.md). This page tracks product capability stages rather than duplicating those ledgers.
 
 | Mark | Meaning |
 |---:|---|
@@ -25,8 +25,8 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | Constraints | ✅ | Primary, unique, foreign key, CHECK, NOT NULL, deferred cases |
 | Defaults and identity/sequences | ✅ | Transaction behavior and 64-bit sequence precision |
 | Joins and subqueries | ✅ | LEFT/inner joins, scalar/correlated subqueries, cardinality errors |
-| Aggregates and GROUP BY | ✅ | FILTER, DISTINCT, JSON aggregation, PK functional dependency |
-| CTE, union, recursive, window | ✅ | Common Web query shapes and bounded recursion |
+| Web aggregates and GROUP BY | ✅ | Common `count`/`sum`/`avg`, boolean aggregates, JSON/array aggregation, FILTER, DISTINCT and PK functional dependency; the official `aggregates` file remains pending |
+| CTE, union, recursive, window | ✅ | Common Web query shapes and bounded recursion; the official `window` file remains pending |
 | JSON/JSONB | ✅ | Common operators, builders, aggregates, validation, result decoding |
 | Arrays | ✅ | Constructors, casts, aggregates, multidimensional and bigint arrays |
 | bigint/numeric | ✅ | Exact text transport outside JavaScript safe integer range |
@@ -93,7 +93,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | COPY metadata dedup | ✅ | Lower latency and 50% fewer diagnostic D1 metadata calls |
 | Package slimming | ✅ | Installed artifact reduced while exports remain compatible |
 | Cold-start tiering | 🟨 | Additional WASM/capability loading measurements planned |
-| Multi-region business-data benchmark | ⬜ | WNAM/WEUR/APAC fixed matrix planned |
+| Multi-region business-data benchmark | ✅ | WNAM/WEUR/APAC fixed-fixture primary/replica experiment completed; not an SLA |
 
 ## P4 — Architecture boundaries
 
