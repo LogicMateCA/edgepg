@@ -98,7 +98,7 @@ import{quoteIdentifier as $}from"./sql-quoting";import{evaluateCustomTypeValueEx
       routine_oid INTEGER NOT NULL,grantor TEXT NOT NULL,grantee TEXT NOT NULL,
       privilege_type TEXT NOT NULL CHECK(privilege_type='EXECUTE'),is_grantable INTEGER NOT NULL DEFAULT 0,
       PRIMARY KEY(routine_oid,grantor,grantee,privilege_type))`),e.prepare("INSERT OR IGNORE INTO __edgepg_routine_oid_allocator(id,next_oid) VALUES(1,80000)"),e.prepare(`UPDATE __edgepg_routine_oid_allocator SET next_oid=MAX(next_oid,
-      COALESCE((SELECT MAX(routine_oid)+1 FROM __edgepg_routines),80000)) WHERE id=1`),e.prepare("DROP TRIGGER IF EXISTS __edgepg_routines_assign_oid"),e.prepare(`CREATE TRIGGER __edgepg_routines_assign_oid AFTER INSERT ON __edgepg_routines
+      COALESCE((SELECT MAX(routine_oid)+1 FROM __edgepg_routines),80000)) WHERE id=1`),e.prepare("DROP TRIGGER IF EXISTS __edgepg_routines_assign_oid"),e.prepare(`CREATE TRIGGER IF NOT EXISTS __edgepg_routines_assign_oid AFTER INSERT ON __edgepg_routines
       WHEN NEW.routine_oid IS NULL BEGIN
         UPDATE __edgepg_routines SET routine_oid=(SELECT next_oid FROM __edgepg_routine_oid_allocator WHERE id=1)
           WHERE rowid=NEW.rowid;

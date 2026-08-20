@@ -2,6 +2,29 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.1-rc.14 — 2026-08-20
+
+### Fixed
+
+- Implemented PostgreSQL `bool_or(boolean)`, `bool_and(boolean)`, and `every(boolean)` through generic aggregate lowering rather than query- or application-specific rewriting.
+- Preserved PostgreSQL NULL and empty-input behavior and boolean RowDescription OID 16.
+
+### Verified
+
+- PostgreSQL 18.4 oracle: mixed true/false/NULL, all-NULL, empty input, `GROUP BY`, nullable `LEFT JOIN`, prepared parameters, `FILTER`, `DISTINCT`, and `every` synonym.
+- Targeted runtime `2/2`, transaction regression `54/54`, Worker compiler `19/19`, installed-package identity and entrypoint imports.
+- Isolated Service Binding and formal production probes passed function semantics, transaction behavior, `42P01`, same-session recovery, and cleanup.
+
+### Retained
+
+- rc.13 real Cloudflare hot-read improvements and rc.10/rc.11 COPY optimization/correctness closure.
+- Existing Web P0, ORM, migration, archive and client compatibility evidence. The complete upstream `aggregates` regression file remains pending and is not represented as green.
+
+### Distribution
+
+- Published the immutable npm TGZ, compiled ZIP, browsable 196-file compiled tree, per-file SHA-256 manifest, release identity, test/function ledgers, and updated performance record.
+- rc.14 changes 12 compiled files; 184 compiled files are byte-identical to rc.11 and remain visible through Git history.
+
 ## 0.8.1-rc.11 — 2026-08-20
 
 ### Fixed

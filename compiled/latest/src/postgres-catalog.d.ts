@@ -1,5 +1,6 @@
 import type { PostgresCatalogAlterationReference, PostgresCatalogObjectReference, PostgresCatalogTableReference } from "./types";
 export declare const RELATION_TYPE_OID_OFFSET = 300000000;
+export declare function postgresRelationCatalogStorageCached(database: D1Database): boolean;
 export declare function ensurePostgresTableCatalogStorage(database: D1Database, options?: {
     roleSchemaReady?: boolean;
     validate?: boolean;

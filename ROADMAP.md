@@ -54,11 +54,13 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 - [x] Slim installable package with stable exports
 - [x] Transaction metadata deduplication
 - [x] COPY target metadata deduplication
+- [x] Common hot-read relation/catalog deduplication
 - [x] Cross-region response parity at SEA/MAD
+- [x] WNAM/WEUR/APAC business-data read-replica experiment
 - [ ] Current-line vector module consolidated gate
 - [ ] GIS module after core/plugin decoupling
-- [ ] WNAM/WEUR/APAC business-data benchmark
-- [ ] Catalog hot-path materialization optimization
+- [ ] Repeat multi-region measurements across dates/probes before any SLA claim
+- [ ] Continue safe catalog hot-path materialization optimization
 - [ ] Cold-start tiering and WASM loading measurements
 
 ## P4 — Explicit architecture boundaries
@@ -82,7 +84,10 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 | `0.8.1-rc.9` | Transaction metadata deduplication | ✅ |
 | `0.8.1-rc.10` | COPY target metadata deduplication | ✅ |
 | `0.8.1-rc.11` | COPY failed-transaction correctness closure | ✅ |
-| Next consolidated RC | Catalog/read-path optimization plus fixed regressions | 🟨 |
+| `0.8.1-rc.12` | Fixed global primary/read-replica experiment | ✅ |
+| `0.8.1-rc.13` | Common Cloudflare hot-read optimization | ✅ |
+| `0.8.1-rc.14` | PostgreSQL `bool_or` / `bool_and` / `every` compatibility | ✅ |
+| Next consolidated RC | Safe catalog/read-path and official-file refresh clusters | 🟨 |
 
 Documentation-only updates do not change an existing package identity. A new RC is created only when the product package changes.
 
