@@ -2,6 +2,13 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## Repository licensing — 2026-08-20
+
+- Added PolyForm Strict 1.0.0 for personal and noncommercial use.
+- Added PolyForm Free Trial 1.0.0 for individual or company evaluation lasting fewer than 32 consecutive calendar days.
+- Clarified that commercial use requires a separate written LogicMate license.
+- Preserved the immutable rc.14 package and its published SHA-256; the license files will be embedded directly in the next package release.
+
 ## 0.8.1-rc.14 — 2026-08-20
 
 ### Fixed
