@@ -10,7 +10,65 @@ Performance results are kept as a time series so each optimization can be compar
 - Preserve transaction, lock, SQLSTATE, result, and cleanup gates.
 - Keep local workerd, real Cloudflare, comparator, and multi-region results separate.
 
-## 0.8.1-rc.10 → rc.11 — COPY metadata optimization and correctness closure
+## Daily read/write baseline — current line
+
+The ordinary workload baseline is presented before optimization deltas. It answers the practical question: how long do common reads, writes and transactions take in the isolated EdgePG runtime?
+
+Exact `0.8.1-rc.10` package, retained by rc.11; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
+
+### Reads
+
+| Workload | Category | p50 | p95 | Result shape |
+|---|---|---:|---:|---|
+| Point read | Primary-key lookup | 8 ms | 11 ms | 1 row |
+| Tenant join | Common relational read | 9 ms | 11 ms | 1 row |
+| Auth existence | Session/auth lookup | 8 ms | 11 ms | 1 boolean row |
+| JSON profile | JSON field projection | 8 ms | 11 ms | 1 row |
+| Range aggregate | Filter + aggregate | 10 ms | 12 ms | 1 aggregate row |
+| Prepared filter | Bound parameters | 12 ms | 13 ms | 10 rows |
+| Array filter | Array predicate | 12 ms | 13 ms | 1 aggregate row |
+| Exact numeric order | Numeric precision + sort | 12 ms | 15 ms | 5 rows |
+| Catalog probe | Local metadata discovery | 7 ms | 9 ms | 1 row |
+
+### Writes, transactions and bulk paths
+
+| Workload | p50 | p95 | Contract retained |
+|---|---:|---:|---|
+| Ordinary write | 23 ms | 34 ms | Persisted value and row count |
+| Upsert | 13 ms | 21 ms | Conflict update and RETURNING |
+| Explicit transaction | 50 ms | 79 ms | Coordinator ordering and atomic commit |
+| Client COPY, 3 × 250 rows | 31 ms | 32 ms | Chunked transaction followed by rollback |
+
+Two additional fixed scenarios were measured as totals rather than distributions:
+
+| Scenario | Total | Scope |
+|---|---:|---|
+| Eight concurrent clients | 96 ms | 8 results returned |
+| Transactional batch-500 | 305 ms | 20 × 25-row INSERT statements in one transaction |
+
+This local baseline is not a Cloudflare edge-latency claim. Its purpose is to expose runtime regressions and call amplification under repeatable conditions.
+
+## Daily read baseline — real Cloudflare
+
+A temporary `0.8.1-rc.6` Worker/D1 run observed Worker colo **YVR** (Calgary) and D1 service region **WNAM/SJC**. Fixture: 1,000 rows, 2 warmups, 10 measured samples.
+
+| Workload | p50 | p95 | Result shape |
+|---|---:|---:|---|
+| Point read | 212 ms | 227 ms | 1 row |
+| Tenant join | 304 ms | 386 ms | 1 row |
+| Auth existence read | 213 ms | 248 ms | 1 row |
+| JSON profile | 185 ms | 196 ms | 1 row |
+| Range aggregate | 181 ms | 238 ms | 1 row |
+| Prepared filter | 221 ms | 247 ms | 10 rows |
+| Array filter | 172 ms | 214 ms | 1 aggregate row |
+| Exact numeric order | 231 ms | 266 ms | 5 rows |
+| Catalog probe | 2,488 ms | 2,842 ms | metadata-heavy path |
+
+Temporary resources were deleted and absence was confirmed. This is a single-entry Cloudflare baseline, not a global latency claim. The catalog probe is shown separately from normal business reads because it materializes substantially more compatibility metadata.
+
+## Optimization deltas
+
+### 0.8.1-rc.10 → rc.11 — COPY metadata optimization and correctness closure
 
 Same local workerd fixture: five measured samples after two warmups; three 250-row chunks inside one explicit transaction.
 
@@ -33,7 +91,7 @@ Correctness remained intact: 4,000 rows committed, the failure case left zero ro
 
 rc.11 retains this optimization and closes the transport-level failed-transaction gap discovered during independent validation. The independent rc.11 gate committed 4,000 rows in two client chunks, then proved that an 8,001-row failure returns `22P02`, rejects the next statement with `25P02`, and rolls back every flushed chunk. The performance numbers above are the fixed rc.9→rc.10 A/B; they were not re-labeled as a new rc.11 speed measurement.
 
-## 0.8.1-rc.9 — Transaction metadata optimization
+### 0.8.1-rc.9 — Transaction metadata optimization
 
 Same local workerd benchmark: 1,000 source rows; 20 statements of 25 rows in one transaction; 10 samples after 3 warmups.
 
@@ -47,24 +105,6 @@ Same local workerd benchmark: 1,000 source rows; 20 statements of 25 rows in one
 | Durable Object fetches | 22 | 22 | unchanged |
 
 The gain came from eliminating duplicate metadata resolution. Transaction coordination was not bypassed.
-
-## Real Cloudflare SQL baseline
-
-A temporary `0.8.1-rc.6` Worker/D1 run observed Worker colo **YVR** (Calgary) and D1 service region **WNAM/SJC**. Fixture: 1,000 rows, 2 warmups, 10 measured samples.
-
-| Workload | p50 | p95 | Result shape |
-|---|---:|---:|---|
-| Point read | 212 ms | 227 ms | 1 row |
-| Tenant join | 304 ms | 386 ms | 1 row |
-| Auth existence read | 213 ms | 248 ms | 1 row |
-| JSON profile | 185 ms | 196 ms | 1 row |
-| Range aggregate | 181 ms | 238 ms | 1 row |
-| Prepared filter | 221 ms | 247 ms | 10 rows |
-| Array filter | 172 ms | 214 ms | 1 aggregate row |
-| Exact numeric order | 231 ms | 266 ms | 5 rows |
-| Catalog probe | 2,488 ms | 2,842 ms | metadata-heavy path |
-
-Temporary resources were deleted and absence was confirmed. This is a single-entry Cloudflare baseline, not a global latency claim.
 
 ## Global execution evidence
 

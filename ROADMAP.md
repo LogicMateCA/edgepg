@@ -22,6 +22,7 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 - [x] Client-streamed COPY with atomic failure rollback
 - [x] PostgreSQL catalog and retained backup/restore paths
 - [ ] Regenerate the full 231-file official applicability matrix on the current engine
+- [ ] Promote official files only after complete unmodified SQL/output comparison; targeted fixtures remain Web P0 evidence
 
 ## P1 — Application and operational breadth
 
@@ -84,3 +85,5 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 | Next consolidated RC | Catalog/read-path optimization plus fixed regressions | 🟨 |
 
 Documentation-only updates do not change an existing package identity. A new RC is created only when the product package changes.
+
+The exhaustive official-file and command-family ledger is maintained in [TESTING.md](TESTING.md); performance baselines and optimization history are maintained independently in [PERFORMANCE.md](PERFORMANCE.md).

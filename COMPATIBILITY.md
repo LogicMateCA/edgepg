@@ -2,6 +2,8 @@
 
 This is the public capability and development ledger. Every area is marked so future work can be planned without turning an untested feature into an implied promise.
 
+For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL command families, see [TESTING.md](TESTING.md). This page tracks product capability stages rather than duplicating the test ledger.
+
 | Mark | Meaning |
 |---:|---|
 | ✅ | Passed with retained evidence |
@@ -119,6 +121,8 @@ PostgreSQL 18.4's retained inventory contains 231 scheduled regression files. Th
 
 This official-file count is intentionally separate from the Web P0 matrix. A simplified fixture is never counted as a complete official-file pass.
 
+[Open the complete 231-file inventory →](TESTING.md#postgresql-184-official-regression-inventory)
+
 ## PostgreSQL command inventory
 
 The generated PostgreSQL 18 command ledger contains 183 command families with retained local and Cloudflare golden coverage:
@@ -131,3 +135,5 @@ The generated PostgreSQL 18 command ledger contains 183 command families with re
 | P3 | 112 | 112 |
 
 Command-family coverage confirms the supported command contract; it does not imply every grammar combination in every official regression file passes.
+
+[Open all 183 command-family names →](TESTING.md#postgresql-command-family-ledger)

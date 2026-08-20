@@ -4,7 +4,7 @@
 
 EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compatibility to Cloudflare applications backed by D1 and Durable Objects. Existing web applications can keep familiar `pg` APIs, ORM workflows, and PostgreSQL operational tooling without putting a separate connector in the application hot path.
 
-[Open All2CF Database](https://app.all2cf.com/databases) · [Compatibility](COMPATIBILITY.md) · [Performance](PERFORMANCE.md) · [Roadmap](ROADMAP.md) · [Releases](CHANGELOG.md)
+[Open All2CF Database](https://app.all2cf.com/databases) · [Tests & commands](TESTING.md) · [Compatibility](COMPATIBILITY.md) · [Performance](PERFORMANCE.md) · [Roadmap](ROADMAP.md) · [Releases](CHANGELOG.md)
 
 > **Commercial release repository.** This repository publishes immutable EdgePG packages, release manifests, compatibility status, performance results, and the public roadmap. Product source code is not published here.
 
@@ -36,7 +36,19 @@ npm install ./edgepg-0.8.1-rc.11.tgz
 
 [Download the immutable rc.11 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.11/edgepg-0.8.1-rc.11.tgz) · [Release manifest](releases/0.8.1-rc.11.json) · [Checksums](releases/SHA256SUMS)
 
-## Verified capabilities
+## PostgreSQL test coverage
+
+EdgePG maintains two independent PostgreSQL ledgers. Official regression files measure exact PostgreSQL 18.4 output; command-family gates measure the supported contract and explicit fail-closed boundary for every documented SQL command family.
+
+| Evidence collection | Passed / classified | Remaining | What it proves |
+|---|---:|---:|---|
+| PostgreSQL 18.4 official regression files | 38 exact + 16 applicable-prefix | 144 pending; 33 architecture boundary | Unmodified official SQL/output where marked exact |
+| PostgreSQL 18 command families | **183 / 183 golden** | 0 unclassified families | Every command family has a tested compatible or fail-closed contract |
+| PGWire/COPY affected suite | **53 / 53** | 0 in affected suite | Protocol, chunking, metadata and failed-transaction behavior |
+
+The official inventory is deliberately conservative: a targeted fixture can close a product bug, but it cannot turn an entire PostgreSQL regression file green. [See all 231 official files and all 183 command families →](TESTING.md)
+
+### Web application P0
 
 Status legend: ✅ passed · 🟨 partial/in progress · ⬜ not tested · ➖ not applicable · ⚠️ supported subset
 
@@ -57,7 +69,49 @@ Status legend: ✅ passed · 🟨 partial/in progress · ⬜ not tested · ➖ n
 
 The complete P0–P4 status is maintained in [COMPATIBILITY.md](COMPATIBILITY.md).
 
-## Performance highlights
+## Daily workload performance
+
+### Current-line local workerd baseline
+
+Exact `0.8.1-rc.10` package, retained by rc.11: local workerd + D1 + Coordinator DO, 1,000 rows, 2 warmups and 5 measured samples. These numbers isolate EdgePG/runtime behavior; they are not public-Internet latency.
+
+| Daily workload | p50 | p95 |
+|---|---:|---:|
+| Point read | 8 ms | 11 ms |
+| Tenant join | 9 ms | 11 ms |
+| Auth existence read | 8 ms | 11 ms |
+| JSON profile read | 8 ms | 11 ms |
+| Range aggregate | 10 ms | 12 ms |
+| Prepared filter | 12 ms | 13 ms |
+| Array filter | 12 ms | 13 ms |
+| Exact numeric ordering | 12 ms | 15 ms |
+| Catalog probe | 7 ms | 9 ms |
+| Ordinary write | 23 ms | 34 ms |
+| Upsert | 13 ms | 21 ms |
+| Explicit transaction | 50 ms | 79 ms |
+| Client-streamed COPY, 3 × 250 rows | 31 ms | 32 ms |
+
+Additional fixed scenarios: eight concurrent clients completed in 96 ms total; the 500-row transactional batch completed in 305 ms. Those are scenario totals, not p50/p95 distributions.
+
+### Real Cloudflare read baseline
+
+Temporary `0.8.1-rc.6` Worker/D1; observed Worker colo **YVR**, D1 service region **WNAM/SJC**; 1,000 rows, 2 warmups and 10 measured samples.
+
+| Workload | p50 | p95 |
+|---|---:|---:|
+| Point read | 212 ms | 227 ms |
+| Tenant join | 304 ms | 386 ms |
+| Auth existence read | 213 ms | 248 ms |
+| JSON profile | 185 ms | 196 ms |
+| Range aggregate | 181 ms | 238 ms |
+| Prepared filter | 221 ms | 247 ms |
+| Array filter | 172 ms | 214 ms |
+| Exact numeric order | 231 ms | 266 ms |
+| Catalog probe | 2,488 ms | 2,842 ms |
+
+The catalog row is intentionally separate: it is a metadata-heavy path, not a normal business read. Temporary Cloudflare resources were deleted and absence was confirmed.
+
+## Optimization record
 
 ### COPY — rc.9 → rc.10
 
@@ -80,7 +134,7 @@ The optimization is retained in rc.11. Its independent PGWire gate also proves P
 |---|---:|---:|---:|---:|
 | SEA + MAD | 61.88 min | 14,840 | **0** | **0** |
 
-This proves response parity across two real Cloudflare colos. It is not presented as a database-latency benchmark. See [PERFORMANCE.md](PERFORMANCE.md) for the real YVR Cloudflare baseline, historical accelerator A/B, and the planned WNAM/WEUR/APAC measurement matrix.
+This proves response parity across two real Cloudflare colos. It is not presented as a database-latency benchmark. See [PERFORMANCE.md](PERFORMANCE.md) for methodology, ordinary read/write baselines, historical accelerator A/B, and the planned WNAM/WEUR/APAC measurement matrix.
 
 ## Runtime shape
 
