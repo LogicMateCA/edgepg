@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "package": "edgepg",
+  "version": "0.8.1-rc.11",
+  "sourceFingerprint": "f61fa73cac8aa5c27f16ec7b2189e296cdd3af6b82a71db70c6556169edc56d2",
+  "runtimeDependencies": [
+    {
+      "name": "libpg-query",
+      "version": "18.0.1",
+      "artifact": {
+        "path": "dependency:libpg-query/wasm/libpg-query.wasm",
+        "bytes": 1165324,
+        "sha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79"
+      }
+    }
+  ],
+  "wasmArtifacts": [
+    {
+      "path": "src/generated/edgepg_planner_bg.wasm",
+      "bytes": 120772,
+      "sha256": "1f5aed300b0aa484c83935f85d00d188a7a4bb46745ec6a54fb164a1a59fea3d"
+    },
+    {
+      "path": "src/generated/edgepg_plpgsql.wasm",
+      "bytes": 1110811,
+      "sha256": "676fec27d093a66329be68bb29b6a68c354e22ca004838d2c43b21fdc0488cba"
+    },
+    {
+      "path": "src/generated/edgepg_vector_bg.wasm",
+      "bytes": 90528,
+      "sha256": "fb20f7685ccb63f2ec25fa6743335043edbc38dfe8cee231a7b6e8e909978b2f"
+    },
+    {
+      "path": "dependency:libpg-query/wasm/libpg-query.wasm",
+      "bytes": 1165324,
+      "sha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79"
+    }
+  ]
+}

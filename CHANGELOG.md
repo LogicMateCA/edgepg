@@ -22,6 +22,12 @@ Every package release is immutable and identified by version, product commit, by
 - `bigint` maximum, exact `numeric`, `text[]`, and OIDs `20/23/1009/1700` round-tripped without precision loss.
 - Installed-package identity, Service Binding, Connector, baseline, concurrency, and cleanup gates passed.
 
+### Distribution
+
+- Published the canonical npm package and a conventional compiled ZIP.
+- Added a browsable compiled-only tree and a permanent per-file SHA-256 manifest.
+- Confirmed the public tree contains no original TypeScript/TSX/Rust source, source maps, tests, internal evidence, environment files or credentials.
+
 ## 0.8.1-rc.10 — 2026-08-20
 
 ### Changed

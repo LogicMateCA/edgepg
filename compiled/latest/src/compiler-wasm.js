@@ -1,0 +1,1 @@
+import{initSync as r,plan_postgres_ast as n}from"./generated/edgepg_planner";import o from"./generated/edgepg_planner_bg.wasm";let t=!1;function s(){t||(r({module:o}),t=!0)}function p(e){return s(),n(e)}export{p as compilePostgresAst};

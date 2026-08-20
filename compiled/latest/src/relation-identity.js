@@ -1,0 +1,1 @@
+function o(t,n){return t==="public"?n:`${t}__${n}`}function c(t){const n=t.at(-1)||"",e=t.length>1?t.at(-2):"public";return o(e,n)}export{o as physicalRelationName,c as physicalRelationNameFromParts};

@@ -1,0 +1,45 @@
+import type { PostgresCatalogAlterationReference, PostgresCatalogObjectReference, PostgresCatalogTableReference } from "./types";
+export declare const RELATION_TYPE_OID_OFFSET = 300000000;
+export declare function ensurePostgresTableCatalogStorage(database: D1Database, options?: {
+    roleSchemaReady?: boolean;
+    validate?: boolean;
+}): Promise<void>;
+export declare function ensurePostgresObjectCatalogStorage(database: D1Database, options?: {
+    roleSchemaReady?: boolean;
+    validate?: boolean;
+}): Promise<void>;
+export declare function installPostgresCatalog(database: D1Database, options?: {
+    views?: boolean;
+    validate?: boolean;
+}): Promise<void>;
+export declare function informationSchemaColumnsViewSql(): string;
+export declare function pgAttributeDefaultViewSql(): string;
+export declare function postgresCatalogDefaultExpressionSql(expression: string, pgTypeExpression?: string): string;
+export declare function informationSchemaColumnsBodySql(): string;
+export declare function pgNamespaceViewSql(): string;
+export declare function pgProcViewSql(): string;
+export declare function pgAggregateViewSql(): string;
+export declare function pgDefaultAclViewSql(roleOidLookupSql?: (nameExpression: string) => string): string;
+export declare function pgDatabaseViewSql(): string;
+export declare function pgPublicationViewSql(ownerOidSql?: (nameExpression: string) => string): string;
+export declare function pgPublicationTablesViewSql(): string;
+export declare function pgSubscriptionViewSql(ownerOidSql?: (nameExpression: string) => string): string;
+export declare function pgTablespaceViewSql(ownerOidSql?: (nameExpression: string) => string): string;
+export declare function pgForeignDataWrapperViewSql(ownerOidSql?: (nameExpression: string) => string): string;
+export declare function pgForeignServerViewSql(ownerOidSql?: (nameExpression: string) => string): string;
+export declare function pgUserMappingViewSql(roleOidSql?: (nameExpression: string) => string): string;
+export declare function pgUserMappingsViewSql(): string;
+export declare function pgForeignTableViewSql(): string;
+export declare function pgTypeViewSql(roleOidLookup?: (ownerExpression: string) => string): string;
+export declare function pgRangeViewSql(): string;
+export declare function pgTypeOidSql(typeExpression: string, includeCatalogFallback?: boolean): string;
+export declare function pgAttributePhysicalMetadataSql(typeCatalogAlias: string): string;
+export declare function pgAttributeTypeNameSql(typeExpression: string): string;
+export declare function pgAttributeNumericPrecisionSql(typeExpression: string): string;
+export declare function pgAttributeNumericScaleSql(typeExpression: string): string;
+export declare function pgAttributeTypeModSql(typeExpression: string): string;
+export declare function postgresCatalogTableStatement(database: D1Database, table: PostgresCatalogTableReference): D1PreparedStatement;
+export declare function postgresCatalogAlterationStatement(database: D1Database, alteration: PostgresCatalogAlterationReference): D1PreparedStatement;
+export declare function postgresCatalogObjectStatement(database: D1Database, object: PostgresCatalogObjectReference, owner?: string): D1PreparedStatement;
+export declare function pgIndexesViewSql(): string;
+export declare function normalizeCatalogDefaults(pgTypes: string[], defaults: Array<string | null>): (string | null)[];

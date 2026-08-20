@@ -34,7 +34,18 @@ sha256sum edgepg-0.8.1-rc.11.tgz
 npm install ./edgepg-0.8.1-rc.11.tgz
 ```
 
-[Download the immutable rc.11 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.11/edgepg-0.8.1-rc.11.tgz) · [Release manifest](releases/0.8.1-rc.11.json) · [Checksums](releases/SHA256SUMS)
+[Download the immutable rc.11 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.11/edgepg-0.8.1-rc.11.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.11/edgepg-0.8.1-rc.11-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.11-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+
+### Distribution formats
+
+| Format | Purpose | Source exposure |
+|---|---|---|
+| npm `.tgz` | Canonical installable package | Compiled runtime only |
+| Compiled `.zip` | Conventional archive for inspection and tooling | Same compiled files as the npm package |
+| Browsable compiled tree | File-by-file Git history and release diffs | `.js`, `.mjs`, `.wasm`, generated `.d.ts` and package metadata only |
+| Per-file JSON manifest | Path, byte size, kind and SHA-256 for all 196 files | No file contents |
+
+Original TypeScript/TSX/Rust source, source maps, tests, internal evidence, build scripts and credentials are not published.
 
 ## PostgreSQL test coverage
 

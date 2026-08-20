@@ -1,0 +1,101 @@
+{
+  "name": "edgepg",
+  "version": "0.8.1-rc.11",
+  "description": "PostgreSQL-compatible Cloudflare runtime with optional read acceleration",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "src",
+    "accelerator",
+    "README.md",
+    "edgepg-build.json"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/core.d.ts",
+      "import": "./src/core.js"
+    },
+    "./core": {
+      "types": "./src/core.d.ts",
+      "import": "./src/core.js"
+    },
+    "./full": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    },
+    "./pg": {
+      "types": "./src/pg.d.ts",
+      "import": "./src/pg.js",
+      "default": "./src/pg.js"
+    },
+    "./full/pg": {
+      "types": "./src/pg-full.d.ts",
+      "import": "./src/pg-full.js",
+      "default": "./src/pg-full.js"
+    },
+    "./runtime": {
+      "types": "./src/runtime-core.d.ts",
+      "import": "./src/runtime-core.js"
+    },
+    "./full/runtime": {
+      "types": "./src/runtime.d.ts",
+      "import": "./src/runtime.js"
+    },
+    "./plpgsql": {
+      "types": "./src/plpgsql-parser.d.ts",
+      "import": "./src/plpgsql-parser.js"
+    },
+    "./transactions": {
+      "types": "./src/transactions.d.ts",
+      "import": "./src/transactions.js"
+    },
+    "./parser": {
+      "types": "./src/postgres-parser.d.ts",
+      "import": "./src/postgres-parser.js"
+    },
+    "./planner": {
+      "types": "./src/sql-planner.d.ts",
+      "import": "./src/sql-planner.js"
+    },
+    "./pgwire": {
+      "types": "./src/pgwire.d.ts",
+      "import": "./src/pgwire.js"
+    },
+    "./plugins/vector": {
+      "types": "./src/vector-plugin.d.ts",
+      "import": "./src/vector-plugin.js"
+    },
+    "./accelerator": {
+      "types": "./accelerator/types/index.d.ts",
+      "import": "./accelerator/src/index.mjs"
+    },
+    "./accelerator/cloudflare": {
+      "types": "./accelerator/types/cloudflare.d.ts",
+      "import": "./accelerator/src/cloudflare.mjs"
+    },
+    "./accelerator/adapters/postgres": {
+      "types": "./accelerator/types/postgres.d.ts",
+      "import": "./accelerator/src/adapters/postgres.mjs"
+    },
+    "./accelerator/adapters/edgepg": {
+      "types": "./accelerator/types/edgepg.d.ts",
+      "import": "./accelerator/src/adapters/edgepg.mjs"
+    },
+    "./build": "./edgepg-build.json",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "libpg-query": "18.0.1"
+  },
+  "peerDependencies": {
+    "@cloudflare/workers-types": ">=4.20250710.0"
+  },
+  "peerDependenciesMeta": {
+    "@cloudflare/workers-types": {
+      "optional": true
+    }
+  }
+}

@@ -1,0 +1,1 @@
+function r(e){return`"${e.replaceAll('"','""')}"`}function t(e){return`'${e.replaceAll("'","''")}'`}function n(e){if(!e||e.includes("\0"))throw new TypeError("Invalid EdgePG catalog identifier");return r(e)}export{n as quoteCatalogIdentifier,r as quoteIdentifier,t as quoteLiteral};

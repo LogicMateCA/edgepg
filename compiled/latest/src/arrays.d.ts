@@ -1,0 +1,11 @@
+import { type SemanticExecutionResult } from "./semantic-error";
+import type { ArrayColumnReference } from "./types";
+export declare function createArrayTypedTable(db: D1Database, sql: string, columns: ArrayColumnReference[], additionalStatements?: D1PreparedStatement[]): Promise<SemanticExecutionResult>;
+export declare function arrayColumnStatements(db: D1Database, columns: ArrayColumnReference[]): D1PreparedStatement[];
+export declare function resolveArrayResultNames(db: D1Database, tableNames: string[], expressionNames: string[]): Promise<Set<string>>;
+export declare function rememberArrayResultColumns(db: D1Database, columns: ArrayColumnReference[]): void;
+export declare function forgetArrayResultColumns(db: D1Database, ...tables: string[]): void;
+export declare function decodeArrayRow<T extends Record<string, unknown>>(row: T, names: ReadonlySet<string>, typeOids?: ReadonlyMap<string, number>): T;
+export declare function decodeBigintArrayFields<T extends Record<string, unknown>>(row: T, names: ReadonlySet<string>): T;
+export declare function decodeNestedArrayAggregateFields<T extends Record<string, unknown>>(row: T, names: ReadonlySet<string>): T;
+export declare function decodeArrayBooleanFields<T extends Record<string, unknown>>(row: T, names: ReadonlySet<string>): T;
