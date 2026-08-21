@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "version": "0.8.1-rc.18",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "e0eb7b275ea10d5fe48bd19846b1f597c1bbfc78",
+    "evidenceHead": "f9ed6366637cc01884f4f1e52daad273b4c13475",
+    "artifactFile": "edgepg-0.8.1-rc.18.tgz",
+    "artifactBytes": 1214066,
+    "artifactSha256": "4b181b6fee6e97e00c028726382a8d74a49195437c453a49f32f2fedc4bc619c",
+    "sourceFingerprint": "feb66b6e99f810239a5f9aab4803c695ebaeb9cd8ca11fcf61bf939e9e72de41",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "d6ca343a941c4fb2115b13c98f1c0f8f65323a8b83e8a3633a0dd6c5cdfac365"
+  },
+  "production": {
+    "coreRelease": "0.6.122",
+    "coreCommit": "37a174a8d7dbae2e6953bfe29f1128ae0445c60a",
+    "coreVersionId": "98a18e02-e930-4bc1-85e5-9fc9ecaf466e",
+    "databaseWorkerVersionId": "196aa3cd-cdaa-4a91-b6e0-a8a83a6183cc",
+    "databaseWorkerDeploymentId": "c5348761-4e46-4a63-96ad-ff04776f6308",
+    "databaseWorkerPlatformFingerprint": "1d0f3413bd5677f4cdb715d373f165835dff141f4ebbb36196e9934ae85da19f"
+  },
+  "releaseGates": {
+    "targetedRoleSchema": "13/13",
+    "affectedWorker": "116/116",
+    "workerPackage": "1100/1100",
+    "copyRowsCommit": 4000,
+    "copyRowsRollback": 0,
+    "installedPackage": "passed",
+    "localServiceBinding": "passed",
+    "cloudflareServiceBinding": "passed",
+    "retainedProductionProbe": "passed",
+    "connector": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteSha256": "6f84d2ea69ca7d3dded3bb0073f2e934e3542f78d5a817ee38aeb996169ffe3",
+    "suiteWorkerdSha256": "13f045ae62bbac9089605d9431c4a558e49ce5f1b1875878da59204efe2f767f",
+    "a2cReleaseGateSha256": "838fd61c2087cfc3703bb45224c2d5d47e8c55cff84ccce8bf2084832ba8c268",
+    "localServiceBindingSha256": "10e9dec7b3cdf7c757a4387ddd17ae9e123ff712f955236017081ebe30449509",
+    "cloudflareServiceBindingSha256": "0abd1d4a52397359d6859bfb5ea0cadb550a9f7a688500c869ab53a006779aae",
+    "productionDeploySha256": "0a7b8580ef9b8da5fbc51cd9a41303164f88983d6543658234dd01bebb445aeb"
+  },
+  "performance": {
+    "environment": "matched local workerd with D1 and Coordinator Durable Object",
+    "warmups": 10,
+    "samples": 40,
+    "catalogProbeD1OperationsBeforeAfter": [3, 1],
+    "catalogProbeStatementsBeforeAfter": [7, 1],
+    "catalogProbeP50P95BeforeMs": [7, 8],
+    "catalogProbeP50P95AfterMs": [3, 4],
+    "pointReadP50P95Ms": [4, 6],
+    "tenantJoinP50P95Ms": [5, 6],
+    "authExistsP50P95Ms": [4, 6],
+    "claim": "matched fixed-fixture evidence, not a Cloudflare latency SLA"
+  },
+  "rollback": {
+    "version": "0.8.1-rc.17",
+    "databaseWorkerVersionId": "ef16bcf5-3bc5-4e62-8791-54d0bfc85c6a",
+    "coreVersionId": "0e4bed93-8f89-43ed-aef1-4e60d62c35f2"
+  },
+  "boundaries": [
+    "No cross-request result cache was added",
+    "Transaction, lock, SQLSTATE and RPC-limit semantics are unchanged",
+    "Named query and function passes do not imply every PostgreSQL official regression file passes",
+    "Performance figures are fixed-fixture evidence, not a Cloudflare latency SLA"
+  ]
+}

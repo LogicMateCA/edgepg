@@ -14,7 +14,9 @@ Performance results are kept as a time series so each optimization can be compar
 
 The ordinary workload baseline is presented before optimization deltas. It answers the practical question: how long do common reads, writes and transactions take in the isolated EdgePG runtime?
 
-Exact `0.8.1-rc.10` package baseline, retained by rc.17; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
+Exact `0.8.1-rc.10` package baseline, retained by rc.18; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
+
+The rc.18 retained-catalog hot-path comparison used the same local workerd fixture with 10 warmups and 40 measured samples. Catalog-probe D1 operations/statements fell from `3/7` to `1/1`, while p50/p95 fell from `7/8 ms` to `3/4 ms`. Candidate common reads measured point `4/6 ms`, tenant join `5/6 ms`, and auth existence `4/6 ms` p50/p95. COPY measured `29/34 ms` versus `30/35 ms`, with 4,000 committed rows and zero rows after injected rollback. These figures are fixed-fixture evidence, not a global latency claim.
 
 The rc.15 retained-catalog correctness gate also ran 100 hot samples with two complete auth queries per sample on the same fixture: rc.14 p50/p95 `12/13 ms`; rc.15 `12/14 ms`. The one-millisecond p95 difference is not presented as an optimization or regression claim.
 

@@ -22,27 +22,27 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.1-rc.17` |
-| Product commit | `5b77fc4e5ad39b444e1d68fa96594bde70ad6581` |
-| Package SHA-256 | `0a24585bae66358e4f76329876dc58ced739f07ce5472a24b75082db96a9260f` |
-| Package size | `1,213,933` bytes |
-| Source fingerprint | `b37ddec0c8f3e479461e8669c66c143244b5a15937a74b9238f44f7c5e4a9347` |
+| Release | `edgepg@0.8.1-rc.18` |
+| Product commit | `e0eb7b275ea10d5fe48bd19846b1f597c1bbfc78` |
+| Package SHA-256 | `4b181b6fee6e97e00c028726382a8d74a49195437c453a49f32f2fedc4bc619c` |
+| Package size | `1,214,066` bytes |
+| Source fingerprint | `feb66b6e99f810239a5f9aab4803c695ebaeb9cd8ca11fcf61bf939e9e72de41` |
 | Channel | Prerelease |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.1-rc.17.tgz
-npm install ./edgepg-0.8.1-rc.17.tgz
+sha256sum edgepg-0.8.1-rc.18.tgz
+npm install ./edgepg-0.8.1-rc.18.tgz
 ```
 
-[Download the immutable rc.17 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.17/edgepg-0.8.1-rc.17.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.17/edgepg-0.8.1-rc.17-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.17-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable rc.18 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.18/edgepg-0.8.1-rc.18.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.18/edgepg-0.8.1-rc.18-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.18-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in rc.17
+### What changed in rc.18
 
-Boolean and array aggregates now compile correctly when combined with nullable expressions, `FILTER`, `DISTINCT`, `COALESCE`, `LEFT JOIN`, `GROUP BY`, and prepared predicates. In particular, `bool_or(a.password IS NOT NULL)` no longer leaks an unsupported function into D1. The exact auth-style combination passes PostgreSQL 18.4 oracle comparison, local and real Cloudflare Service Binding gates, and the formal production probe. rc.17 retains the rc.15 in-place catalog validation and repair.
+Retained catalog initialization and physical-object discovery now use bounded set-based operations instead of repeated per-relation probes. Catalog discovery drops from 3 D1 operations / 7 statements to 1 / 1 on the matched fixture, while point, join, auth, transaction, lock, SQLSTATE, and RPC-limit behavior remains unchanged. rc.18 also includes the rc.17 nullable boolean and filtered array aggregate correction.
 
 ### Distribution formats
 

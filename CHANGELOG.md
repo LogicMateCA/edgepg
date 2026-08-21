@@ -2,6 +2,25 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.1-rc.18 — 2026-08-20
+
+### Improved
+
+- Replaced per-relation role-owner initialization with one set-based catalog operation while preserving existing owners.
+- Consolidated physical table/view/index discovery into one set-based catalog probe without changing schema-move, quoted-identifier, catalog-only, or missing-catalog behavior.
+- Reused metadata already read by the current prepared query for result OID resolution and cleared stale physical mappings when the replacement mapping is empty.
+- Retained the rc.17 nullable boolean and filtered array aggregate corrections without adding cross-request result caching or weakening transaction, lock, SQLSTATE, or RPC semantics.
+
+### Verified
+
+- Targeted role/schema `13/13`, affected Worker `116/116`, full Worker `1100/1100`, TypeScript, exact installed package, exports, customer Worker dry run, COPY commit/rollback, local Service Binding, isolated real Cloudflare, Connector, and retained production read-only probes passed.
+- Production Database Worker was upgraded in place while retaining its Worker, D1, Durable Objects, R2, URL, role, and synchronization state.
+
+### Performance
+
+- Matched local workerd fixture, 10 warmups plus 40 samples: catalog-probe D1 operations/statements fell from `3/7` to `1/1`, and p50/p95 fell from `7/8 ms` to `3/4 ms`.
+- The same candidate measured point read `4/6 ms`, tenant join `5/6 ms`, and auth-existence `4/6 ms` p50/p95. These are fixture measurements, not a public-Internet SLA.
+
 ## 0.8.1-rc.17 — 2026-08-20
 
 ### Fixed
