@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "version": "0.8.1-rc.20",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "b804653bc65cc426be07b46f46d29633e92e27fb",
+    "evidenceHead": "d988e39ff1619bf0a3c8e3346664be0210f4fecb",
+    "artifactFile": "edgepg-0.8.1-rc.20.tgz",
+    "artifactBytes": 1214671,
+    "artifactSha256": "76241b79be38f7981472181ae12bf84b7e5f72ab1c48ad7cf88fbfed3b9acdda",
+    "sourceFingerprint": "866851c41e82073f7964413caa599af5b836ac3986259e4506cfd7cf5d051517",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "e78e3d610290a7285079fb6baa1ad0fbde12ee3e137a184a5e027aaa5c244e5d"
+  },
+  "production": {
+    "coreRelease": "0.6.124",
+    "coreCommit": "a5f346231191fc99630fa5929f002ac7e5fb6f4f",
+    "coreVersionId": "4607c7e9-f843-406c-98b3-a257e6cbb7ea",
+    "databaseWorkerVersionId": "2a24b595-99e8-4674-8742-2a5e2a193a70",
+    "databaseWorkerDeploymentId": "1db0b888-e17c-4236-9f91-4b643aa3dcb1",
+    "databaseWorkerPlatformFingerprint": "1d0f3413bd5677f4cdb715d373f165835dff141f4ebbb36196e9934ae85da19f"
+  },
+  "releaseGates": {
+    "workerPackage": "1104/1104",
+    "nullableOrganizationQuery": "passed",
+    "installedPackage": "passed",
+    "drizzleWorkload": "passed",
+    "copyRowsCommit": 4000,
+    "copyRowsRollback": 0,
+    "localServiceBinding": "passed",
+    "cloudflareServiceBinding": "passed",
+    "retainedProductionProbe": "passed",
+    "connector": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteSha256": "032111135d41eee97c8a0fe22248117529fb31418e294448765558e86b7f0319",
+    "suiteOrmSha256": "551168a9967beb6135816c177822590fbf6dde6d48a0473cd2b016484d5108c3",
+    "suitePerformanceSha256": "94f28fb74bdf60a280ac9b26bf0e7242bc95c171b8e28f39c3c615bef24c13e5",
+    "a2cReleaseGateSha256": "fa3acf7b4aef8f6e01f7611518819f2b86965c032698d2efd2229bb438785d2a",
+    "localServiceBindingSha256": "da0c27c6cca95a7a4ac1ce9bad5bb262d3e2deadc9a6561d0316bfbd185e3b39",
+    "cloudflareServiceBindingSha256": "1e369191e1ae7373b3c141013ce57d6be212e16cc748ad2effa77f53c9fcfb1f",
+    "retainedOrganizationSha256": "47ef18624eb1c05667c5a1f91a397926d2b0eb2760de240d5bddc74016685531"
+  },
+  "performance": {
+    "environment": "matched local workerd with D1 and Coordinator Durable Object",
+    "warmups": 5,
+    "samples": 40,
+    "preparedSqlP50P95Ms": [7, 9],
+    "pointReadP50P95Ms": [4, 6],
+    "tenantJoinP50P95Ms": [5, 6],
+    "authExistsP50P95Ms": [4, 5],
+    "transactionP50P95Ms": [46, 68],
+    "threeExecuteD1Operations": 9,
+    "threeExecuteStatements": 18,
+    "threeExecuteDoFetches": 0,
+    "claim": "correctness release; no performance gain or global Cloudflare latency SLA is claimed"
+  },
+  "rollback": {
+    "version": "0.8.1-rc.19",
+    "databaseWorkerVersionId": "e3bea44b-cc37-4884-8a5a-3176751d9fb1",
+    "coreVersionId": "158880c9-a205-4ad1-945b-0c29e8e33002"
+  },
+  "boundaries": [
+    "No SQL, table or application special case was added",
+    "Unsupported relational shapes remain fail closed",
+    "Transaction, lock, SQLSTATE and RPC-limit semantics are unchanged",
+    "Performance figures are fixed-fixture evidence, not a Cloudflare latency SLA"
+  ]
+}
