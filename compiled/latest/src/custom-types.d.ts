@@ -137,7 +137,7 @@ export declare function customTypeColumnStatements(db: D1Database, columns: Reso
 export declare function resolveStructuredCustomTypeResultNames(db: D1Database, tableNames: string[], references: Array<{
     name: string;
     typePhysicalName: string;
-}>): Promise<Set<string> & {
+}>, projectedColumns?: ReadonlyMap<string, ReadonlySet<string> | null>, knownBuiltinColumns?: ReadonlyMap<string, ReadonlyMap<string, number>>): Promise<Set<string> & {
     timestamptzNames: Set<string>;
 }>;
 export declare function decodeStructuredCustomTypeRow<T extends Record<string, unknown>>(row: T, names: ReadonlySet<string> & {

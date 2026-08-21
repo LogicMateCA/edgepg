@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public candidate: `edgepg@0.8.1-rc.18`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public candidate: `edgepg@0.8.1-rc.19`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,19 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## rc.19 affected release gate
+
+| Gate | Result | Exact scope |
+|---|---:|---|
+| Worker package | ✅ 1103/1103 | Full package plus prepared-result, auth parameter, domain, range and multirange scenarios |
+| Installed package / Drizzle | ✅ | Exact TGZ, exports, customer Worker dry run and Drizzle-shaped workload with unchanged business source |
+| Service Binding / Connector | ✅ | Prepared/Auth reads, result OIDs, transaction, `42P01`, RPC limits, concurrency and PGWire |
+| Retained production probe | ✅ | Exact identity, 23 public tables, 20 prepared catalog reads, boolean aggregates/OIDs, read-only transaction and `42P01` |
+| COPY atomicity | ✅ | 4,000 committed rows in two chunks; injected failure rolled back to zero |
+| Cleanup | ✅ | Isolated Workers, D1, R2 and retained probe removed and API absence confirmed |
+
+The rc.19 gate adds only query-local metadata reuse. No cross-request cache was added; invalidation, transaction, lock, SQLSTATE and RPC-limit behavior remain unchanged.
 
 ## rc.18 affected release gate
 

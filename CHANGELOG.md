@@ -2,6 +2,25 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.1-rc.19 — 2026-08-20
+
+### Improved
+
+- Reused relation columns/types already resolved from the same query snapshot for prepared and ORM RowDescription metadata.
+- Made structured custom-type admission projection-aware and avoided domain-catalog scans for builtin range operands.
+- Corrected custom-range-to-text decoding found by the affected regression gate.
+- Added no global or cross-request cache; invalidation, transaction, lock and SQLSTATE semantics remain unchanged.
+
+### Verified
+
+- Worker package `1103/1103`, exact installed package, customer Worker dry run, Drizzle-shaped workload, custom domain/range/multirange OIDs, COPY atomicity, local and isolated Cloudflare Service Binding, Connector, retained production probes and cleanup passed.
+- Production Database Worker was upgraded in place while retaining its Worker, D1, Durable Objects, R2, URL, role and synchronization state.
+
+### Performance
+
+- Matched local workerd, 5 warmups plus 40 samples: SQL PREPARE/EXECUTE p50/p95 improved `11/15 ms` to `7/9 ms`; prepared filters `9/10 ms` to `5/6 ms`.
+- Three EXECUTEs reduced D1 operations from `15` to `9` and statements from `24` to `18`. Transaction tail was rechecked, but no transaction speedup is claimed.
+
 ## 0.8.1-rc.18 — 2026-08-20
 
 ### Improved

@@ -90,6 +90,7 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 | `0.8.1-rc.15` | Retained catalog validation and auth parameter-query repair | ✅ |
 | `0.8.1-rc.17` | Nullable boolean and filtered array aggregate combinations | ✅ |
 | `0.8.1-rc.18` | Retained catalog and prepared-result metadata hot-path consolidation | ✅ |
+| `0.8.1-rc.19` | Prepared/ORM query-local metadata reuse | ✅ |
 | Next consolidated RC | Official-file refresh and remaining safe read-path clusters | 🟨 |
 
 Documentation-only updates do not change an existing package identity. A new RC is created only when the product package changes.
