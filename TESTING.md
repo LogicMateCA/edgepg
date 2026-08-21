@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public candidate: `edgepg@0.8.1-rc.17`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public candidate: `edgepg@0.8.1-rc.18`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,20 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## rc.18 affected release gate
+
+| Gate | Result | Exact scope |
+|---|---:|---|
+| Role/schema targeted | ✅ 13/13 | Existing owner preservation, catalog-only relations, schema moves, quoted identifiers and missing-catalog behavior |
+| Affected / full Worker | ✅ | `116/116`; `1100/1100` |
+| Exact package and Worker | ✅ | reproducible TGZ, fresh install/exports, TypeScript and customer Worker dry run |
+| COPY regression | ✅ | 4,000 committed rows; injected failure rolled back to zero |
+| Service Binding / Connector | ✅ | query metadata, transaction, Auth, SQLSTATE, limits, concurrency and PGWire |
+| Retained production probe | ✅ | exact identity, database/schema/user, 23 public tables, boolean aggregates/OID 16, read-only transaction and `42P01` |
+| Cleanup | ✅ | isolated Workers, D1 and R2 removed and API absence confirmed |
+
+The rc.18 gate adds no cross-request result cache. Transaction, lock, SQLSTATE, RPC-limit and storage architecture semantics are unchanged.
 
 ## rc.17 affected release gate
 

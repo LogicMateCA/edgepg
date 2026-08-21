@@ -91,6 +91,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | Read accelerator | 🟨 | Real Cloudflare synthetic A/B and cross-region parity |
 | Transaction metadata dedup | ✅ | Lower latency and fewer D1 operations; DO calls unchanged |
 | COPY metadata dedup | ✅ | Lower latency and 50% fewer diagnostic D1 metadata calls |
+| Retained catalog hot path | ✅ | Set-based owner initialization and physical-object discovery; catalog probe reduced from 3/7 to 1/1 D1 operations/statements |
 | Package slimming | ✅ | Installed artifact reduced while exports remain compatible |
 | Cold-start tiering | 🟨 | Additional WASM/capability loading measurements planned |
 | Multi-region business-data benchmark | ✅ | WNAM/WEUR/APAC fixed-fixture primary/replica experiment completed; not an SLA |

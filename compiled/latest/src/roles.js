@@ -173,9 +173,10 @@ import{quoteIdentifier as G}from"./sql-quoting";import{EdgePgSemanticError as g}
     (physical_name,schema_name,table_name,owner_name) VALUES (?1,?2,?3,?4)
     ON CONFLICT(physical_name) DO NOTHING`).bind(a.physicalName,a.schema,a.name,t)}async function Pe(e){await u(e,"__edgepg_pg_tables")&&await e.prepare(`INSERT OR IGNORE INTO __edgepg_table_owners
     (physical_name,schema_name,table_name,owner_name)
-    SELECT physical_name,schema_name,table_name,'edgepg' FROM __edgepg_pg_tables`).run();const t=await e.prepare(`SELECT name FROM sqlite_master WHERE type='table'
-    AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT LIKE '__edgepg_%'`).all();for(const n of t.results)await e.prepare(`INSERT OR IGNORE INTO __edgepg_table_owners
-    (physical_name,schema_name,table_name,owner_name) VALUES (?1,'public',?1,'edgepg')`).bind(n.name).run()}async function Wa(e,a,t,n,i){await O(e,t);const s=await e.prepare(`SELECT can_login,is_superuser,connection_limit,valid_until
+    SELECT physical_name,schema_name,table_name,'edgepg' FROM __edgepg_pg_tables`).run(),await e.prepare(`INSERT OR IGNORE INTO __edgepg_table_owners
+    (physical_name,schema_name,table_name,owner_name)
+    SELECT name,'public',name,'edgepg' FROM sqlite_master WHERE type='table'
+      AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' AND name NOT LIKE '__edgepg_%'`).run()}async function Wa(e,a,t,n,i){await O(e,t);const s=await e.prepare(`SELECT can_login,is_superuser,connection_limit,valid_until
     FROM __edgepg_roles WHERE name=?1`).bind(a).first();if(!s)throw new g("28000",`role "${a}" does not exist`,403);if(!s.can_login)throw new g("28000",`role "${a}" is not permitted to log in`,403);if(n==="password"&&s.valid_until&&Date.parse(s.valid_until)<Date.now())throw new g("28P01",`password authentication failed for user "${a}"`,403);await Ee(e,a,t,"CONNECT");const l=i||crypto.randomUUID(),o=await e.prepare(`SELECT role_name,database_name FROM __edgepg_role_sessions
     WHERE session_id=?1`).bind(l).first();if(o){if(o.role_name!==a||o.database_name!==t)throw new g("28000","authentication session identity mismatch",403);return{sessionId:l,role:a,database:t}}const _=new Date,r=new Date(_.getTime()+15*6e4).toISOString();await e.prepare("DELETE FROM __edgepg_role_sessions WHERE expires_at<=?1").bind(_.toISOString()).run();const p=await e.prepare(`INSERT INTO __edgepg_role_sessions
     (session_id,role_name,database_name,connected_at,expires_at)
