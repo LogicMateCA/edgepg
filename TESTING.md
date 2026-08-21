@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public candidate: `edgepg@0.8.1-rc.14`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public candidate: `edgepg@0.8.1-rc.15`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,20 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## rc.15 affected release gate
+
+| Layer | Result | Scope |
+|---|---:|---|
+| Exact retained upgrade | ✅ | Same D1/DO: rc.14 failure reproduced after cold restart, then rc.15 in-place repair without rebuilding persistence |
+| Auth parameter queries | ✅ | Full session projection `WHERE token=$1`; account projection `WHERE account_id=$1 AND provider_id=$2`; empty and hit rows |
+| Result metadata | ✅ | Nullable text OID 25, `timestamptz` OID 1184, prepared values and same-session recovery |
+| Catalog regression | ✅ 43/43 | Physical PRAGMA validation, attnums, types, defaults, not-null and retained JSON repair |
+| Worker package | ✅ 1094/1094 | Exact package regression plus real Better Auth and Drizzle lifecycle gates |
+| Production Service Binding | ✅ | Exact identity, `openSession`, auth queries, boolean OID 16, read-only transaction, `42P01` recovery, 8 concurrent clients |
+| Cleanup | ✅ | Temporary production probe deleted and API absence confirmed |
+
+The rc.15 gate does not claim that every malformed user-created catalog state is recoverable. If validation still fails after the bounded repair, the query fails closed with SQLSTATE `XX000`.
 
 ## rc.14 affected release gate
 

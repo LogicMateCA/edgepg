@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "description": "PostgreSQL-compatible database runtime for Cloudflare",
+  "version": "0.8.1-rc.15",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "a5bfd1682640dfc41b174303f1bb7213786f33cd",
+    "evidenceHead": "f2e82d624c13a2e7c2f2246b525c89f7a1525c43",
+    "artifactFile": "edgepg-0.8.1-rc.15.tgz",
+    "artifactBytes": 1213453,
+    "artifactSha256": "47e3fdb5191e161d2c2e07a486d3213b4b98170128f342b1ae1bd3a6307c7fdc",
+    "sourceFingerprint": "6bfdcb8e51526100ca1040950941f0920f085f9c6b531a9a2adaf2c4e19f979d",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "9c0be36524861b7ea0370ce4636c211098214e63acb75c06397f3729952fa9e2"
+  },
+  "production": {
+    "coreRelease": "0.6.120",
+    "coreCommit": "e03b63b49b919e2568cdc5fca8188b4df04933cb",
+    "coreVersionId": "034c8070-10a3-41e5-8255-7f7ef4e2ee0e",
+    "databaseWorkerVersionId": "59a7ca8b-8e7c-4cc9-8af7-8d1aee64b530",
+    "databaseWorkerDeploymentId": "8988e294-0f5a-45d7-baca-e8f5ec644525"
+  },
+  "releaseGates": {
+    "postgres18Oracle": "passed",
+    "catalogUnit": "43/43",
+    "workerPackage": "1094/1094",
+    "betterAuthHono": "passed",
+    "drizzle": "passed",
+    "retainedRc14ToRc15": "passed",
+    "installedPackage": "passed",
+    "serviceBinding": "passed",
+    "connector": "passed",
+    "productionProbe": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteSha256": "238fca0827d3815392cdd76dc12e949be4730d493ee829d8a88207cf14e0fa3e",
+    "independentFastLaneSha256": "fff6f8f3853580414bf9b2f2e0c7176200a5de3591f62b42ac77eb49deba33e7",
+    "retainedUpgradeSha256": "1eba4ee8a11425bee994ffff81f61c5e09d933db25b66ae0f9445f857be5768a",
+    "productionProbeSha256": "cf14efdd7e1e7a9f4732e2d88bcc006b226d51090eaf3b47355ed2dcc5f01004"
+  },
+  "performance": {
+    "environment": "local workerd with retained D1/DO fixture",
+    "samples": 100,
+    "queriesPerSample": 2,
+    "rc14P50Ms": 12,
+    "rc14P95Ms": 13,
+    "rc15P50Ms": 12,
+    "rc15P95Ms": 14,
+    "claim": "no material hot-query regression"
+  },
+  "rollback": {
+    "version": "0.8.1-rc.14",
+    "databaseWorkerVersionId": "663a623c-db92-4610-b90a-8626db6b4900"
+  },
+  "boundaries": [
+    "Bounded retained-catalog repair fails closed with XX000 if validation still fails",
+    "Named query and function passes do not imply every PostgreSQL official regression file passes",
+    "Performance figures are fixed-fixture evidence, not a Cloudflare latency SLA",
+    "No physical WAL, backend-process, server-filesystem, or arbitrary native C-extension compatibility claim"
+  ]
+}

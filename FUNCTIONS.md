@@ -13,13 +13,13 @@ This is the public, function-level companion to the [official regression and SQL
 
 | Function | Status | Verified contract | Latest retained release |
 |---|---:|---|---|
-| `bool_or(boolean)` | ✅ | mixed true/false/NULL, all-NULL, empty input, `GROUP BY`, `LEFT JOIN`, prepared parameters, `FILTER`, `DISTINCT`, transaction, OID 16 | `0.8.1-rc.14` |
-| `bool_and(boolean)` | ✅ | same matrix as `bool_or`; PostgreSQL NULL/empty semantics and OID 16 | `0.8.1-rc.14` |
-| `every(boolean)` | ✅ | PostgreSQL synonym of `bool_and`, including NULL/empty and grouped forms | `0.8.1-rc.14` |
-| `count(*)`, `count(expr)` | ✅ | grouped, correlated scalar, empty input, cast to integer, bigint result metadata | retained in `0.8.1-rc.14` |
-| `sum(...)`, `avg(...)` | ✅ | common grouped/window forms, integer/numeric result OIDs and NULL input | retained in `0.8.1-rc.14` |
-| `array_agg(...)` | ✅ | ordered, `DISTINCT`, nested arrays, empty input, dimensional validation and array OIDs | retained in `0.8.1-rc.14` |
-| `json_agg(...)`, `jsonb_agg(...)` | ✅ | `ORDER BY`, `FILTER`, `DISTINCT`, correlated aggregates, empty fallback and OIDs 114/3802 | retained in `0.8.1-rc.14` |
+| `bool_or(boolean)` | ✅ | mixed true/false/NULL, all-NULL, empty input, `GROUP BY`, `LEFT JOIN`, prepared parameters, `FILTER`, `DISTINCT`, transaction, OID 16 | `0.8.1-rc.15` |
+| `bool_and(boolean)` | ✅ | same matrix as `bool_or`; PostgreSQL NULL/empty semantics and OID 16 | `0.8.1-rc.15` |
+| `every(boolean)` | ✅ | PostgreSQL synonym of `bool_and`, including NULL/empty and grouped forms | `0.8.1-rc.15` |
+| `count(*)`, `count(expr)` | ✅ | grouped, correlated scalar, empty input, cast to integer, bigint result metadata | retained in `0.8.1-rc.15` |
+| `sum(...)`, `avg(...)` | ✅ | common grouped/window forms, integer/numeric result OIDs and NULL input | retained in `0.8.1-rc.15` |
+| `array_agg(...)` | ✅ | ordered, `DISTINCT`, nested arrays, empty input, dimensional validation and array OIDs | retained in `0.8.1-rc.15` |
+| `json_agg(...)`, `jsonb_agg(...)` | ✅ | `ORDER BY`, `FILTER`, `DISTINCT`, correlated aggregates, empty fallback and OIDs 114/3802 | retained in `0.8.1-rc.15` |
 
 The PostgreSQL `aggregates` official regression file remains in the pending whole-file ledger. The rows above are exact named-function claims, not a whole-file claim.
 
