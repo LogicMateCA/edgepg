@@ -22,27 +22,27 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.1-rc.19` |
-| Product commit | `1d2f8c72c0b23cb4d40008b1c87624bf422ad558` |
-| Package SHA-256 | `6b018ff3998610eb66e706b7239b566bb6fddc2b3911d24e28c791a34c96958c` |
-| Package size | `1,214,676` bytes |
-| Source fingerprint | `908be1871dc539b93d2584db931b2d5037b71ca8694bfdeb53d61b8f2c19e334` |
+| Release | `edgepg@0.8.1-rc.20` |
+| Product commit | `b804653bc65cc426be07b46f46d29633e92e27fb` |
+| Package SHA-256 | `76241b79be38f7981472181ae12bf84b7e5f72ab1c48ad7cf88fbfed3b9acdda` |
+| Package size | `1,214,671` bytes |
+| Source fingerprint | `866851c41e82073f7964413caa599af5b836ac3986259e4506cfd7cf5d051517` |
 | Channel | Prerelease |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.1-rc.19.tgz
-npm install ./edgepg-0.8.1-rc.19.tgz
+sha256sum edgepg-0.8.1-rc.20.tgz
+npm install ./edgepg-0.8.1-rc.20.tgz
 ```
 
-[Download the immutable rc.19 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.19/edgepg-0.8.1-rc.19.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.19/edgepg-0.8.1-rc.19-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.19-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable rc.20 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.20/edgepg-0.8.1-rc.20.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.20/edgepg-0.8.1-rc.20-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.20-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in rc.19
+### What changed in rc.20
 
-Prepared and ORM reads now reuse relation/type metadata already resolved from the same query snapshot for RowDescription. On the matched local fixture, SQL PREPARE/EXECUTE improved from `11/15 ms` to `7/9 ms` p50/p95, prepared filters from `9/10 ms` to `5/6 ms`, and three EXECUTEs reduced D1 operations from `15` to `9`. No cross-request cache was added, and transaction, lock, invalidation and SQLSTATE semantics remain unchanged.
+Standard prepared organization lookup queries combining `INNER JOIN`, a nullable parameter, `OR`, `CASE ORDER BY`, a secondary sort and `LIMIT` now pass bounded relational admission instead of failing with `0A000`. The fix extends the existing builtin-cast safe feature set generically; custom casts, unsupported operators and unbounded relational shapes still fail closed. No D1/DO call was added.
 
 ### Distribution formats
 

@@ -2,6 +2,24 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.1-rc.20 — 2026-08-20
+
+### Fixed
+
+- Admitted bounded SELECTs combining a builtin nullable parameter cast, INNER JOIN, OR, CASE/secondary ORDER BY and LIMIT.
+- Preserved fail-closed behavior for custom casts, subqueries, CTE/window/grouping and unsupported operators.
+- Added no table, product or SQL-text special case and no additional D1/DO call.
+
+### Verified
+
+- PostgreSQL 18.4 oracle; empty/hit, NULL/non-NULL preferred organization, archived exclusion, repeated same-session and transaction scenarios; OIDs 25/25.
+- Worker package `1104/1104`, installed package, Drizzle, COPY atomicity, local and isolated Cloudflare Service Binding, retained production exact SQL, Connector, SQLSTATE, limits, concurrency and cleanup passed.
+
+### Performance
+
+- Matched local workerd, 5 warmups plus 40 samples: prepared SQL remained `7/9 ms` p50/p95 and prepared three-EXECUTE D1/DO counts did not increase.
+- This is a correctness RC; no performance gain or Cloudflare latency SLA is claimed.
+
 ## 0.8.1-rc.19 — 2026-08-20
 
 ### Improved

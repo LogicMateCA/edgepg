@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public candidate: `edgepg@0.8.1-rc.19`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public candidate: `edgepg@0.8.1-rc.20`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,19 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## rc.20 affected release gate
+
+| Gate | Result | Exact scope |
+|---|---:|---|
+| Nullable organization lookup | ✅ | Empty/hit, `$2` NULL/non-NULL, archived exclusion, CASE priority, repeated same session, OIDs 25/25 |
+| Worker package | ✅ 1104/1104 | Nullable join/order, prepared/Auth, boolean aggregate and domain/range/multirange regressions |
+| Installed package / Drizzle | ✅ | Exact TGZ, exports, customer Worker dry run and unchanged business source |
+| Service Binding / Connector | ✅ | Local, isolated Cloudflare and retained production exact SQL; transaction, `42P01`, limits, concurrency and PGWire |
+| COPY atomicity | ✅ | 4,000 committed rows; injected failure rolled back to zero |
+| Cleanup | ✅ | Isolated Workers, D1, R2 and retained probe removed |
+
+The rc.20 fix adds JOIN to the existing builtin-cast bounded SELECT admission. It adds no SQL/application special case and does not weaken unsupported-shape fail-closed behavior.
 
 ## rc.19 affected release gate
 

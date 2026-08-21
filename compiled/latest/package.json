@@ -1,6 +1,6 @@
 {
   "name": "edgepg",
-  "version": "0.8.1-rc.19",
+  "version": "0.8.1-rc.20",
   "description": "PostgreSQL-compatible Cloudflare runtime with optional read acceleration",
   "type": "module",
   "sideEffects": false,
