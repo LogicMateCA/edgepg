@@ -22,27 +22,27 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.1-rc.14` |
-| Product commit | `5eb7469c795593ad62e850b720a94fe0fb1800c9` |
-| Package SHA-256 | `06da999e695d96634edadbe05a21124c5f9b3ee42e9575bdb78b6f6a01ac3897` |
-| Package size | `1,212,502` bytes |
-| Source fingerprint | `1a00755bf915f533d717b4fcdbbebe46d182082ff2a0fadf7657d871fb9a8bd0` |
+| Release | `edgepg@0.8.1-rc.15` |
+| Product commit | `a5bfd1682640dfc41b174303f1bb7213786f33cd` |
+| Package SHA-256 | `47e3fdb5191e161d2c2e07a486d3213b4b98170128f342b1ae1bd3a6307c7fdc` |
+| Package size | `1,213,453` bytes |
+| Source fingerprint | `6bfdcb8e51526100ca1040950941f0920f085f9c6b531a9a2adaf2c4e19f979d` |
 | Channel | Prerelease |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.1-rc.14.tgz
-npm install ./edgepg-0.8.1-rc.14.tgz
+sha256sum edgepg-0.8.1-rc.15.tgz
+npm install ./edgepg-0.8.1-rc.15.tgz
 ```
 
-[Download the immutable rc.14 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.14/edgepg-0.8.1-rc.14.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.14/edgepg-0.8.1-rc.14-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.14-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable rc.15 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.15/edgepg-0.8.1-rc.15.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.15/edgepg-0.8.1-rc.15-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.15-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in rc.14
+### What changed in rc.15
 
-PostgreSQL boolean aggregates are now supported through the generic planner: `bool_or`, `bool_and`, and the `every` synonym. PostgreSQL 18.4 oracle, local workerd, transaction, installed-package, Service Binding, and production probes cover mixed/NULL/empty inputs, grouping, nullable joins, prepared values, metadata OID 16, and failed-session recovery. See the [function-level ledger](FUNCTIONS.md).
+Retained D1 catalogs are now validated against physical table metadata and repaired in place during upgrade. This closes a legacy-catalog failure where ordinary Better Auth/Drizzle parameterized `SELECT` queries could escape as an untyped internal error. The exact rc.14→rc.15 same-D1/same-DO gate reproduces the failure before upgrade and verifies empty/hit auth queries, OIDs, and same-session recovery after upgrade. rc.15 also retains the rc.14 `bool_or`, `bool_and`, and `every` compatibility matrix.
 
 ### Distribution formats
 
@@ -92,7 +92,7 @@ The complete P0–P4 status is maintained in [COMPATIBILITY.md](COMPATIBILITY.md
 
 ### Current-line local workerd baseline
 
-Exact `0.8.1-rc.10` local package baseline, retained by rc.14: local workerd + D1 + Coordinator DO, 1,000 rows, 2 warmups and 5 measured samples. These numbers isolate EdgePG/runtime behavior; they are not public-Internet latency.
+Exact `0.8.1-rc.10` local package baseline, retained by rc.15: local workerd + D1 + Coordinator DO, 1,000 rows, 2 warmups and 5 measured samples. rc.15's retained-catalog repair A/B used 100 hot samples, each containing both complete auth queries: rc.14 p50/p95 `12/13 ms`; rc.15 `12/14 ms`, with no material regression. These numbers isolate EdgePG/runtime behavior; they are not public-Internet latency.
 
 | Daily workload | p50 | p95 |
 |---|---:|---:|
@@ -140,7 +140,7 @@ Same local workerd fixture, five measured samples after two warmups:
 
 Durable Object fetches remained unchanged, so the optimization removed duplicate metadata work without bypassing transaction coordination.
 
-The optimization is retained in rc.14. Its independent PGWire gate also proves PostgreSQL failed-transaction behavior: an invalid COPY value returns `22P02`, the next statement returns `25P02`, and `ROLLBACK` restores the session with zero rows committed from the failed COPY.
+The optimization is retained in rc.15. Its independent PGWire gate also proves PostgreSQL failed-transaction behavior: an invalid COPY value returns `22P02`, the next statement returns `25P02`, and `ROLLBACK` restores the session with zero rows committed from the failed COPY.
 
 ### Cross-region parity
 

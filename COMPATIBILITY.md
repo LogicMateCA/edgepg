@@ -16,7 +16,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 
 | Capability | Status | Current result |
 |---|---:|---|
-| `SELECT`, parameters, ordering, limit/offset | ✅ | PostgreSQL result rows, fields, and common type OIDs |
+| `SELECT`, parameters, ordering, limit/offset | ✅ | PostgreSQL result rows, fields, common type OIDs, and full auth/session parameter projections on retained catalogs |
 | `INSERT` / `UPDATE` / `DELETE` | ✅ | Scalar, prepared, transactional, and common source-query forms |
 | `RETURNING` | ✅ | Aliases, OLD/NEW transitions, bigint precision, zero-row metadata |
 | Transactions | ✅ | BEGIN/COMMIT/ROLLBACK, failed state, disconnect release |
@@ -63,7 +63,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | Views and materialized views | ✅ | Lifecycle, reads, comments, transaction rollback |
 | RLS policy lifecycle | ✅ | Create/alter/comment/drop and transaction behavior |
 | Inheritance and common partition routing | ✅ | Catalog and row-routing cases |
-| Retained in-place upgrades | ✅ | Existing D1/DO catalog upgrade and archive restore paths |
+| Retained in-place upgrades | ✅ | Exact rc.14→rc.15 same-D1/same-DO catalog validation and repair, plus archive restore paths |
 | Full ORM native PostgreSQL differential | 🟨 | Complete per-framework matrix remains open |
 | Multi-organization SaaS concurrency | 🟨 | Targeted gates passed; broader load matrix planned |
 | OAuth/token-refresh concurrency | 🟨 | Application evidence exists; expanded stress planned |

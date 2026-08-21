@@ -2,6 +2,25 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.1-rc.15 — 2026-08-20
+
+### Fixed
+
+- Validated retained `current_*` catalog rows against physical D1 table metadata during install and in-place upgrade.
+- Repaired malformed or width-inconsistent retained catalog JSON in bounded batches before ordinary query execution.
+- Converted any remaining post-install catalog corruption into deterministic SQLSTATE `XX000` instead of allowing a raw JSON parser error to escape through Workers RPC.
+
+### Verified
+
+- Exact rc.14→rc.15 same-D1/same-DO upgrade reproduced full Better Auth/Drizzle single-parameter and two-parameter `AND` query failures before upgrade, then passed empty/hit results, nullable fields, OIDs 25/1184, and same-session recovery after in-place upgrade.
+- PostgreSQL 18.4 oracle, catalog unit `43/43`, Worker package `1094/1094`, real Better Auth 1.6.25 Hono lifecycle, Drizzle migration/query/transaction, installed package, Worker dry-run, Service Binding, Connector, transaction, SQLSTATE, and concurrency gates passed.
+- The production Database Worker retained its existing Worker, D1, Durable Objects, R2, and URL; `All2CFDatabase.openSession`, auth-shaped queries, boolean aggregates, read-only transaction, `42P01` recovery, and eight concurrent clients passed.
+
+### Performance and distribution
+
+- Same fixture, 100 hot samples with two complete auth queries per sample: rc.14 p50/p95 `12/13 ms`; rc.15 `12/14 ms`. This correctness release shows no material hot-query regression.
+- Published the immutable npm TGZ, compiled ZIP, browsable 196-file compiled tree, per-file manifest, release identity, deployment/rollback instructions, and public evidence summary. Original source, source maps, tests, and internal evidence remain excluded.
+
 ## Repository licensing — 2026-08-20
 
 - Added PolyForm Strict 1.0.0 for personal and noncommercial use.

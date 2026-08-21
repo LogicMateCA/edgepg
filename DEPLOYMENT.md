@@ -43,37 +43,37 @@ For an existing Worker, stay in its project directory and keep its current frame
 
 ## 2. Download and verify EdgePG
 
-Download the immutable rc.14 package:
+Download the immutable rc.15 package:
 
 ```bash
 curl -fL \
-  -o vendor/edgepg-0.8.1-rc.14.tgz \
-  https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.14/edgepg-0.8.1-rc.14.tgz
+  -o vendor/edgepg-0.8.1-rc.15.tgz \
+  https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.15/edgepg-0.8.1-rc.15.tgz
 ```
 
 Verify it before installation:
 
 ```bash
 printf '%s  %s\n' \
-  '06da999e695d96634edadbe05a21124c5f9b3ee42e9575bdb78b6f6a01ac3897' \
-  'vendor/edgepg-0.8.1-rc.14.tgz' | sha256sum -c -
+  '47e3fdb5191e161d2c2e07a486d3213b4b98170128f342b1ae1bd3a6307c7fdc' \
+  'vendor/edgepg-0.8.1-rc.15.tgz' | sha256sum -c -
 ```
 
 Expected output:
 
 ```text
-vendor/edgepg-0.8.1-rc.14.tgz: OK
+vendor/edgepg-0.8.1-rc.15.tgz: OK
 ```
 
-On macOS, use `shasum -a 256 vendor/edgepg-0.8.1-rc.14.tgz`. On Windows PowerShell, use `Get-FileHash -Algorithm SHA256 vendor/edgepg-0.8.1-rc.14.tgz` and compare the value exactly.
+On macOS, use `shasum -a 256 vendor/edgepg-0.8.1-rc.15.tgz`. On Windows PowerShell, use `Get-FileHash -Algorithm SHA256 vendor/edgepg-0.8.1-rc.15.tgz` and compare the value exactly.
 
 Install the verified local file:
 
 ```bash
-npm install ./vendor/edgepg-0.8.1-rc.14.tgz
+npm install ./vendor/edgepg-0.8.1-rc.15.tgz
 ```
 
-Keep the package and lockfile in your controlled build inputs. Do not replace rc.14 with an unverified mutable URL during CI.
+Keep the package and lockfile in your controlled build inputs. Do not replace rc.15 with an unverified mutable URL during CI.
 
 ## 3. Create or select D1 manually
 
@@ -241,7 +241,7 @@ Inspect the output and confirm:
 
 - the only intended D1 binding is `DB`;
 - `COORDINATOR` points to `EdgePgTransactionCoordinator`;
-- the package version is `0.8.1-rc.14` in `node_modules/edgepg/package.json`;
+- the package version is `0.8.1-rc.15` in `node_modules/edgepg/package.json`;
 - no secrets, test fixtures, or unexpected application files are included.
 
 The dry run builds the Worker but does not deploy it. Wrangler may generate a local source map in the dry-run directory; keep it private because it can expose application and dependency structure. Delete `.wrangler-dry-run` after inspection if you do not need to retain it as private build evidence.
