@@ -123,6 +123,7 @@ export interface QueryExecutionPlan {
     statements: StatementExecutionPlan[];
     notices?: QueryNotice[];
     relationRewrites?: RelationRewrite[];
+    runtimeResultTypeOidCache?: Map<string, Map<string, number>>;
     joinAliasColumnReferences?: JoinAliasColumnReference[];
     temporaryRelationReferences?: RelationRewrite[];
     temporaryRegclassReferences?: TemporaryRegclassReference[];

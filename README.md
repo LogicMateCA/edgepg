@@ -22,27 +22,27 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.1-rc.18` |
-| Product commit | `e0eb7b275ea10d5fe48bd19846b1f597c1bbfc78` |
-| Package SHA-256 | `4b181b6fee6e97e00c028726382a8d74a49195437c453a49f32f2fedc4bc619c` |
-| Package size | `1,214,066` bytes |
-| Source fingerprint | `feb66b6e99f810239a5f9aab4803c695ebaeb9cd8ca11fcf61bf939e9e72de41` |
+| Release | `edgepg@0.8.1-rc.19` |
+| Product commit | `1d2f8c72c0b23cb4d40008b1c87624bf422ad558` |
+| Package SHA-256 | `6b018ff3998610eb66e706b7239b566bb6fddc2b3911d24e28c791a34c96958c` |
+| Package size | `1,214,676` bytes |
+| Source fingerprint | `908be1871dc539b93d2584db931b2d5037b71ca8694bfdeb53d61b8f2c19e334` |
 | Channel | Prerelease |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.1-rc.18.tgz
-npm install ./edgepg-0.8.1-rc.18.tgz
+sha256sum edgepg-0.8.1-rc.19.tgz
+npm install ./edgepg-0.8.1-rc.19.tgz
 ```
 
-[Download the immutable rc.18 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.18/edgepg-0.8.1-rc.18.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.18/edgepg-0.8.1-rc.18-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.18-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable rc.19 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.19/edgepg-0.8.1-rc.19.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.19/edgepg-0.8.1-rc.19-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.19-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in rc.18
+### What changed in rc.19
 
-Retained catalog initialization and physical-object discovery now use bounded set-based operations instead of repeated per-relation probes. Catalog discovery drops from 3 D1 operations / 7 statements to 1 / 1 on the matched fixture, while point, join, auth, transaction, lock, SQLSTATE, and RPC-limit behavior remains unchanged. rc.18 also includes the rc.17 nullable boolean and filtered array aggregate correction.
+Prepared and ORM reads now reuse relation/type metadata already resolved from the same query snapshot for RowDescription. On the matched local fixture, SQL PREPARE/EXECUTE improved from `11/15 ms` to `7/9 ms` p50/p95, prepared filters from `9/10 ms` to `5/6 ms`, and three EXECUTEs reduced D1 operations from `15` to `9`. No cross-request cache was added, and transaction, lock, invalidation and SQLSTATE semantics remain unchanged.
 
 ### Distribution formats
 

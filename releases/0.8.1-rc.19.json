@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "version": "0.8.1-rc.19",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "1d2f8c72c0b23cb4d40008b1c87624bf422ad558",
+    "evidenceHead": "3a7143ff8a566a8d1aec3d7a849a10a114f97be1",
+    "artifactFile": "edgepg-0.8.1-rc.19.tgz",
+    "artifactBytes": 1214676,
+    "artifactSha256": "6b018ff3998610eb66e706b7239b566bb6fddc2b3911d24e28c791a34c96958c",
+    "sourceFingerprint": "908be1871dc539b93d2584db931b2d5037b71ca8694bfdeb53d61b8f2c19e334",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "c5aa7ceba9107cf15aef226467163ba626d67e01d8df0fb98e0cb1159c8a6cb3"
+  },
+  "production": {
+    "coreRelease": "0.6.123",
+    "coreCommit": "831a7dfa3f0a2e63aba6b513f94f25ddacb76992",
+    "coreVersionId": "158880c9-a205-4ad1-945b-0c29e8e33002",
+    "databaseWorkerVersionId": "e3bea44b-cc37-4884-8a5a-3176751d9fb1",
+    "databaseWorkerDeploymentId": "1294ecd7-af74-4fa4-8b2b-984f7e5cc8b8",
+    "databaseWorkerPlatformFingerprint": "1d0f3413bd5677f4cdb715d373f165835dff141f4ebbb36196e9934ae85da19f"
+  },
+  "releaseGates": {
+    "workerPackage": "1103/1103",
+    "installedPackage": "passed",
+    "drizzleWorkload": "passed",
+    "copyRowsCommit": 4000,
+    "copyRowsRollback": 0,
+    "localServiceBinding": "passed",
+    "cloudflareServiceBinding": "passed",
+    "retainedProductionProbe": "passed",
+    "connector": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteSha256": "1f0e58c7a14574ad5082b5b49cfeb15ba15c7be7dc8edd7f323883d7cb96cd36",
+    "suiteWorkerdSha256": "c9573bc5854960cee6222bded317f7849ea6329cad9df9d85179585cad39517f",
+    "a2cReleaseGateSha256": "f10db902917b1d0e9bf7173b663b020378af55c80ee0d33fcaadf3173a61e035",
+    "localServiceBindingSha256": "d9ddf129ec3fb8660143c1e73ca5695f68390d6a90cb35b38616d22e638372f0",
+    "cloudflareServiceBindingSha256": "09225067176b6f4009f0218c743f481dfef8d1dd7fb52d38d5e372652a7e176f",
+    "productionDeploySha256": "b0faf91b5880e7964871788d8463b8d40e9a1df7546b2b56ec294c3ae8463401"
+  },
+  "performance": {
+    "environment": "matched local workerd with D1 and Coordinator Durable Object",
+    "warmups": 5,
+    "samples": 40,
+    "prepareExecuteP50P95BeforeMs": [11, 15],
+    "prepareExecuteP50P95AfterMs": [7, 9],
+    "preparedFilterP50P95BeforeMs": [9, 10],
+    "preparedFilterP50P95AfterMs": [5, 6],
+    "threeExecuteD1OperationsBeforeAfter": [15, 9],
+    "threeExecuteStatementsBeforeAfter": [24, 18],
+    "transactionP50P95Ms": [50, 84],
+    "claim": "matched fixed-fixture evidence; no transaction or global Cloudflare latency speedup is claimed"
+  },
+  "rollback": {
+    "version": "0.8.1-rc.18",
+    "databaseWorkerVersionId": "196aa3cd-cdaa-4a91-b6e0-a8a83a6183cc",
+    "coreVersionId": "98a18e02-e930-4bc1-85e5-9fc9ecaf466e"
+  },
+  "boundaries": [
+    "No cross-request result cache was added",
+    "Invalidation, transaction, lock, SQLSTATE and RPC-limit semantics are unchanged",
+    "Kysely, Prisma, Sequelize and TypeORM exact rc.19 workloads were not all independently rerun",
+    "Performance figures are fixed-fixture evidence, not a Cloudflare latency SLA"
+  ]
+}
