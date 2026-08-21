@@ -88,6 +88,7 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 | `0.8.1-rc.13` | Common Cloudflare hot-read optimization | ✅ |
 | `0.8.1-rc.14` | PostgreSQL `bool_or` / `bool_and` / `every` compatibility | ✅ |
 | `0.8.1-rc.15` | Retained catalog validation and auth parameter-query repair | ✅ |
+| `0.8.1-rc.17` | Nullable boolean and filtered array aggregate combinations | ✅ |
 | Next consolidated RC | Safe catalog/read-path and official-file refresh clusters | 🟨 |
 
 Documentation-only updates do not change an existing package identity. A new RC is created only when the product package changes.

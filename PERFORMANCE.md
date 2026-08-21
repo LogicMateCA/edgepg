@@ -14,9 +14,11 @@ Performance results are kept as a time series so each optimization can be compar
 
 The ordinary workload baseline is presented before optimization deltas. It answers the practical question: how long do common reads, writes and transactions take in the isolated EdgePG runtime?
 
-Exact `0.8.1-rc.10` package baseline, retained by rc.15; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
+Exact `0.8.1-rc.10` package baseline, retained by rc.17; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.
 
 The rc.15 retained-catalog correctness gate also ran 100 hot samples with two complete auth queries per sample on the same fixture: rc.14 p50/p95 `12/13 ms`; rc.15 `12/14 ms`. The one-millisecond p95 difference is not presented as an optimization or regression claim.
+
+The rc.17 aggregate-combination gate used the exact fixed auth-style query on local workerd with D1 and the Coordinator Durable Object. After warmup, 30 samples measured p50/p95 `29.651/31.2 ms` (min `28.364`, max `33.351`). Separate 20-sample ordinary reads measured point `6/9 ms`, join `8/9 ms`, and auth-existence `6/8 ms` p50/p95. rc.15 has no successful sample for this exact aggregate combination because `bool_or` reached D1 as an unsupported function, so this is correctness-plus-current-performance evidence rather than a before/after speedup claim.
 
 ### Reads
 
@@ -92,7 +94,7 @@ The 4,000-row/two-chunk diagnostic:
 
 Correctness remained intact: 4,000 rows committed, the failure case left zero rows, affected COPY/PGWire/commit tests passed `27/27`, and the 12,000-row wide-row atomic case passed.
 
-rc.15 retains this optimization and the rc.11 transport-level failed-transaction closure. The independent gate committed 4,000 rows in two client chunks, then proved that an 8,001-row failure returns `22P02`, rejects the next statement with `25P02`, and rolls back every flushed chunk. The performance numbers above remain the fixed rc.9→rc.10 A/B.
+rc.17 retains this optimization and the rc.11 transport-level failed-transaction closure. The independent PGWire gate committed 4,000 rows in two client chunks, then proved that an 8,001-row failure returns `22P02`, rejects the next statement with `25P02`, and rolls back every flushed chunk. Direct runtime `Client.copyRows` is not covered by that claim and remains a separate historical boundary. The performance numbers above remain the fixed rc.9→rc.10 A/B.
 
 ### 0.8.1-rc.9 — Transaction metadata optimization
 

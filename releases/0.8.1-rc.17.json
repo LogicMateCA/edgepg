@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "description": "PostgreSQL-compatible database runtime for Cloudflare",
+  "version": "0.8.1-rc.17",
+  "releasedAt": "2026-08-20",
+  "channel": "prerelease",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "5b77fc4e5ad39b444e1d68fa96594bde70ad6581",
+    "evidenceHead": "d19a5b512565fbc6cf1d2373aab5b2288a1bda69",
+    "artifactFile": "edgepg-0.8.1-rc.17.tgz",
+    "artifactBytes": 1213933,
+    "artifactSha256": "0a24585bae66358e4f76329876dc58ced739f07ce5472a24b75082db96a9260f",
+    "sourceFingerprint": "b37ddec0c8f3e479461e8669c66c143244b5a15937a74b9238f44f7c5e4a9347",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "83811b3ad801c57fd81c4b901e847fa77b3f82ee23c134fab94083662b891e06"
+  },
+  "production": {
+    "coreRelease": "0.6.121",
+    "coreCommit": "c569f36d1f7a22d6d753b7c6e272564dea590500",
+    "coreVersionId": "0e4bed93-8f89-43ed-aef1-4e60d62c35f2",
+    "databaseWorkerVersionId": "ef16bcf5-3bc5-4e62-8791-54d0bfc85c6a",
+    "databaseWorkerDeploymentId": "c7ed8458-c38f-4ec9-b365-935c9377658c",
+    "databaseWorkerPlatformFingerprint": "e67dc9d9c79a3541fa47756ba6bd4704810624ab1076e9078d680242de6a8f24"
+  },
+  "releaseGates": {
+    "postgres18Oracle": "passed",
+    "targeted": "3/3",
+    "workerPackage": "1096/1096",
+    "installedPackage": "passed",
+    "localServiceBinding": "passed",
+    "cloudflareServiceBinding": "passed",
+    "connector": "passed",
+    "productionProbe": "3/3",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteSha256": "c534d4e5a3c57adf82c65290ada997d85d10ffc3ef5c3f55da14385fbf6e0441",
+    "a2cReleaseGateSha256": "1697eb360b8f70aeedc99871bcff1b61f87848b03d7eb425393bf35a4f46040f",
+    "localServiceBindingSha256": "c5f58ca5bccbce91029bf2e1cf9407438d24239002062aba743731ed487e16f1",
+    "cloudflareServiceBindingSha256": "1649fbf4c15164c98a401580a64360f5fcf035d2ac03a8d1cdb03f14e15489ef",
+    "productionDeploySha256": "5c54ce0fcf2f8eba17de480f32c3e67288a792e53b04c81803455efd102976ff"
+  },
+  "performance": {
+    "environment": "local workerd with D1 and Coordinator Durable Object",
+    "exactQuerySamples": 30,
+    "exactQueryP50Ms": 29.651,
+    "exactQueryP95Ms": 31.2,
+    "ordinaryQuerySamples": 20,
+    "pointReadP50P95Ms": [6, 9],
+    "joinP50P95Ms": [8, 9],
+    "authExistsP50P95Ms": [6, 8],
+    "claim": "fixed-fixture runtime evidence, not a Cloudflare latency SLA"
+  },
+  "rollback": {
+    "version": "0.8.1-rc.15",
+    "databaseWorkerVersionId": "59a7ca8b-8e7c-4cc9-8af7-8d1aee64b530"
+  },
+  "boundaries": [
+    "Direct runtime Client.copyRows commits zero rows in both exact rc.15 and rc.17 and remains an unresolved historical boundary; Connector and PGWire COPY are separately verified",
+    "Named query and function passes do not imply every PostgreSQL official regression file passes",
+    "Performance figures are fixed-fixture evidence, not a Cloudflare latency SLA",
+    "No physical WAL, backend-process, server-filesystem, or arbitrary native C-extension compatibility claim"
+  ]
+}

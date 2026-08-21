@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "package": "edgepg",
-  "version": "0.8.1-rc.15",
-  "sourceFingerprint": "6bfdcb8e51526100ca1040950941f0920f085f9c6b531a9a2adaf2c4e19f979d",
+  "version": "0.8.1-rc.17",
+  "sourceFingerprint": "b37ddec0c8f3e479461e8669c66c143244b5a15937a74b9238f44f7c5e4a9347",
   "runtimeDependencies": [
     {
       "name": "libpg-query",

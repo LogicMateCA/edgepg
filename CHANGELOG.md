@@ -2,6 +2,30 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.1-rc.17 — 2026-08-20
+
+### Fixed
+
+- Lowered boolean aggregate arguments whose PostgreSQL AST is a nullable-expression node, including `bool_or(value IS NOT NULL)`, instead of leaking `bool_or` into D1.
+- Unified `FILTER` and window-modifier consumption for `bool_or`, `bool_and`, `every`, and `array_agg` combinations.
+- Preserved `text[]` OID 1009 through nested `COALESCE(array_agg(...), '{}')` and decoded the canonical empty array as `[]`.
+
+### Verified
+
+- PostgreSQL 18.4 oracle comparison for empty, hit, and no-child auth-style aggregate queries.
+- Physical-table fixture without an inline SQLite primary key, with primary-key metadata retained only in the EdgePG catalog.
+- Targeted `3/3`, Worker package `1096/1096`, TypeScript, exact package install, Wrangler dry run, local workerd, isolated real Cloudflare Service Binding, Connector, and production probes.
+- Production Database Worker was upgraded in place without changing its retained D1, Durable Objects, R2, URL, or role.
+
+### Performance
+
+- Exact fixed query, local workerd, 30 warm samples: p50/p95 `29.651/31.2 ms`.
+- Ordinary fixed reads, 20 samples each: point `6/9 ms`, join `8/9 ms`, auth-existence `6/8 ms` p50/p95. These are fixture measurements, not a public-Internet SLA.
+
+### Known boundary
+
+- Direct runtime `Client.copyRows` commits zero rows in both exact rc.15 and rc.17. This is a retained historical boundary, not an rc.17 regression. Connector/PGWire COPY remains separately verified.
+
 ## 0.8.1-rc.15 — 2026-08-20
 
 ### Fixed
