@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public candidate: `edgepg@0.8.1-rc.15`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public candidate: `edgepg@0.8.1-rc.17`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,22 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## rc.17 affected release gate
+
+| Gate | Result | Exact scope |
+|---|---:|---|
+| PostgreSQL 18.4 oracle | ✅ | auth-style `bool_or` plus `array_agg DISTINCT FILTER`, empty/hit/no-child |
+| Retained-equivalent shape | ✅ | physical table without inline PK; EdgePG primary-key catalog metadata only |
+| Boolean aggregate matrix | ✅ | true/false/NULL, all-NULL, empty, grouped, LEFT JOIN, prepared, FILTER, DISTINCT, OID 16 |
+| Array aggregate combination | ✅ | nested `COALESCE`, DISTINCT/FILTER placement, empty `{}` decode, OID 1009 |
+| Targeted / Worker package | ✅ | `3/3`; `1096/1096` |
+| Exact package and Worker | ✅ | fresh install, Wrangler dry run, local workerd D1/DO |
+| Independent Service Binding | ✅ | local and isolated real Cloudflare; query, transaction, Auth, SQLSTATE, limits, concurrency, Connector |
+| Formal production probe | ✅ | exact retained Database Worker identity; three consecutive auth-style probes |
+| Cleanup | ✅ | isolated Workers, D1 and R2 removed and absence confirmed |
+
+The rc.17 gate does not claim direct runtime `Client.copyRows` correctness. That historical path committed zero rows in both exact rc.15 and rc.17; Connector/PGWire COPY is a separate verified surface.
 
 ## rc.15 affected release gate
 
