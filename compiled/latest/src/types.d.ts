@@ -1995,6 +1995,7 @@ export type SemanticCommand = OperatorTypeCommand | TextSearchCommand | {
     triggerName: string;
     enabled: boolean;
     all?: boolean;
+    userOnly?: boolean;
 } | {
     kind: "row-security";
     action: "enable" | "disable" | "force" | "no-force" | "create-policy" | "alter-policy" | "drop-policy";

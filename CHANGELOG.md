@@ -2,6 +2,12 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.5 — 2026-08-22
+
+- Added dependency-safe ordinary DROP COLUMN and shared atomic schema staging for full retained catalogs.
+- Added concurrent role bootstrap coalescing, TRIGGER USER state changes and exact missing-trigger `42704`.
+- Real Cloudflare DROP and ADD专项 plus complete retained two-Worker gate passed; production identity and cleanup verified.
+
 ## 0.8.4 — 2026-08-22
 
 ### Stable release

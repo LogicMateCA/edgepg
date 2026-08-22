@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public release: `edgepg@0.8.4`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public release: `edgepg@0.8.5`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,12 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## 0.8.5 final release gate
+
+- Exact TGZ `61a5c6681d0e0340f2442076d52921c946496e05fa7496578473005840a615fd`; formal full-capability build `ff06333aab920deb0f62a14da21385f6d22f26b526d4dbc79591c17b477589f2`.
+- Real Cloudflare DROP专项 `2.209s`, ADD rollback专项 `17.082s`, and complete retained two-Worker gate passed; complete-gate ADD rollback measured `4.936s`.
+- TRIGGER USER, role bootstrap, LIKE/typed/lock/DML/Auth/ORM/RPC/concurrency, restart persistence and cleanup passed.
 
 ## 0.8.4 final release gate
 
