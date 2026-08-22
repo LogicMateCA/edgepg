@@ -13,9 +13,9 @@ This is the public, function-level companion to the [official regression and SQL
 
 | Function | Status | Verified contract | Latest retained release |
 |---|---:|---|---|
-| `bool_or(boolean)` | ✅ | mixed true/false/NULL, all-NULL, empty input, `GROUP BY`, nullable `LEFT JOIN` expressions, prepared parameters, `FILTER`, `DISTINCT`, transaction, OID 16 | retained in `0.8.1-rc.20` |
-| `bool_and(boolean)` | ✅ | same matrix as `bool_or`; PostgreSQL NULL/empty semantics and OID 16 | retained in `0.8.1-rc.20` |
-| `every(boolean)` | ✅ | PostgreSQL synonym of `bool_and`, including NULL/empty and grouped forms | retained in `0.8.1-rc.20` |
+| `bool_or(boolean)` | ✅ | mixed true/false/NULL, all-NULL, empty input, `GROUP BY`, nullable `LEFT JOIN` expressions, prepared parameters, `FILTER`, `DISTINCT`, transaction, OID 16 | retained in `0.8.2` |
+| `bool_and(boolean)` | ✅ | same matrix as `bool_or`; PostgreSQL NULL/empty semantics and OID 16 | retained in `0.8.2` |
+| `every(boolean)` | ✅ | PostgreSQL synonym of `bool_and`, including NULL/empty and grouped forms | retained in `0.8.2` |
 | `count(*)`, `count(expr)` | ✅ | grouped, correlated scalar, empty input, cast to integer, bigint result metadata | retained in `0.8.1-rc.18` |
 | `sum(...)`, `avg(...)` | ✅ | common grouped/window forms, integer/numeric result OIDs and NULL input | retained in `0.8.1-rc.18` |
 | `array_agg(...)` | ✅ | ordered, `DISTINCT`, nested arrays, `FILTER` inside `COALESCE`, empty input/decode, dimensional validation and array OIDs | retained in `0.8.1-rc.18` |

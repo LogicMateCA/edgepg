@@ -14,6 +14,15 @@ export declare function validateSetConstraintsCommand(db: D1Database, command: S
 export declare function executeTableCheckConstraint(db: D1Database, command: CheckCommand, extraStatements?: D1PreparedStatement[]): Promise<{
     command: string;
     rowCount: number;
+    notices: {
+        severity: "NOTICE";
+        code: string;
+        message: string;
+    }[];
+} | {
+    notices?: undefined;
+    command: string;
+    rowCount: number;
 }>;
 export declare function alterConstraintDeferrability(db: D1Database, command: CheckCommand): Promise<{
     command: string;
@@ -25,6 +34,8 @@ export declare function notNullConstraintDescendants(db: D1Database, physicalNam
     table_name: string;
     inherited_count: number;
 }[]>;
+export declare function prepareStandaloneNullsNotDistinctIndexStatements(db: D1Database, table: string, schema: string, name: string, columns: string[]): Promise<D1PreparedStatement[]>;
+export declare function standaloneNullsNotDistinctIndexDropStatements(db: D1Database, table: string, name: string): D1PreparedStatement[];
 export declare function postgresCheckConstraintDefinition(value: unknown, context: CheckCompileContext): string;
 export declare function ensureTableConstraintSchema(db: D1Database): Promise<void>;
 export declare function prepareNotNullConstraintAlterationSql(db: D1Database, plan: PostgresTableRebuildReference): Promise<string[]>;

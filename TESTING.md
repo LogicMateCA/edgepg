@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public candidate: `edgepg@0.8.1-rc.20`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public release: `edgepg@0.8.2`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,15 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## 0.8.2 final release gate
+
+- Worker package `1114/1114`; dependency core, pack/install/exports and customer Worker dry run passed.
+- PostgreSQL 18.4 and local workerd combination matrix `48/48`.
+- Real Cloudflare same-isolate retained gate and independent two-Worker All2CFDatabase retained gate passed.
+- Better Auth 1.7 HTTP lifecycle, Auth.js PostgreSQL Adapter, Drizzle 0.45.2, Prisma 7.8 and node-postgres 8.22 retained upgrades passed.
+- Original four-row migration rollback/commit, NOT NULL, unique index, `23505`, restart persistence, RPC limits, Connector and concurrency passed.
+- Temporary Workers, D1, Durable Objects and R2 resources were removed and API absence confirmed.
 
 ## rc.20 affected release gate
 

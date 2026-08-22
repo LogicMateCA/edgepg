@@ -115,6 +115,8 @@ export declare function readTableVersions(db: D1Database, tables: string[]): Pro
 export declare function ensureTableVersionSchema(db: D1Database): Promise<void>;
 export declare function ensureCommitSchema(db: D1Database): Promise<void>;
 export declare function ensureChangeCapture(db: D1Database, table: string): Promise<void>;
+export declare function ensureSchemaFenceCapture(db: D1Database, table: string): Promise<void>;
+export declare function prepareSchemaFenceCapture(db: D1Database, table: string): D1PreparedStatement[];
 export declare function rememberChangeCapture(db: D1Database, table: string, columnNames: string[]): void;
 export declare function forgetChangeCapture(db: D1Database, table: string): void;
 export declare function prepareChangeCaptureDrop(db: D1Database, table: string): D1PreparedStatement[];

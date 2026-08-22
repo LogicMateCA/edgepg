@@ -102,6 +102,7 @@ export declare class EdgePgTransactionCoordinator {
     private canSetSessionAuthorization;
     private checkCursorState;
     private snapshotRoleCatalogs;
+    private snapshotTableOwnerAuthorizationCatalogs;
     private snapshotCreateTablePrivilegeCatalogs;
     private schemaPrivilege;
     private databasePrivilege;
@@ -130,6 +131,7 @@ export declare class EdgePgTransactionCoordinator {
     private installWorkspaceDependencyViews;
     private prepareWorkspaceDependencyBase;
     private installWorkspaceCatalogStorage;
+    private ensureWorkspaceObjectCatalogShape;
     private installWorkspaceCatalogs;
     private installMissingWorkspaceCatalogViews;
     private installWorkspaceCatalogDependencyTables;

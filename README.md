@@ -18,31 +18,31 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 - **Standard migration tools.** Client-streamed `COPY`, PostgreSQL catalog surfaces, and `pg_dump`/`pg_restore` compatibility are product gates.
 - **Evidence-led releases.** Every published result identifies its release, environment, scope, and limitations.
 
-## Current candidate
+## Current release
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.1-rc.20` |
-| Product commit | `b804653bc65cc426be07b46f46d29633e92e27fb` |
-| Package SHA-256 | `76241b79be38f7981472181ae12bf84b7e5f72ab1c48ad7cf88fbfed3b9acdda` |
-| Package size | `1,214,671` bytes |
-| Source fingerprint | `866851c41e82073f7964413caa599af5b836ac3986259e4506cfd7cf5d051517` |
-| Channel | Prerelease |
+| Release | `edgepg@0.8.2` |
+| Product commit | `6c06e775b3dd8cabf8561d5a618f8989438d9a63` |
+| Package SHA-256 | `752e869cccb23827551249ba18a40ad9fc99a3a273d55fe5893bbdc9e2bd5c30` |
+| Package size | `1,220,090` bytes |
+| Source fingerprint | `a2f29bf0784901ace456dcdbe3e8d62972f6123edabf2a58fcc9acd7732742ae` |
+| Channel | Stable |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.1-rc.20.tgz
-npm install ./edgepg-0.8.1-rc.20.tgz
+sha256sum edgepg-0.8.2.tgz
+npm install ./edgepg-0.8.2.tgz
 ```
 
-[Download the immutable rc.20 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.20/edgepg-0.8.1-rc.20.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.20/edgepg-0.8.1-rc.20-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.1-rc.20-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable 0.8.2 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.2/edgepg-0.8.2.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.2/edgepg-0.8.2-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.2-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in rc.20
+### What changed in 0.8.2
 
-Standard prepared organization lookup queries combining `INNER JOIN`, a nullable parameter, `OR`, `CASE ORDER BY`, a secondary sort and `LIMIT` now pass bounded relational admission instead of failing with `0A000`. The fix extends the existing builtin-cast safe feature set generically; custom casts, unsupported operators and unbounded relational shapes still fail closed. No D1/DO call was added.
+0.8.2 consolidates retained-catalog repair, compositional SELECT capability proofs, PostgreSQL migration DDL, common index semantics, transaction-safe schema changes, Better Auth 1.7/Auth.js retained upgrades, and concurrent first-read repair across multiple Service Binding clients. Unsupported semantics continue to fail closed rather than silently degrading to SQLite behavior.
 
 ### Distribution formats
 
@@ -51,7 +51,7 @@ Standard prepared organization lookup queries combining `INNER JOIN`, a nullable
 | npm `.tgz` | Canonical installable package | Compiled runtime only |
 | Compiled `.zip` | Conventional archive for inspection and tooling | Same compiled files as the npm package |
 | Browsable compiled tree | File-by-file Git history and release diffs | `.js`, `.mjs`, `.wasm`, generated `.d.ts` and package metadata only |
-| Per-file JSON manifest | Path, byte size, kind and SHA-256 for all 196 files | No file contents |
+| Per-file JSON manifest | Path, byte size, kind and SHA-256 for all 198 files | No file contents |
 
 Original TypeScript/TSX/Rust source, source maps, tests, internal evidence, build scripts and credentials are not published.
 
