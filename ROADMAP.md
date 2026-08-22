@@ -92,7 +92,8 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 | `0.8.1-rc.18` | Retained catalog and prepared-result metadata hot-path consolidation | ✅ |
 | `0.8.1-rc.19` | Prepared/ORM query-local metadata reuse | ✅ |
 | `0.8.1-rc.20` | Nullable prepared JOIN and CASE ordering admission | ✅ |
-| Next consolidated RC | Official-file refresh and remaining safe read-path clusters | 🟨 |
+| `0.8.2` | Retained Web/Auth/ORM/migration compatibility release | ✅ |
+| Next stable line | Official-file refresh and remaining safe capability-proof families | 🟨 |
 
 Documentation-only updates do not change an existing package identity. A new RC is created only when the product package changes.
 

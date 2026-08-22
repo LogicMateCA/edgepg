@@ -34,8 +34,42 @@ export declare function executeTableOwner(db: D1Database, command: TableOwnerCom
 export declare function executeAlterTableAddColumns(db: D1Database, command: AlterTableAddColumnsCommand, catalogStatements?: D1PreparedStatement[], currentRole?: string): Promise<{
     command: string;
     rowCount: number;
+    notices?: {
+        severity: "NOTICE";
+        code: string;
+        message: string;
+    }[] | undefined;
 }>;
 export declare function prepareAlterTableAddColumns(db: D1Database, command: AlterTableAddColumnsCommand, catalogStatements?: D1PreparedStatement[], currentRole?: string): Promise<D1PreparedStatement[]>;
+export declare function resolveAlterTableAddColumnsCommand(db: D1Database, command: AlterTableAddColumnsCommand, currentRole?: string): Promise<{
+    command: {
+        kind: "alter-table-add-columns";
+        schema: string;
+        name: string;
+        physicalName: string;
+        definition: string;
+        tableIfExists?: boolean;
+        constraints?: import("./types").TableConstraintCommand[];
+        columns: {
+            name: string;
+            pgType: string;
+            sqliteType: string;
+            notNull?: boolean;
+            defaultSql?: string;
+            backfillDefault?: boolean;
+            notNullConstraintName?: string;
+            notNullNoInherit?: boolean;
+            ifNotExists?: boolean;
+        }[];
+    };
+    notices: {
+        severity: "NOTICE";
+        code: string;
+        message: string;
+    }[];
+}>;
+export declare function prepareResolvedAlterTableAddColumns(db: D1Database, command: AlterTableAddColumnsCommand, catalogStatements?: D1PreparedStatement[]): D1PreparedStatement[];
+export declare function alterTableAddColumnSqlStatements(command: AlterTableAddColumnsCommand): string[];
 export declare function executeAlterTablePersistence(db: D1Database, command: AlterTablePersistenceCommand, currentRole?: string): Promise<{
     command: string;
     rowCount: number;

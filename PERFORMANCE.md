@@ -12,6 +12,8 @@ Performance results are kept as a time series so each optimization can be compar
 
 ## Daily read/write baseline — current line
 
+The 0.8.2 final CPU planner benchmark completed with zero errors: query p50/p95 `1.351/1.835 ms`, write `0.699/0.901 ms`, prepared `1.045/1.391 ms`, and transaction planning `1.021/1.398 ms`. The independent real Cloudflare retained fixture measured the production-shaped four-row migration at `8.083 s` for rollback and `9.339 s` for commit. These results identify their specific fixtures and are not a global SLA.
+
 The ordinary workload baseline is presented before optimization deltas. It answers the practical question: how long do common reads, writes and transactions take in the isolated EdgePG runtime?
 
 Exact `0.8.1-rc.10` package baseline, retained by rc.18; local workerd + D1 + Coordinator DO; 1,000 rows; 2 warmups; 5 measured samples.

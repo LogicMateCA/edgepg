@@ -2,6 +2,27 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.2 — 2026-08-22
+
+### Stable release
+
+- Replaced fragile SELECT feature combinations with compositional capability proofs and explicit fail-closed obligations.
+- Added retained catalog shape validation and idempotent concurrent repair across multiple Service Binding clients.
+- Completed common PostgreSQL migration DDL and index semantics, including `IF EXISTS`, `IF NOT EXISTS`, transaction rollback/commit, `NULLS NOT DISTINCT`, catalog persistence and exact SQLSTATE behavior.
+- Preserved transaction coordination, schema fences, locks, result metadata and unsupported LATERAL/CONCURRENTLY boundaries.
+
+### Verified
+
+- Worker `1114/1114`, dependency core, package install/exports, customer Worker dry run and PostgreSQL combination matrix `48/48`.
+- Real Cloudflare same-isolate and independent two-Worker All2CFDatabase retained upgrades with complete cleanup.
+- Better Auth 1.7 HTTP session lifecycle, Auth.js PostgreSQL Adapter, Drizzle 0.45.2, Prisma 7.8 and node-postgres 8.22 retained reads.
+- Four-row production-shaped migration rollback/commit, NOT NULL, unique index, `23505`, restart persistence, RPC limits, Connector and concurrency.
+
+### Performance evidence
+
+- Fixed CPU planner benchmark, zero errors: query p50/p95 `1.351/1.835 ms`, write `0.699/0.901 ms`, prepared `1.045/1.391 ms`, transaction planning `1.021/1.398 ms`.
+- Independent retained Cloudflare migration measured rollback `8.083 s` and commit `9.339 s` in its fixture. These are evidence points, not a global latency SLA.
+
 ## 0.8.1-rc.20 — 2026-08-20
 
 ### Fixed

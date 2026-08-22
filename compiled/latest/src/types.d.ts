@@ -91,6 +91,54 @@ export interface StatementExecutionPlan {
     implementation: ImplementationStatus;
     features: string[];
 }
+export type CapabilityProofStatus = "proven" | "conditional" | "unsupported" | "blocked";
+export type CapabilityProofMode = "native" | "rewritten" | "coordinated";
+export type CapabilityProofObligation = {
+    kind: "catalog-snapshot";
+    relations: string[];
+    columns: string[];
+} | {
+    kind: "result-type-metadata";
+    outputs: string[];
+} | {
+    kind: "transaction-workspace";
+    reason: string;
+} | {
+    kind: "plugin";
+    capability: string;
+} | {
+    kind: "parameter-shape";
+    parameters: number[];
+};
+export interface CapabilityProofReason {
+    capability: string;
+    message: string;
+    sqlState: "0A000" | "XX000";
+    start?: number;
+    end?: number;
+}
+export interface CapabilityProofNode {
+    kind: string;
+    status: CapabilityProofStatus;
+    mode?: CapabilityProofMode;
+    route?: ExecutionRoute;
+    evidence: string[];
+    obligations?: CapabilityProofObligation[];
+    reason?: CapabilityProofReason;
+    children?: CapabilityProofNode[];
+}
+export interface QueryCapabilityProof {
+    version: 1;
+    statementIndex: number;
+    statement: string;
+    capability: string;
+    status: CapabilityProofStatus;
+    mode?: CapabilityProofMode;
+    route?: ExecutionRoute;
+    root: CapabilityProofNode;
+    obligations: CapabilityProofObligation[];
+    reasons: CapabilityProofReason[];
+}
 export interface SetOperationAllReference {
     operation: "intersect" | "except";
     leftSql: string;
@@ -121,6 +169,7 @@ export interface QueryExecutionPlan {
     version: 1;
     executable: boolean;
     statements: StatementExecutionPlan[];
+    capabilityProofs?: QueryCapabilityProof[];
     notices?: QueryNotice[];
     relationRewrites?: RelationRewrite[];
     runtimeResultTypeOidCache?: Map<string, Map<string, number>>;
@@ -202,6 +251,8 @@ export interface QueryExecutionPlan {
     correlatedSeriesPaginationRewrite?: boolean;
     withTiesRewrite?: boolean;
     boundedScalarCountProjection?: boolean;
+    nativeRelationalSubqueries?: boolean;
+    nativeNonrecursiveSelectCte?: boolean;
     boundedLinearRecursiveCte?: {
         resultIndex: number;
         anchor: number;
@@ -444,6 +495,9 @@ export interface PostgresTableRebuildReference {
     definition: string;
     action: "set-not-null" | "drop-not-null" | "alter-type" | "set-default" | "drop-default" | "drop-column";
     column: string;
+    tableIfExists?: boolean;
+    ifExists?: boolean;
+    cascade?: boolean;
     constraintName?: string;
     notValid?: boolean;
     noInherit?: boolean;
@@ -494,6 +548,9 @@ export interface PostgresCatalogObjectReference {
     indexColumns?: string[];
     indexUnique?: boolean;
     indexOnly?: boolean;
+    indexNullsNotDistinct?: boolean;
+    indexConcurrently?: boolean;
+    indexIfNotExists?: boolean;
     definition: string;
     viewDefinition?: string;
     compactViewDefinition?: string;
@@ -1483,6 +1540,7 @@ export type SemanticCommand = OperatorTypeCommand | TextSearchCommand | {
     name: string;
     physicalName: string;
     definition: string;
+    tableIfExists?: boolean;
     columns: Array<{
         name: string;
         pgType: string;
@@ -1492,6 +1550,7 @@ export type SemanticCommand = OperatorTypeCommand | TextSearchCommand | {
         backfillDefault?: boolean;
         notNullConstraintName?: string;
         notNullNoInherit?: boolean;
+        ifNotExists?: boolean;
     }>;
     constraints?: TableConstraintCommand[];
 } | {

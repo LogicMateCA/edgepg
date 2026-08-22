@@ -45,7 +45,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | Drizzle ORM | ✅ | Schema, CRUD, filters, pagination, aggregates, JSON, transactions |
 | Sequelize | ✅ | Common differential and live application paths |
 | TypeORM | ✅ | Common differential and live application paths |
-| Prisma | 🟨 | Live and interactive/concurrent transactions; wider native differential planned |
+| Prisma | ✅ | Prisma 7.8 retained reads, relations, aggregates and transaction rollback/commit; broader native corpus continues |
 | Kysely | 🟨 | Common differential path; relation/concurrency breadth planned |
 | Knex | 🟨 | Common live path; wider differential/concurrency planned |
 | Objection.js | 🟨 | Common live path; wider differential/concurrency planned |
@@ -63,7 +63,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | Views and materialized views | ✅ | Lifecycle, reads, comments, transaction rollback |
 | RLS policy lifecycle | ✅ | Create/alter/comment/drop and transaction behavior |
 | Inheritance and common partition routing | ✅ | Catalog and row-routing cases |
-| Retained in-place upgrades | ✅ | Exact rc.14→rc.15 same-D1/same-DO catalog validation and repair, plus archive restore paths |
+| Retained in-place upgrades | ✅ | rc.20→0.8.2 same-D1/same-DO repair, concurrent first reads, Auth/ORM/migration persistence and archive restore paths |
 | Full ORM native PostgreSQL differential | 🟨 | Complete per-framework matrix remains open |
 | Multi-organization SaaS concurrency | 🟨 | Targeted gates passed; broader load matrix planned |
 | OAuth/token-refresh concurrency | 🟨 | Application evidence exists; expanded stress planned |

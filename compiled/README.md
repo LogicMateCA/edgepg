@@ -25,16 +25,16 @@ The npm package remains the canonical installable artifact. The browsable tree m
 
 | Field | Value |
 |---|---|
-| Version | `edgepg@0.8.1-rc.20` |
-| Files | `196` |
-| Uncompressed bytes | `4,862,778` |
+| Version | `edgepg@0.8.2` |
+| Files | `198` |
+| Uncompressed bytes | `4,883,790` |
 | Raw TypeScript/TSX | `0` |
 | Source maps | `0` |
 | Tests/internal evidence | `0` |
 
 - [Browse the compiled package](latest/)
-- [Per-file SHA-256 manifest](manifests/0.8.1-rc.20-files.json)
-- [Download the compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.20/edgepg-0.8.1-rc.20-compiled.zip)
-- [Download the canonical npm package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.1-rc.20/edgepg-0.8.1-rc.20.tgz)
+- [Per-file SHA-256 manifest](manifests/0.8.2-files.json)
+- [Download the compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.2/edgepg-0.8.2-compiled.zip)
+- [Download the canonical npm package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.2/edgepg-0.8.2.tgz)
 
 The historical directory name `src/` inside the npm package is an internal package layout. Public files below it are compiled `.js` and generated `.d.ts`; original TypeScript source is not included.
