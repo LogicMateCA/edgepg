@@ -22,27 +22,27 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.4` |
-| Product commit | `2e58fc47a9cb9e587490112333b5849ff6feaf26` |
-| Package SHA-256 | `d0685e29a1d58028ad31918fa1601f4c6cb43c4092fca925a0ce5e82768a8435` |
-| Package size | `1,237,074` bytes |
-| Source fingerprint | `14e976c5a7a81d21252fbcdb41d323befaca81031ec2a6e002b8d60a0b67a097` |
+| Release | `edgepg@0.8.5` |
+| Product commit | `c705c3bd8177a270f0f64bcdbcb3717e9c575754` |
+| Package SHA-256 | `61a5c6681d0e0340f2442076d52921c946496e05fa7496578473005840a615fd` |
+| Package size | `1,239,518` bytes |
+| Source fingerprint | `eb86c86ab3bba5437759c0fa37e79a0a680eae94eaacc4dc37c79941c63264cd` |
 | Channel | Stable |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.4.tgz
-npm install ./edgepg-0.8.4.tgz
+sha256sum edgepg-0.8.5.tgz
+npm install ./edgepg-0.8.5.tgz
 ```
 
-[Download the immutable 0.8.4 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.4/edgepg-0.8.4.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.4/edgepg-0.8.4-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.4-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable 0.8.5 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.5/edgepg-0.8.5.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.5/edgepg-0.8.5-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.5-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in 0.8.4
+### What changed in 0.8.5
 
-0.8.4 closes 46 official-gap cases across grouping, windows, arrays/SRF, JSONPath, aggregates, temporal/regexp, catalogs and migration DDL. It adds typed tables and `LIKE INCLUDING ALL`, corrects ordinary NULL ordering and rule errors, and makes empty-table `TRIGGER ALL` operations bounded without weakening managed-trigger transaction paths.
+0.8.5 adds bounded full-catalog DROP/ADD schema staging, concurrent role bootstrap coalescing and PostgreSQL TRIGGER USER semantics while retaining the 0.8.4 compatibility baseline.
 
 ### Distribution formats
 
