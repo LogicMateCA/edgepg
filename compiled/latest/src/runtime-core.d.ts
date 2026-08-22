@@ -291,6 +291,7 @@ export declare class EdgePgRuntime {
     private acquireTransactionLock;
     private acquireOptimisticConflictLocks;
     private acquireSelectForUpdateLock;
+    private acquireMutationTargetRowLocks;
     private acquireParsedOptimisticConflictLocks;
     private renewOptimisticConflictLocks;
     private renewAdvisoryTransactionLocks;

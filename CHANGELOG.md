@@ -2,6 +2,22 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.3 — 2026-08-22
+
+### Stable release
+
+- Unified row identity and lock namespaces across ordinary and joined `SELECT FOR UPDATE`, prepared `UPDATE` and `DELETE`, composite primary keys, non-primary-key predicates and duplicate no-primary-key rows.
+- Added `FOR UPDATE OF` alias scoping, exact `NOWAIT` `55P03`, rollback/commit/disconnect release and fail-closed outer-join locking.
+- Reconciled retained `pg_class`, `pg_index`, `pg_indexes` and `information_schema.columns` structures across in-place upgrades and Worker restarts.
+- Preserved retained `CREATE TABLE IF NOT EXISTS ... CHECK` expression ranges and explicit-transaction `UPDATE ... FROM` / `DELETE ... USING` source relations and RETURNING metadata.
+
+### Verified
+
+- Real Cloudflare retained rc.20→0.8.3 upgrade with two independent application Workers, transaction-created relation visibility, catalog reads and Database Worker restart persistence.
+- Five lock-namespace cases, `FOR UPDATE OF`, `55P03`, rollback/commit/real closeSession release, and exact result OIDs.
+- `UPDATE ... FROM` and `DELETE ... USING` rollback and commit with source-column RETURNING OIDs `[23,25,23,23]`.
+- Better Auth 1.7, Auth.js PostgreSQL Adapter, Drizzle, Prisma, node-postgres, RPC limits, Connector, migration rollback/commit and cleanup.
+
 ## 0.8.2 — 2026-08-22
 
 ### Stable release

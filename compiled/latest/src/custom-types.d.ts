@@ -72,6 +72,7 @@ export declare function timestampDifferenceIntervalLiteral(left: string, right: 
 export declare function timetzZoneRewrites(db: D1Database, references: TimetzZoneReference[], currentTimeZone: string): Promise<SourceRewrite[]>;
 export declare function temporalPartRewrites(db: D1Database, references: TemporalPartReference[], currentTimeZone: string): Promise<SourceRewrite[]>;
 export declare function temporalFormatRewrites(db: D1Database, references: TemporalFormatReference[], currentTimeZone: string): Promise<SourceRewrite[]>;
+export declare function canonicalIntervalInput(source: string): string;
 export declare function postgresIntervalPartValue(source: string, unitSource: string): string;
 export declare function evaluateDynamicTemporalFormat(marker: {
     operation?: unknown;

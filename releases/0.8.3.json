@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "version": "0.8.3",
+  "releasedAt": "2026-08-22",
+  "channel": "stable",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "5a0afa35f6e0892145b03e2fc8a02f1b22d0d8b8",
+    "evidenceHead": "2f25ab1926b4eabac9879358ff529e82c3f1cf38",
+    "artifactFile": "edgepg-0.8.3.tgz",
+    "artifactBytes": 1224933,
+    "artifactSha256": "1266a3b0aafcd13b2fbb1c517c729771bc2059f69b40bdaf37326c2dff7ab61f",
+    "sourceFingerprint": "af2c85c1c78fe01c3c5fa455207e405522932b192aa9787539635894a344df04",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "f439ce61db79691dffda81e8f01dc3bb1e248cb359bd13eb78b2679cd256ac9f"
+  },
+  "production": {
+    "coreRelease": "0.6.132",
+    "coreCommit": "a925be2cd594020e96609ad29eae30e7e144bf0a",
+    "coreVersionId": "29eb4b8b-ec93-4352-b6cc-098f93ca8890",
+    "databaseWorkerVersionId": "8a160b6f-8e74-4ff6-a6de-f57bac93bff3",
+    "databaseWorkerDeploymentId": "3647be16-ceca-4815-b8f6-dd4c1fa7d9e8"
+  },
+  "releaseGates": {
+    "suiteAffected": "passed",
+    "cloudflareRetainedTwoWorker": "passed",
+    "transactionCreateAndRestartVisibility": "passed",
+    "rowLockNamespaceMatrix": "passed",
+    "updateFromDeleteUsing": "passed",
+    "retainedCatalogRepair": "passed",
+    "betterAuth17": "passed",
+    "authJs": "passed",
+    "drizzle": "passed",
+    "prisma": "passed",
+    "nodePostgres": "passed",
+    "rpcConnectorMigration": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteAffectedSha256": "71ff97d732f58a262e53ab80a6ce4e7a7a2e6820727b45a2f3f4c5887092ee1b",
+    "independentCloudflareSha256": "f4490b71b3c373b03d8a89601712631675522b7f15ff9e9200fe6c143031dca7",
+    "betterAuth17Sha256": "877621e61c855b46c504f4c7ed362cfcc1f3c8a88e4182ddaa324a2b1bc99973",
+    "authJsSha256": "c3a0cdd4a8faafdb18b6879025de6b957ae3be02e0126cd0202e1139d8b91d82",
+    "ormSha256": "fd55d20ffc61056746914d34fcc4737ca2161bdbef4b43b7697dd7c721e60ca3",
+    "productionHealthSha256": "c622798ccc8be78ab18da6eb4ec259abe2192753e8c73010aca1bd074c6c5a4b",
+    "productionServiceBindingSha256": "cf428b241f747b30f19e372abf9f23284ddb2902051043a1dc363c3ef72df94e"
+  },
+  "performance": {
+    "independentAlterMs": 12170,
+    "independentDdlRollbackTotalMs": 13263,
+    "independentMigrationRollbackMs": 18041,
+    "independentMigrationCommitMs": 16614,
+    "claim": "fixed-fixture correctness evidence, not a global latency SLA"
+  },
+  "rollback": {
+    "version": "0.8.2",
+    "productCommit": "6c06e775b3dd8cabf8561d5a618f8989438d9a63",
+    "databaseWorkerVersionId": "8e946a02-11ab-4b97-bb95-5afd658cf052",
+    "databaseWorkerDeploymentId": "f6ed5a69-661c-44a6-a8ce-fbb4f3510794"
+  }
+}

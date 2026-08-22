@@ -139,6 +139,18 @@ export interface QueryCapabilityProof {
     obligations: CapabilityProofObligation[];
     reasons: CapabilityProofReason[];
 }
+export interface CapabilityAdmissionShadow {
+    version: 1;
+    scope: "builtin-cast-select" | "bounded-scalar-count-select";
+    statementIndex: number;
+    legacyAdmitted: boolean;
+    proofAdmitted: boolean;
+    parity: boolean;
+    rewriteSpans: Array<{
+        start: number;
+        end: number;
+    }>;
+}
 export interface SetOperationAllReference {
     operation: "intersect" | "except";
     leftSql: string;
@@ -170,6 +182,7 @@ export interface QueryExecutionPlan {
     executable: boolean;
     statements: StatementExecutionPlan[];
     capabilityProofs?: QueryCapabilityProof[];
+    capabilityAdmissionShadows?: CapabilityAdmissionShadow[];
     notices?: QueryNotice[];
     relationRewrites?: RelationRewrite[];
     runtimeResultTypeOidCache?: Map<string, Map<string, number>>;
@@ -201,8 +214,12 @@ export interface QueryExecutionPlan {
     customTypeAggregates?: CustomTypeAggregateReference[];
     customTypeBooleanResultNames?: string[];
     builtinResultTransforms?: Array<{
-        kind: "cash_words" | "checked_money" | "money_numeric" | "checked_integer" | "checked_float" | "checked_point" | "checked_geometry" | "float_send" | "numeric_to_char" | "numeric_to_number" | "format" | "text_concat" | "temporal_part" | "temporal_format" | "temporal_difference" | "unicode_normalize" | "unicode_is_normalized" | "unicode_assigned" | "derived_whole_row";
+        kind: "cash_words" | "checked_money" | "money_numeric" | "checked_integer" | "checked_float" | "checked_point" | "checked_geometry" | "float_send" | "numeric_to_char" | "numeric_to_number" | "format" | "text_cast" | "text_concat" | "temporal_part" | "temporal_format" | "temporal_difference" | "unicode_normalize" | "unicode_is_normalized" | "unicode_assigned" | "derived_whole_row";
         name: string;
+        sourceOid?: number;
+        sourceColumn?: string;
+        sourceTables?: string[];
+        staticText?: string;
     }>;
     bpcharLengthExpressions?: Array<{
         start: number;
@@ -246,6 +263,7 @@ export interface QueryExecutionPlan {
         sourceAlias: string;
         sourceRelation: string;
     }>;
+    zeroColumnSelect?: boolean;
     rangeSeriesRelationalRewrite?: boolean;
     targetSeriesZipRewrite?: boolean;
     correlatedSeriesPaginationRewrite?: boolean;
@@ -276,6 +294,12 @@ export interface QueryExecutionPlan {
     deleteUsing?: boolean;
     deleteUnsupportedFeature?: "where-current-of" | "returning-aliases";
     rowLocking?: RowLockingReference;
+    mutationRowLocking?: {
+        tablePhysicalName: string;
+        alias?: string;
+        sourceClauseSql?: string;
+        predicateSql?: string;
+    };
     insertDefaults?: InsertDefaultReference[];
     sequenceFunctions?: SequenceFunctionReference[];
     sequenceColumns?: SequenceColumnReference[];
@@ -343,6 +367,15 @@ export interface RowLockingReference {
         value: EdgePgValue;
     };
     predicateSql?: string;
+    joinRelations?: Array<{
+        tablePhysicalName: string;
+        alias: string;
+        outputName: string;
+    }>;
+    joinProjection?: {
+        start: number;
+        end: number;
+    };
     rewrite?: SourceRewrite;
 }
 export interface CreateTableLikeReference {
@@ -354,6 +387,7 @@ export interface CreateTableLikeReference {
     sourcePhysicalName: string;
     ifNotExists?: boolean;
     persistence?: "permanent" | "temporary";
+    includingConstraints: boolean;
     includingDefaults: boolean;
     includingIndexes: boolean;
     additionalNotNull?: Array<{
@@ -714,6 +748,7 @@ export interface InputValidationReference {
     start: number;
     end: number;
     outputName?: string;
+    appendResultAlias?: boolean;
     rangeFunction: boolean;
     arguments: Array<{
         kind: "parameter";
@@ -1772,9 +1807,11 @@ export type SemanticCommand = OperatorTypeCommand | TextSearchCommand | {
     nowait: boolean;
 } | {
     kind: "advisory-xact-lock";
-    argumentSources: string[];
-    outputName: string;
-    try: boolean;
+    locks: Array<{
+        argumentSources: string[];
+        outputName: string;
+        try: boolean;
+    }>;
 } | {
     kind: "anonymous-block";
     language: "plpgsql";

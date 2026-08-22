@@ -22,27 +22,27 @@ EdgePG brings PostgreSQL client, SQL, transaction, catalog, and migration compat
 
 | Field | Exact value |
 |---|---|
-| Release | `edgepg@0.8.2` |
-| Product commit | `6c06e775b3dd8cabf8561d5a618f8989438d9a63` |
-| Package SHA-256 | `752e869cccb23827551249ba18a40ad9fc99a3a273d55fe5893bbdc9e2bd5c30` |
-| Package size | `1,220,090` bytes |
-| Source fingerprint | `a2f29bf0784901ace456dcdbe3e8d62972f6123edabf2a58fcc9acd7732742ae` |
+| Release | `edgepg@0.8.3` |
+| Product commit | `5a0afa35f6e0892145b03e2fc8a02f1b22d0d8b8` |
+| Package SHA-256 | `1266a3b0aafcd13b2fbb1c517c729771bc2059f69b40bdaf37326c2dff7ab61f` |
+| Package size | `1,224,933` bytes |
+| Source fingerprint | `af2c85c1c78fe01c3c5fa455207e405522932b192aa9787539635894a344df04` |
 | Channel | Stable |
 
 Verify the downloaded package before installation:
 
 ```bash
-sha256sum edgepg-0.8.2.tgz
-npm install ./edgepg-0.8.2.tgz
+sha256sum edgepg-0.8.3.tgz
+npm install ./edgepg-0.8.3.tgz
 ```
 
-[Download the immutable 0.8.2 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.2/edgepg-0.8.2.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.2/edgepg-0.8.2-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.2-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
+[Download the immutable 0.8.3 package](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.3/edgepg-0.8.3.tgz) · [Browse compiled files](compiled/latest/) · [Compiled ZIP](https://github.com/LogicMateCA/edgepg/releases/download/v0.8.3/edgepg-0.8.3-compiled.zip) · [Per-file manifest](compiled/manifests/0.8.3-files.json) · [Checksums](releases/COMPILED-SHA256SUMS)
 
 EdgePG does not provide an installer that creates or changes Cloudflare resources on your behalf. Follow the [manual Cloudflare deployment guide](DEPLOYMENT.md) to verify the package, create or select your own D1 database, add the Durable Object binding, inspect the bundle, and deploy your Worker.
 
-### What changed in 0.8.2
+### What changed in 0.8.3
 
-0.8.2 consolidates retained-catalog repair, compositional SELECT capability proofs, PostgreSQL migration DDL, common index semantics, transaction-safe schema changes, Better Auth 1.7/Auth.js retained upgrades, and concurrent first-read repair across multiple Service Binding clients. Unsupported semantics continue to fail closed rather than silently degrading to SQLite behavior.
+0.8.3 unifies the physical row-lock namespace used by ordinary and joined `SELECT FOR UPDATE`, prepared `UPDATE` and `DELETE`, including composite-primary-key and no-primary-key rows. It also repairs retained PostgreSQL catalog views structurally, preserves `CREATE TABLE IF NOT EXISTS ... CHECK` expressions, and keeps source relations available to explicit-transaction `UPDATE ... FROM` and `DELETE ... USING`. Unsupported outer-join locking continues to fail closed.
 
 ### Distribution formats
 
