@@ -83,6 +83,7 @@ export declare function evaluateDynamicTemporalFormat(marker: {
     type?: unknown;
     offset?: unknown;
     zone?: unknown;
+    format?: unknown;
     args?: unknown;
     interval?: unknown;
     subtract?: unknown;

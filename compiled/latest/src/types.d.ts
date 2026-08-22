@@ -309,6 +309,7 @@ export interface QueryExecutionPlan {
     groupingValidations?: GroupingValidationReference[];
     postgresCatalogTable?: PostgresCatalogTableReference;
     createTableLike?: CreateTableLikeReference;
+    createTypedTable?: CreateTypedTableReference;
     tableInheritance?: TableInheritanceReference;
     tableInheritanceAlteration?: TableInheritanceAlterationReference;
     tableInheritanceMutation?: TableInheritanceMutationReference;
@@ -387,15 +388,47 @@ export interface CreateTableLikeReference {
     sourcePhysicalName: string;
     ifNotExists?: boolean;
     persistence?: "permanent" | "temporary";
+    includingComments: boolean;
+    includingCompression: boolean;
     includingConstraints: boolean;
     includingDefaults: boolean;
+    includingGenerated: boolean;
+    includingIdentity: boolean;
     includingIndexes: boolean;
+    includingStatistics: boolean;
+    includingStorage: boolean;
     additionalNotNull?: Array<{
         column: string;
         name?: string;
         noInherit: boolean;
     }>;
     unsupportedOptions: number;
+}
+export interface CreateTypedTableReference {
+    schema: string;
+    name: string;
+    physicalName: string;
+    typeName: string;
+    typePhysicalName: string;
+    ifNotExists?: boolean;
+    persistence: "permanent" | "temporary";
+    columnOptions: Array<{
+        column: string;
+        notNull?: boolean;
+        primary?: boolean;
+        unique?: boolean;
+        defaultSql?: string;
+        constraintName?: string;
+        deferrable?: boolean;
+        initiallyDeferred?: boolean;
+    }>;
+    tableConstraints: Array<{
+        kind: "primary" | "unique";
+        columns: string[];
+        name?: string;
+        deferrable?: boolean;
+        initiallyDeferred?: boolean;
+    }>;
 }
 export interface TableInheritanceReference {
     schema: string;
@@ -703,7 +736,7 @@ export type TemporalValueReference = {
     sql: string;
 };
 export interface TemporalFormatReference {
-    operation?: "to-char" | "date-trunc" | "date-bin" | "date-trunc-bin-equal" | "at-time-zone" | "make-timestamptz" | "date-add" | "date-subtract" | "to-timestamp" | "generate-series-timestamptz";
+    operation?: "to-char" | "date-trunc" | "date-bin" | "date-trunc-bin-equal" | "at-time-zone" | "make-timestamptz" | "date-add" | "date-subtract" | "to-timestamp" | "to-timestamp-format" | "generate-series-timestamptz" | "justify-days" | "justify-hours" | "justify-interval" | "age";
     start: number;
     end: number;
     format?: string;
@@ -1463,7 +1496,7 @@ export interface MergeSourceRelationPlan {
 }
 export interface MergeSourceTypeHint {
     type?: string;
-    aggregate?: "count" | "sum";
+    aggregate?: "count" | "sum" | "avg" | "min" | "max" | "stddev" | "variance";
     relationPhysicalName?: string;
     relationStarPhysicalName?: string;
     relationStarExcludedColumns?: string[];
@@ -1473,6 +1506,10 @@ export interface MergeSourceTypeHint {
     commonTypes?: MergeSourceTypeHint[];
 }
 export type SemanticCommand = OperatorTypeCommand | TextSearchCommand | {
+    kind: "provider-noop";
+    command: "ALTER TABLE";
+    reason: "without-oids" | "column-storage" | "heap-access-method";
+} | {
     kind: "event-trigger-transition";
     action: "ddl-commands" | "dropped-objects";
 } | {
@@ -1957,6 +1994,7 @@ export type SemanticCommand = OperatorTypeCommand | TextSearchCommand | {
     tablePhysicalName: string;
     triggerName: string;
     enabled: boolean;
+    all?: boolean;
 } | {
     kind: "row-security";
     action: "enable" | "disable" | "force" | "no-force" | "create-policy" | "alter-policy" | "drop-policy";

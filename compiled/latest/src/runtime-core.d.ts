@@ -268,6 +268,7 @@ export declare class EdgePgRuntime {
     private prepareTransactionTriggers;
     private prepareRuleExecution;
     private hasTriggerPrograms;
+    private triggerAllIsAutocommitNoop;
     private hasCustomTypeColumns;
     private customTypeWritesTouchCustomColumns;
     private builtinJsonbOperatorsRequireRewrite;

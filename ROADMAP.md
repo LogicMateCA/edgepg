@@ -94,6 +94,7 @@ Work advances by semantic cluster. Each completed cluster creates one consolidat
 | `0.8.1-rc.20` | Nullable prepared JOIN and CASE ordering admission | ✅ |
 | `0.8.2` | Retained Web/Auth/ORM/migration compatibility release | ✅ |
 | `0.8.3` | Unified row-lock identity, retained catalog reconciliation and source-aware DML release | ✅ |
+| `0.8.4` | Official-gap, typed/LIKE DDL, NULL ordering and bounded TRIGGER ALL release | ✅ |
 | Next stable line | Official-file refresh and remaining safe capability-proof families | 🟨 |
 
 Documentation-only updates do not change an existing package identity. A new RC is created only when the product package changes.
