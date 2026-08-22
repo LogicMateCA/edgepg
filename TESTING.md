@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public release: `edgepg@0.8.2`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public release: `edgepg@0.8.3`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,16 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## 0.8.3 final release gate
+
+- Exact artifact identity: product `5a0afa35f6e0892145b03e2fc8a02f1b22d0d8b8`, TGZ SHA-256 `1266a3b0aafcd13b2fbb1c517c729771bc2059f69b40bdaf37326c2dff7ab61f`, source fingerprint `af2c85c1c78fe01c3c5fa455207e405522932b192aa9787539635894a344df04`.
+- Real Cloudflare rc.20→0.8.3 retained upgrade, two application Workers, cross-session transaction-created relation and `information_schema.columns` visibility, plus restart persistence passed.
+- Ordinary, joined, non-primary-key, composite-primary-key and duplicate no-primary-key row locks shared one namespace with prepared UPDATE/DELETE; `NOWAIT` returned `55P03` and rollback, commit and real closeSession released locks.
+- `FOR UPDATE OF` alias scoping passed; unsupported outer-join locking returned fail-closed `0A000`.
+- Explicit-transaction `UPDATE ... FROM` and `DELETE ... USING` rollback/commit and source-column RETURNING OIDs `[23,25,23,23]` passed.
+- Retained CHECK no-op/enforcement, stale `pg_index`/`pg_indexes` repair, Better Auth 1.7, Auth.js, Drizzle, Prisma, node-postgres, migration, RPC, Connector and concurrency passed.
+- Temporary Workers, D1, Durable Objects and R2 resources were removed and API absence confirmed.
 
 ## 0.8.2 final release gate
 

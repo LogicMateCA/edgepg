@@ -6,6 +6,7 @@ export declare class BuiltinInputError extends Error {
 }
 export type MacAddressKind = "macaddr" | "macaddr8";
 export type NetworkAddressKind = "inet" | "cidr";
+export declare function canonicalJsonInput(value: unknown): string | null;
 export declare function canonicalNetworkAddressInput(value: unknown, kind: NetworkAddressKind): string | null;
 export declare function canonicalMacAddressInput(value: unknown, kind: MacAddressKind): string | null;
 export declare function macAddressTrunc(value: unknown, kind: MacAddressKind): string | null;
