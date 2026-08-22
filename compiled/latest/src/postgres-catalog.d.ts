@@ -14,6 +14,8 @@ export declare function installPostgresCatalog(database: D1Database, options?: {
     validate?: boolean;
 }): Promise<void>;
 export declare function informationSchemaColumnsViewSql(): string;
+export declare function informationSchemaViewsViewSql(): string;
+export declare function pgSequencesViewSql(): string;
 export declare function pgAttributeDefaultViewSql(): string;
 export declare function postgresCatalogDefaultExpressionSql(expression: string, pgTypeExpression?: string): string;
 export declare function informationSchemaColumnsBodySql(): string;

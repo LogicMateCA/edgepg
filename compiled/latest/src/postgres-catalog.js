@@ -1,4 +1,4 @@
-import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema as K}from"./roles";import{ensureCustomTypeCatalogSchema as He}from"./custom-types";import{ensureRowSecuritySchema as Q}from"./row-security";import{ensureTableConstraintSchema as re}from"./table-constraints";import{ensureMaterializedViewSchema as Re}from"./materialized-views";import{ensureEventTriggerSchema as je,pgEventTriggerDependUnionSql as fe,pgEventTriggerSharedDependUnionSql as he,pgEventTriggerViewSql as Ie}from"./event-triggers";import{compactViewDefinition as le}from"./view-definitions";import{ensureDefaultPrivilegeSchema as We}from"./default-privileges";import{ensureAggregateCatalogSchema as De}from"./aggregates";import{ensureOperatorTypeCatalogSchema as we,operatorTypeCatalogViewSql as Ue}from"./operator-types";import{ensureCollationSchema as ve}from"./collations";import{ensureTextSearchCatalogSchema as Me,textSearchCatalogViewSql as Fe}from"./text-search";import{conversionCatalogViewSql as $e,conversionDependencyUnionSql as xe,conversionSharedDependViewSql as Xe,ensureConversionCatalogSchema as Je}from"./conversions";import{ensureSequenceDefaultsSchema as pe,ensureSequenceSchema as ce}from"./sequences";import{d1CacheKey as f}from"./d1-cache-key";import{PG18_TYPE_IO_CATALOG_ROWS as qe,PG18_TYPE_IO_PROC_ROWS as Be}from"./postgres-builtins";const X=32,F=3e8,me=6e8,Z=6e4,Ge=12e4,ke=125e3,Pe=50,ge=`CREATE INDEX IF NOT EXISTS __edgepg_pg_tables_table_name
+import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema as K}from"./roles";import{ensureCustomTypeCatalogSchema as He}from"./custom-types";import{ensureRowSecuritySchema as Q}from"./row-security";import{ensureTableConstraintSchema as re}from"./table-constraints";import{ensureMaterializedViewSchema as Re}from"./materialized-views";import{ensureEventTriggerSchema as je,pgEventTriggerDependUnionSql as fe,pgEventTriggerSharedDependUnionSql as he,pgEventTriggerViewSql as Ie}from"./event-triggers";import{compactViewDefinition as le}from"./view-definitions";import{ensureDefaultPrivilegeSchema as We}from"./default-privileges";import{ensureAggregateCatalogSchema as De}from"./aggregates";import{ensureOperatorTypeCatalogSchema as we,operatorTypeCatalogViewSql as Ue}from"./operator-types";import{ensureCollationSchema as ve}from"./collations";import{ensureTextSearchCatalogSchema as Me,textSearchCatalogViewSql as Fe}from"./text-search";import{conversionCatalogViewSql as $e,conversionDependencyUnionSql as xe,conversionSharedDependViewSql as Xe,ensureConversionCatalogSchema as qe}from"./conversions";import{ensureSequenceDefaultsSchema as pe,ensureSequenceSchema as ce}from"./sequences";import{d1CacheKey as f}from"./d1-cache-key";import{PG18_TYPE_IO_CATALOG_ROWS as Je,PG18_TYPE_IO_PROC_ROWS as Be}from"./postgres-builtins";const X=33,F=3e8,me=6e8,Z=6e4,Ge=12e4,ke=125e3,Pe=50,ge=`CREATE INDEX IF NOT EXISTS __edgepg_pg_tables_table_name
   ON __edgepg_pg_tables(table_name, schema_name)`,ee=`CREATE TABLE IF NOT EXISTS __edgepg_pg_objects (
   phase TEXT NOT NULL CHECK (phase IN ('pre_data', 'post_data')),
   kind TEXT NOT NULL,
@@ -18,7 +18,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
   index_nulls_not_distinct INTEGER NOT NULL DEFAULT 0,
   ordinal INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (phase, kind, schema_name, object_name)
-)`,Ne=[["dependencies_json","dependencies_json TEXT NOT NULL DEFAULT '[]'"],["routine_dependencies_json","routine_dependencies_json TEXT NOT NULL DEFAULT '[]'"],["view_definition","view_definition TEXT"],["compact_view_definition","compact_view_definition TEXT"],["relation_oid","relation_oid INTEGER"],["owner_name","owner_name TEXT NOT NULL DEFAULT 'edgepg'"],["relation_natts","relation_natts INTEGER NOT NULL DEFAULT 0"],["relation_pg_types_json","relation_pg_types_json TEXT NOT NULL DEFAULT '[]'"],["relation_collations_json","relation_collations_json TEXT NOT NULL DEFAULT '[]'"],["reloptions_json","reloptions_json TEXT NOT NULL DEFAULT '[]'"],["index_nulls_not_distinct","index_nulls_not_distinct INTEGER NOT NULL DEFAULT 0"]],h=new WeakSet,b=new WeakMap,A=new WeakSet,T=new WeakSet,u=new WeakSet,H=new WeakMap,$=new WeakMap;function Vn(e){const n=f(e);return T.has(n)&&u.has(n)}async function Ve(e,n={}){const t=f(e);if(T.has(t)){if(!n.validate&&G(H,t))return;if(await J(e,"__edgepg_pg_tables")){H.set(t,Date.now());return}B(e)}if(await Qe(e)){T.add(t),H.set(t,Date.now());return}if(await J(e,"__edgepg_pg_tables")){await Ye(e,{views:!1}),T.add(t),H.set(t,Date.now());return}n.roleSchemaReady||await K(e),await re(e),await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_pg_tables (
+)`,Ne=[["dependencies_json","dependencies_json TEXT NOT NULL DEFAULT '[]'"],["routine_dependencies_json","routine_dependencies_json TEXT NOT NULL DEFAULT '[]'"],["view_definition","view_definition TEXT"],["compact_view_definition","compact_view_definition TEXT"],["relation_oid","relation_oid INTEGER"],["owner_name","owner_name TEXT NOT NULL DEFAULT 'edgepg'"],["relation_natts","relation_natts INTEGER NOT NULL DEFAULT 0"],["relation_pg_types_json","relation_pg_types_json TEXT NOT NULL DEFAULT '[]'"],["relation_collations_json","relation_collations_json TEXT NOT NULL DEFAULT '[]'"],["reloptions_json","reloptions_json TEXT NOT NULL DEFAULT '[]'"],["index_nulls_not_distinct","index_nulls_not_distinct INTEGER NOT NULL DEFAULT 0"]],h=new WeakSet,b=new WeakMap,A=new WeakSet,d=new WeakSet,u=new WeakSet,H=new WeakMap,$=new WeakMap;function zn(e){const n=f(e);return d.has(n)&&u.has(n)}async function Ve(e,n={}){const t=f(e);if(d.has(t)){if(!n.validate&&G(H,t))return;if(await q(e,"__edgepg_pg_tables")){H.set(t,Date.now());return}B(e)}if(await Qe(e)){d.add(t),H.set(t,Date.now());return}if(await q(e,"__edgepg_pg_tables")){await Ye(e,{views:!1}),d.add(t),H.set(t,Date.now());return}n.roleSchemaReady||await K(e),await re(e),await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_pg_tables (
       relation_oid INTEGER UNIQUE,
       schema_name TEXT NOT NULL,
       table_name TEXT NOT NULL,
@@ -65,13 +65,13 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
         UPDATE __edgepg_pg_tables SET relation_oid=(SELECT next_oid FROM __edgepg_oid_allocator WHERE id=1)
           WHERE schema_name=NEW.schema_name AND table_name=NEW.table_name;
         UPDATE __edgepg_oid_allocator SET next_oid=next_oid+1 WHERE id=1;
-      END`),...k(e,"postgres-catalog-table-storage")]),T.add(t),H.set(t,Date.now())}async function Yn(e,n={}){const t=f(e);if(u.has(t)){if(!n.validate&&G($,t))return;if(await q(e)){y(t);return}B(e)}if(A.has(t)||await ne(e)){await Ae(e),A.add(t),T.add(t),u.add(t),y(t);return}await Ve(e,n),await Ae(e),u.add(t),y(t)}async function Ye(e,n={}){const t=f(e),a=n.views!==!1;if(!(a&&h.has(t)&&!n.validate&&Date.now()-(b.get(t)||0)<Z)&&!(!a&&A.has(t)&&!n.validate&&G($,t))){if(!n.validate&&a&&await Se(e)){h.add(t),b.set(t,Date.now()),A.add(t),T.add(t),u.add(t),y(t);return}if(!n.validate&&!a&&await ne(e)){A.add(t),T.add(t),u.add(t),y(t);return}await Ke(e,()=>ze(e,n))}}async function ze(e,n={}){const t=f(e),a=n.views!==!1;if(a&&h.has(t)){const c=b.get(t)||0;if(!n.validate&&Date.now()-c<Z)return;if(await Q(e),await de(e)){b.set(t,Date.now());return}B(e)}if(a&&(await Q(e),await ce(e),await pe(e),await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_table_inheritance (
+      END`),...k(e,"postgres-catalog-table-storage")]),d.add(t),H.set(t,Date.now())}async function Kn(e,n={}){const t=f(e);if(u.has(t)){if(!n.validate&&G($,t))return;if(await J(e)){y(t);return}B(e)}if(A.has(t)||await ne(e)){await Ae(e),A.add(t),d.add(t),u.add(t),y(t);return}await Ve(e,n),await Ae(e),u.add(t),y(t)}async function Ye(e,n={}){const t=f(e),a=n.views!==!1;if(!(a&&h.has(t)&&!n.validate&&Date.now()-(b.get(t)||0)<Z)&&!(!a&&A.has(t)&&!n.validate&&G($,t))){if(!n.validate&&a&&await Se(e)){h.add(t),b.set(t,Date.now()),A.add(t),d.add(t),u.add(t),y(t);return}if(!n.validate&&!a&&await ne(e)){A.add(t),d.add(t),u.add(t),y(t);return}await Ke(e,()=>ze(e,n))}}async function ze(e,n={}){const t=f(e),a=n.views!==!1;if(a&&h.has(t)){const c=b.get(t)||0;if(!n.validate&&Date.now()-c<Z)return;if(await Q(e),await Te(e)){b.set(t,Date.now());return}B(e)}if(a&&(await Q(e),await ce(e),await pe(e),await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_table_inheritance (
         child_physical_name TEXT NOT NULL,parent_physical_name TEXT NOT NULL,
         child_schema_name TEXT NOT NULL,child_table_name TEXT NOT NULL,
         parent_schema_name TEXT NOT NULL,parent_table_name TEXT NOT NULL,
         inherited_columns_json TEXT NOT NULL,local_columns_json TEXT NOT NULL,
         ordinal INTEGER NOT NULL,PRIMARY KEY(child_physical_name,parent_physical_name))`),e.prepare(`CREATE INDEX IF NOT EXISTS __edgepg_table_inheritance_parent
-        ON __edgepg_table_inheritance(parent_physical_name,ordinal)`)])),a&&await Se(e)){h.add(t),b.set(t,Date.now()),A.add(t),T.add(t),u.add(t),y(t);return}const o=A.has(t)?!a&&!n.validate&&G($,t)?!0:await q(e):await ne(e);if(A.has(t)&&!o&&B(e),!a&&o){A.add(t),T.add(t),u.add(t),y(t);return}if(o)A.add(t),T.add(t),u.add(t);else{await K(e),await We(e),await He(e),await Q(e),await re(e),await De(e),await we(e),await ve(e),await Me(e),await Je(e),await ce(e),await pe(e),await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_pg_tables (
+        ON __edgepg_table_inheritance(parent_physical_name,ordinal)`)])),a&&await Se(e)){h.add(t),b.set(t,Date.now()),A.add(t),d.add(t),u.add(t),y(t);return}const o=A.has(t)?!a&&!n.validate&&G($,t)?!0:await J(e):await ne(e);if(A.has(t)&&!o&&B(e),!a&&o){A.add(t),d.add(t),u.add(t),y(t);return}if(o)A.add(t),d.add(t),u.add(t);else{await K(e),await We(e),await He(e),await Q(e),await re(e),await De(e),await we(e),await ve(e),await Me(e),await qe(e),await ce(e),await pe(e),await e.batch([e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_pg_tables (
       relation_oid INTEGER UNIQUE,
       schema_name TEXT NOT NULL,
       table_name TEXT NOT NULL,
@@ -197,10 +197,10 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       name TEXT PRIMARY KEY,base_language TEXT NOT NULL CHECK(base_language IN ('sql','plpgsql')),
       trusted INTEGER NOT NULL,definition TEXT NOT NULL,updated_at TEXT NOT NULL)`),e.prepare(`INSERT OR IGNORE INTO __edgepg_languages VALUES
       ('sql','sql',1,'CREATE LANGUAGE sql',CURRENT_TIMESTAMP)`),e.prepare(`INSERT OR IGNORE INTO __edgepg_languages VALUES
-      ('plpgsql','plpgsql',1,'CREATE LANGUAGE plpgsql',CURRENT_TIMESTAMP)`)]);const c=await e.prepare("PRAGMA table_info('__edgepg_pg_tables')").all();c.results.some(_=>_.name==="relation_oid")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN relation_oid INTEGER").run(),c.results.some(_=>_.name==="alterations_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN alterations_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="shape_changes_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN shape_changes_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="current_columns_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_columns_json TEXT").run(),c.results.some(_=>_.name==="current_pg_types_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_pg_types_json TEXT").run(),c.results.some(_=>_.name==="current_attnums_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_attnums_json TEXT").run(),c.results.some(_=>_.name==="max_attnum")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN max_attnum INTEGER NOT NULL DEFAULT 0").run(),c.results.some(_=>_.name==="current_not_null_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_not_null_json TEXT").run(),c.results.some(_=>_.name==="current_defaults_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_defaults_json TEXT").run(),c.results.some(_=>_.name==="generated_columns_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN generated_columns_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="persistence")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN persistence TEXT NOT NULL DEFAULT 'permanent'").run(),c.results.some(_=>_.name==="reloptions_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN reloptions_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="replica_identity")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN replica_identity TEXT NOT NULL DEFAULT 'd'").run(),c.results.some(_=>_.name==="foreign_server_name")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN foreign_server_name TEXT").run(),c.results.some(_=>_.name==="foreign_options_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN foreign_options_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="foreign_column_options_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN foreign_column_options_json TEXT NOT NULL DEFAULT '{}'").run();const R=await e.prepare("PRAGMA table_info('__edgepg_pg_objects')").all();await Te(e,"__edgepg_pg_objects",R.results,Ne);const j=(await e.prepare(`SELECT phase,schema_name,object_name,view_definition
+      ('plpgsql','plpgsql',1,'CREATE LANGUAGE plpgsql',CURRENT_TIMESTAMP)`)]);const c=await e.prepare("PRAGMA table_info('__edgepg_pg_tables')").all();c.results.some(_=>_.name==="relation_oid")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN relation_oid INTEGER").run(),c.results.some(_=>_.name==="alterations_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN alterations_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="shape_changes_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN shape_changes_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="current_columns_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_columns_json TEXT").run(),c.results.some(_=>_.name==="current_pg_types_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_pg_types_json TEXT").run(),c.results.some(_=>_.name==="current_attnums_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_attnums_json TEXT").run(),c.results.some(_=>_.name==="max_attnum")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN max_attnum INTEGER NOT NULL DEFAULT 0").run(),c.results.some(_=>_.name==="current_not_null_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_not_null_json TEXT").run(),c.results.some(_=>_.name==="current_defaults_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN current_defaults_json TEXT").run(),c.results.some(_=>_.name==="generated_columns_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN generated_columns_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="persistence")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN persistence TEXT NOT NULL DEFAULT 'permanent'").run(),c.results.some(_=>_.name==="reloptions_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN reloptions_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="replica_identity")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN replica_identity TEXT NOT NULL DEFAULT 'd'").run(),c.results.some(_=>_.name==="foreign_server_name")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN foreign_server_name TEXT").run(),c.results.some(_=>_.name==="foreign_options_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN foreign_options_json TEXT NOT NULL DEFAULT '[]'").run(),c.results.some(_=>_.name==="foreign_column_options_json")||await e.prepare("ALTER TABLE __edgepg_pg_tables ADD COLUMN foreign_column_options_json TEXT NOT NULL DEFAULT '{}'").run();const R=await e.prepare("PRAGMA table_info('__edgepg_pg_objects')").all();await de(e,"__edgepg_pg_objects",R.results,Ne);const j=(await e.prepare(`SELECT phase,schema_name,object_name,view_definition
     FROM __edgepg_pg_objects WHERE kind='view' AND view_definition IS NOT NULL
       AND compact_view_definition IS NULL`).all()).results;for(const _ of j)await e.prepare(`UPDATE __edgepg_pg_objects
-    SET compact_view_definition=?4 WHERE phase=?1 AND kind='view' AND schema_name=?2 AND object_name=?3`).bind(_.phase,_.schema_name,_.object_name,le(_.view_definition)).run();await Hn(e),await e.prepare(`UPDATE __edgepg_pg_tables SET relation_oid=16383+ordinal
+    SET compact_view_definition=?4 WHERE phase=?1 AND kind='view' AND schema_name=?2 AND object_name=?3`).bind(_.phase,_.schema_name,_.object_name,le(_.view_definition)).run();await jn(e),await e.prepare(`UPDATE __edgepg_pg_tables SET relation_oid=16383+ordinal
     WHERE relation_oid IS NULL`).run(),await e.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS __edgepg_pg_tables_relation_oid
     ON __edgepg_pg_tables(relation_oid)`).run(),await e.prepare(ge).run(),await e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_oid_allocator (
     id INTEGER PRIMARY KEY CHECK(id=1), next_oid INTEGER NOT NULL)`).run(),await e.prepare(`INSERT OR IGNORE INTO __edgepg_oid_allocator(id,next_oid)
@@ -238,7 +238,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     options_json TEXT NOT NULL DEFAULT '[]',
     definition TEXT NOT NULL,
     updated_at TEXT NOT NULL,
-    PRIMARY KEY(object_type,name))`).run();const v=await e.prepare("PRAGMA table_info('__edgepg_catalog_objects')").all();v.results.some(_=>_.name==="owner_name")||await e.prepare("ALTER TABLE __edgepg_catalog_objects ADD COLUMN owner_name TEXT NOT NULL DEFAULT 'edgepg'").run(),v.results.some(_=>_.name==="fdw_name")||await e.prepare("ALTER TABLE __edgepg_catalog_objects ADD COLUMN fdw_name TEXT").run(),v.results.some(_=>_.name==="options_json")||await e.prepare("ALTER TABLE __edgepg_catalog_objects ADD COLUMN options_json TEXT NOT NULL DEFAULT '[]'").run(),(await e.prepare("PRAGMA table_info('__edgepg_pg_extensions')").all()).results.some(_=>_.name==="owner_name")||await e.prepare("ALTER TABLE __edgepg_pg_extensions ADD COLUMN owner_name TEXT NOT NULL DEFAULT 'edgepg'").run(),await Ze(e),A.add(t),T.add(t),u.add(t)}if(!a)return;await I(e,["pg_catalog__pg_class","pg_catalog__pg_inherits","pg_catalog__pg_partitioned_table","pg_catalog__pg_sequence","pg_catalog__pg_namespace","pg_catalog__pg_type","pg_catalog__pg_enum","pg_catalog__pg_depend","pg_catalog__pg_depend_base","pg_catalog__pg_event_trigger","pg_catalog__pg_conversion","pg_catalog__pg_shdepend","pg_catalog__pg_rewrite","pg_catalog__pg_range","pg_catalog__pg_statistic_ext","pg_catalog__pg_transform","pg_catalog__pg_index","pg_catalog__pg_indexes","pg_catalog__pg_attribute","pg_catalog__pg_attrdef","pg_catalog__pg_constraint","pg_catalog__pg_am","pg_catalog__pg_operator","pg_catalog__pg_opfamily","pg_catalog__pg_opclass","pg_catalog__pg_amop","pg_catalog__pg_amproc","pg_catalog__pg_cast","pg_catalog__pg_collation","pg_catalog__pg_ts_parser","pg_catalog__pg_ts_template","pg_catalog__pg_ts_dict","pg_catalog__pg_ts_config","pg_catalog__pg_ts_config_map","pg_catalog__pg_description","pg_catalog__pg_seclabels","pg_catalog__pg_seclabel","pg_catalog__pg_extension","pg_catalog__pg_publication","pg_catalog__pg_publication_tables","pg_catalog__pg_subscription","pg_catalog__pg_authid","pg_catalog__pg_roles","pg_catalog__pg_auth_members","pg_catalog__pg_database","pg_catalog__pg_tablespace","pg_catalog__pg_foreign_data_wrapper","pg_catalog__pg_foreign_server","pg_catalog__pg_user_mappings","pg_catalog__pg_user_mapping","pg_catalog__pg_foreign_table","pg_catalog__pg_db_role_setting","pg_catalog__pg_parameter_acl","pg_catalog__pg_default_acl","pg_catalog__pg_proc","pg_catalog__pg_aggregate","pg_catalog__pg_policies","pg_catalog__pg_matviews","information_schema__tables","information_schema__columns","information_schema__sequences","information_schema__schemata","information_schema__role_table_grants","information_schema__table_privileges","information_schema__role_column_grants","information_schema__column_privileges","information_schema__table_constraints","information_schema__key_column_usage"].map(c=>e.prepare(`DROP VIEW IF EXISTS ${c}`))),await I(e,[e.prepare(sn()),e.prepare(En()),e.prepare(rn()),e.prepare(Ie()),e.prepare(ln())]),await e.prepare(`CREATE VIEW pg_catalog__pg_class AS
+    PRIMARY KEY(object_type,name))`).run();const v=await e.prepare("PRAGMA table_info('__edgepg_catalog_objects')").all();v.results.some(_=>_.name==="owner_name")||await e.prepare("ALTER TABLE __edgepg_catalog_objects ADD COLUMN owner_name TEXT NOT NULL DEFAULT 'edgepg'").run(),v.results.some(_=>_.name==="fdw_name")||await e.prepare("ALTER TABLE __edgepg_catalog_objects ADD COLUMN fdw_name TEXT").run(),v.results.some(_=>_.name==="options_json")||await e.prepare("ALTER TABLE __edgepg_catalog_objects ADD COLUMN options_json TEXT NOT NULL DEFAULT '[]'").run(),(await e.prepare("PRAGMA table_info('__edgepg_pg_extensions')").all()).results.some(_=>_.name==="owner_name")||await e.prepare("ALTER TABLE __edgepg_pg_extensions ADD COLUMN owner_name TEXT NOT NULL DEFAULT 'edgepg'").run(),await Ze(e),A.add(t),d.add(t),u.add(t)}if(!a)return;await I(e,["pg_catalog__pg_class","pg_catalog__pg_inherits","pg_catalog__pg_partitioned_table","pg_catalog__pg_sequence","pg_catalog__pg_sequences","pg_catalog__pg_namespace","pg_catalog__pg_type","pg_catalog__pg_enum","pg_catalog__pg_depend","pg_catalog__pg_depend_base","pg_catalog__pg_event_trigger","pg_catalog__pg_conversion","pg_catalog__pg_shdepend","pg_catalog__pg_rewrite","pg_catalog__pg_range","pg_catalog__pg_statistic_ext","pg_catalog__pg_transform","pg_catalog__pg_index","pg_catalog__pg_indexes","pg_catalog__pg_attribute","pg_catalog__pg_attrdef","pg_catalog__pg_constraint","pg_catalog__pg_am","pg_catalog__pg_operator","pg_catalog__pg_opfamily","pg_catalog__pg_opclass","pg_catalog__pg_amop","pg_catalog__pg_amproc","pg_catalog__pg_cast","pg_catalog__pg_collation","pg_catalog__pg_ts_parser","pg_catalog__pg_ts_template","pg_catalog__pg_ts_dict","pg_catalog__pg_ts_config","pg_catalog__pg_ts_config_map","pg_catalog__pg_description","pg_catalog__pg_seclabels","pg_catalog__pg_seclabel","pg_catalog__pg_extension","pg_catalog__pg_publication","pg_catalog__pg_publication_tables","pg_catalog__pg_subscription","pg_catalog__pg_authid","pg_catalog__pg_roles","pg_catalog__pg_auth_members","pg_catalog__pg_database","pg_catalog__pg_tablespace","pg_catalog__pg_foreign_data_wrapper","pg_catalog__pg_foreign_server","pg_catalog__pg_user_mappings","pg_catalog__pg_user_mapping","pg_catalog__pg_foreign_table","pg_catalog__pg_db_role_setting","pg_catalog__pg_parameter_acl","pg_catalog__pg_default_acl","pg_catalog__pg_proc","pg_catalog__pg_aggregate","pg_catalog__pg_policies","pg_catalog__pg_matviews","information_schema__tables","information_schema__views","information_schema__columns","information_schema__sequences","information_schema__schemata","information_schema__role_table_grants","information_schema__table_privileges","information_schema__role_column_grants","information_schema__column_privileges","information_schema__table_constraints","information_schema__key_column_usage"].map(c=>e.prepare(`DROP VIEW IF EXISTS ${c}`))),await I(e,[e.prepare(rn()),e.prepare(ln()),e.prepare(pn()),e.prepare(Ie()),e.prepare(cn())]),await e.prepare(`CREATE VIEW pg_catalog__pg_class AS
     SELECT tables.relation_oid AS oid, tables.table_name AS relname, schemas.oid AS relnamespace,
       ${F}+tables.relation_oid AS reltype,
       COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=owner.owner_name),10) AS relowner,
@@ -333,7 +333,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CAST(start_value AS TEXT) AS seqstart,CAST(increment_value AS TEXT) AS seqincrement,
       CAST(max_value AS TEXT) AS seqmax,CAST(min_value AS TEXT) AS seqmin,
       CAST(cache_value AS TEXT) AS seqcache,cycle AS seqcycle
-    FROM __edgepg_sequences`).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_rewrite AS
+    FROM __edgepg_sequences`).run(),await e.prepare(an()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_rewrite AS
     SELECT rules.rowid+33000 AS oid,
       rules.rule_name AS rulename,
       tables.relation_oid AS ev_class,
@@ -380,7 +380,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CASE WHEN EXISTS (SELECT 1 FROM sqlite_master AS object
         WHERE object.type='index' AND object.tbl_name=materialized.name) THEN 1 ELSE 0 END AS hasindexes,
       materialized.populated AS ispopulated,materialized.definition_compact_sql AS definition
-    FROM __edgepg_materialized_views AS materialized WHERE materialized.relation_name<>''`).run(),await e.prepare(Ln()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_enum AS
+    FROM __edgepg_materialized_views AS materialized WHERE materialized.relation_name<>''`).run(),await e.prepare(yn()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_enum AS
     SELECT identities.oid * 1000 + CAST(label.key AS INTEGER) + 1 AS oid,
       identities.oid AS enumtypid,
       CAST(COALESCE(json_extract(types.sort_orders_json,'$[' || label.key || ']'),
@@ -473,7 +473,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       FROM __edgepg_operator_type_dependencies
     )`).run(),await I(e,[e.prepare(`CREATE VIEW pg_catalog__pg_depend AS
       SELECT * FROM pg_catalog__pg_depend_base
-      ${fe()}`),e.prepare($e()),e.prepare(Xe(he()))]),await e.prepare(On()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_index AS
+      ${fe()}`),e.prepare($e()),e.prepare(Xe(he()))]),await e.prepare(Cn()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_index AS
     SELECT tables.relation_oid AS indrelid,80000+unique_constraint.rowid AS indexrelid,
       CASE unique_constraint.kind WHEN 'primary' THEN 1 ELSE 0 END AS indisprimary,
       1 AS indisunique,0 AS indisclustered,1 AS indisvalid,1 AS indisready,
@@ -505,7 +505,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     FROM __edgepg_pg_objects AS object
     JOIN json_each(object.dependencies_json) AS dependency
     JOIN __edgepg_pg_tables AS tables ON tables.physical_name=CAST(dependency.value AS TEXT)
-    WHERE object.kind='index' AND object.relation_oid IS NOT NULL`).run(),await e.prepare(bn()).run();const l=D("pg_type.value"),s=W(l),m=oe("pg_type.value"),g=ae("type_catalog"),E=D("COALESCE(json_extract(object.relation_pg_types_json, '$[' || view_column.cid || ']'), view_column.type)"),i=W(E),r=ae("view_type_catalog"),L=D("index_pg_type.value"),C=W(L),N=ae("index_type_catalog");await e.prepare(`CREATE VIEW pg_catalog__pg_attribute AS
+    WHERE object.kind='index' AND object.relation_oid IS NOT NULL`).run(),await e.prepare(Rn()).run();const l=D("pg_type.value"),s=W(l),m=oe("pg_type.value"),g=ae("type_catalog"),E=D("COALESCE(json_extract(object.relation_pg_types_json, '$[' || view_column.cid || ']'), view_column.type)"),i=W(E),r=ae("view_type_catalog"),L=D("index_pg_type.value"),C=W(L),N=ae("index_type_catalog");await e.prepare(`CREATE VIEW pg_catalog__pg_attribute AS
     SELECT tables.relation_oid AS attrelid,
       COALESCE(CAST(json_extract(tables.current_attnums_json, '$[' || column_name.key || ']') AS INTEGER),
         CAST(column_name.key AS INTEGER)+1) AS attnum,
@@ -581,7 +581,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     JOIN json_each(COALESCE(tables.current_pg_types_json,tables.pg_types_json)) AS index_pg_type
       ON index_pg_type.key=table_column.key
     LEFT JOIN pg_catalog__pg_type AS index_type_catalog ON index_type_catalog.oid=${C}
-    WHERE object.kind='index' AND object.relation_oid IS NOT NULL AND index_column.name IS NOT NULL`).run(),await e.prepare(tn()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_constraint AS
+    WHERE object.kind='index' AND object.relation_oid IS NOT NULL AND index_column.name IS NOT NULL`).run(),await e.prepare(_n()).run(),await e.prepare(`CREATE VIEW pg_catalog__pg_constraint AS
     SELECT 30000 + row_number() OVER (ORDER BY unique_constraint.table_name, unique_constraint.constraint_name) AS oid,
       unique_constraint.constraint_name AS conname,
       CASE unique_constraint.kind WHEN 'primary' THEN 'p' ELSE 'u' END AS contype,
@@ -647,7 +647,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       not_null_constraint.is_local,0,not_null_constraint.inherited_count,0,2606
     FROM __edgepg_not_null_constraints AS not_null_constraint
     JOIN __edgepg_pg_tables AS tables ON tables.physical_name=not_null_constraint.table_name
-    JOIN __edgepg_schemas AS schemas ON schemas.name=tables.schema_name`).run();const d=Ue();await I(e,[e.prepare(d.pgAm),e.prepare(d.pgOperator),e.prepare(d.pgOpfamily),e.prepare(d.pgOpclass),e.prepare(d.pgAmop),e.prepare(d.pgAmproc),e.prepare(d.pgCast),e.prepare(d.pgCollation)]);const S=Fe();await I(e,[e.prepare(S.pgTsParser),e.prepare(S.pgTsTemplate),e.prepare(S.pgTsDict),e.prepare(S.pgTsConfig),e.prepare(S.pgTsConfigMap)]),await e.prepare(`CREATE VIEW pg_catalog__pg_description AS
+    JOIN __edgepg_schemas AS schemas ON schemas.name=tables.schema_name`).run();const T=Ue();await I(e,[e.prepare(T.pgAm),e.prepare(T.pgOperator),e.prepare(T.pgOpfamily),e.prepare(T.pgOpclass),e.prepare(T.pgAmop),e.prepare(T.pgAmproc),e.prepare(T.pgCast),e.prepare(T.pgCollation)]);const S=Fe();await I(e,[e.prepare(S.pgTsParser),e.prepare(S.pgTsTemplate),e.prepare(S.pgTsDict),e.prepare(S.pgTsConfig),e.prepare(S.pgTsConfigMap)]),await e.prepare(`CREATE VIEW pg_catalog__pg_description AS
     SELECT objoid,classoid,objsubid,description FROM (
       SELECT comments.comment AS description,
         CASE comments.object_type
@@ -921,7 +921,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       version AS extversion,
       NULL AS extconfig,
       NULL AS extcondition
-    FROM __edgepg_pg_extensions`).run(),await e.prepare(cn()).run(),await e.prepare(mn()).run(),await e.prepare(gn()).run(),await I(e,[e.prepare(pn()),e.prepare(Nn()),e.prepare(Sn()),e.prepare(dn()),e.prepare(Tn()),e.prepare(An()),e.prepare(un())]),await e.prepare(`CREATE VIEW pg_catalog__pg_db_role_setting AS
+    FROM __edgepg_pg_extensions`).run(),await e.prepare(gn()).run(),await e.prepare(Nn()).run(),await e.prepare(Sn()).run(),await I(e,[e.prepare(mn()),e.prepare(Tn()),e.prepare(dn()),e.prepare(An()),e.prepare(un()),e.prepare(Ln()),e.prepare(On())]),await e.prepare(`CREATE VIEW pg_catalog__pg_db_role_setting AS
     SELECT CASE WHEN database_name='' THEN 0 ELSE COALESCE((SELECT oid FROM __edgepg_databases WHERE name=database_name),0) END AS setdatabase,
       CASE WHEN role_name='' THEN 0 ELSE COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=role_name),0) END AS setrole,
       '{' || group_concat(setting_name || '=' || setting_value, ',') || '}' AS setconfig
@@ -948,7 +948,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       upper(command_name) AS cmd, using_expression AS qual, check_expression AS with_check
     FROM __edgepg_policies`).run(),await e.prepare(`CREATE VIEW information_schema__tables AS
     SELECT schema_name AS table_schema, table_name, 'BASE TABLE' AS table_type
-    FROM __edgepg_pg_tables`).run(),await e.prepare(`CREATE VIEW information_schema__role_table_grants AS
+    FROM __edgepg_pg_tables`).run(),await e.prepare(tn()).run(),await e.prepare(`CREATE VIEW information_schema__role_table_grants AS
     SELECT grantor,grantee,'app' AS table_catalog,schema_name AS table_schema,table_name,
       privilege_type,CASE WHEN is_grantable=1 THEN 'YES' ELSE 'NO' END AS is_grantable,
       'NO' AS with_hierarchy FROM __edgepg_table_privileges`).run(),await e.prepare(`CREATE VIEW information_schema__table_privileges AS
@@ -1020,21 +1020,21 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CAST(constraint_column.key AS INTEGER)+1
     FROM __edgepg_foreign_constraints AS foreign_constraint
     JOIN __edgepg_pg_tables AS tables ON tables.physical_name=foreign_constraint.table_name
-    JOIN json_each(foreign_constraint.columns_json) AS constraint_column`).run(),await en(e),h.add(t),b.set(t,Date.now()),A.add(t),T.add(t),u.add(t),y(t)}async function Ke(e,n){const t=crypto.randomUUID(),a=Date.now()+ke;for(await e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_catalog_install_leases (
+    JOIN json_each(foreign_constraint.columns_json) AS constraint_column`).run(),await en(e),h.add(t),b.set(t,Date.now()),A.add(t),d.add(t),u.add(t),y(t)}async function Ke(e,n){const t=crypto.randomUUID(),a=Date.now()+ke;for(await e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_catalog_install_leases (
     name TEXT PRIMARY KEY,owner TEXT NOT NULL,expires_at INTEGER NOT NULL)`).run();;){const o=Date.now();if(await e.prepare(`INSERT INTO __edgepg_catalog_install_leases(name,owner,expires_at)
       VALUES('postgres-catalog',?1,?2)
       ON CONFLICT(name) DO UPDATE SET owner=excluded.owner,expires_at=excluded.expires_at
       WHERE __edgepg_catalog_install_leases.expires_at<=?3`).bind(t,o+Ge,o).run(),(await e.prepare(`SELECT owner FROM __edgepg_catalog_install_leases
       WHERE name='postgres-catalog'`).first())?.owner===t)break;if(o>=a)throw new Error("timed out waiting for PostgreSQL catalog initialization");await new Promise(l=>setTimeout(l,Pe))}try{await n()}finally{await e.prepare(`DELETE FROM __edgepg_catalog_install_leases
       WHERE name='postgres-catalog' AND owner=?1`).bind(t).run()}}async function Se(e){try{const n=await e.prepare(`SELECT schema_version FROM __edgepg_catalog_meta
-      WHERE key='postgres-catalog'`).first();return Number(n?.schema_version||0)===X&&await de(e)}catch(n){if(/no such table:\s*__edgepg_catalog_meta/iu.test(n instanceof Error?n.message:String(n)))return!1;throw n}}async function ne(e){try{const n=await e.prepare(`SELECT key,schema_version FROM __edgepg_catalog_meta
+      WHERE key='postgres-catalog'`).first();return Number(n?.schema_version||0)===X&&await Te(e)}catch(n){if(/no such table:\s*__edgepg_catalog_meta/iu.test(n instanceof Error?n.message:String(n)))return!1;throw n}}async function ne(e){try{const n=await e.prepare(`SELECT key,schema_version FROM __edgepg_catalog_meta
       WHERE key IN ('postgres-catalog','postgres-catalog-storage')
-      ORDER BY CASE key WHEN 'postgres-catalog' THEN 0 ELSE 1 END LIMIT 1`).first();return Number(n?.schema_version||0)===X&&await q(e)}catch(n){if(/no such table:\s*__edgepg_catalog_meta/iu.test(n instanceof Error?n.message:String(n)))return!1;throw n}}async function Qe(e){try{const n=await e.prepare(`SELECT key,schema_version FROM __edgepg_catalog_meta
+      ORDER BY CASE key WHEN 'postgres-catalog' THEN 0 ELSE 1 END LIMIT 1`).first();return Number(n?.schema_version||0)===X&&await J(e)}catch(n){if(/no such table:\s*__edgepg_catalog_meta/iu.test(n instanceof Error?n.message:String(n)))return!1;throw n}}async function Qe(e){try{const n=await e.prepare(`SELECT key,schema_version FROM __edgepg_catalog_meta
       WHERE key IN ('postgres-catalog','postgres-catalog-storage','postgres-catalog-table-storage')
-      ORDER BY CASE key WHEN 'postgres-catalog' THEN 0 WHEN 'postgres-catalog-storage' THEN 1 ELSE 2 END LIMIT 1`).first();return Number(n?.schema_version||0)===X&&await J(e,"__edgepg_pg_tables")}catch(n){if(/no such table:\s*__edgepg_catalog_meta/iu.test(n instanceof Error?n.message:String(n)))return!1;throw n}}async function J(e,n){return!!await e.prepare(`SELECT 1 AS present FROM sqlite_master
+      ORDER BY CASE key WHEN 'postgres-catalog' THEN 0 WHEN 'postgres-catalog-storage' THEN 1 ELSE 2 END LIMIT 1`).first();return Number(n?.schema_version||0)===X&&await q(e,"__edgepg_pg_tables")}catch(n){if(/no such table:\s*__edgepg_catalog_meta/iu.test(n instanceof Error?n.message:String(n)))return!1;throw n}}async function q(e,n){return!!await e.prepare(`SELECT 1 AS present FROM sqlite_master
     WHERE type='table' AND name=?1`).bind(n).first()}async function te(e,n){return!!await e.prepare(`SELECT 1 AS present FROM sqlite_master
-    WHERE type='view' AND name=?1`).bind(n).first()}async function q(e){const n=await e.prepare(`SELECT name FROM sqlite_master
-    WHERE type='table' AND name IN (?1,?2)`).bind("__edgepg_pg_tables","__edgepg_pg_objects").all(),t=new Set((n.results||[]).map(o=>o.name));return!t.has("__edgepg_pg_tables")||!t.has("__edgepg_pg_objects")?!1:(await e.prepare("PRAGMA table_info('__edgepg_pg_objects')").all()).results.some(o=>o.name==="index_nulls_not_distinct")}async function de(e){if(!(await q(e)&&await te(e,"pg_catalog__pg_class")&&await te(e,"pg_catalog__pg_policies")&&await te(e,"information_schema__columns")))return!1;try{return await e.prepare(`SELECT indrelid,indexrelid,indisprimary,indisunique,indisvalid,indisready,
+    WHERE type='view' AND name=?1`).bind(n).first()}async function J(e){const n=await e.prepare(`SELECT name FROM sqlite_master
+    WHERE type='table' AND name IN (?1,?2)`).bind("__edgepg_pg_tables","__edgepg_pg_objects").all(),t=new Set((n.results||[]).map(o=>o.name));return!t.has("__edgepg_pg_tables")||!t.has("__edgepg_pg_objects")?!1:(await e.prepare("PRAGMA table_info('__edgepg_pg_objects')").all()).results.some(o=>o.name==="index_nulls_not_distinct")}async function Te(e){if(!(await J(e)&&await te(e,"pg_catalog__pg_class")&&await te(e,"pg_catalog__pg_policies")&&await te(e,"information_schema__columns")))return!1;try{return await e.prepare(`SELECT indrelid,indexrelid,indisprimary,indisunique,indisvalid,indisready,
       indimmediate,indkey,indexprs,indpred,indisreplident,indnkeyatts,indnatts,indnullsnotdistinct
       FROM pg_catalog__pg_index LIMIT 0`).all(),await e.prepare(`SELECT schemaname,tablename,indexname,tablespace,indexdef
       FROM pg_catalog__pg_indexes LIMIT 0`).all(),await e.prepare(`SELECT oid,relname,relnamespace,reltype,relowner,relkind,relpersistence,
@@ -1044,7 +1044,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       is_nullable,column_default,data_type,udt_schema,udt_name,character_maximum_length,
       numeric_precision,numeric_scale,datetime_precision,is_identity,identity_generation,
       identity_start,identity_increment,identity_maximum,identity_minimum,identity_cycle,
-      is_generated,generation_expression FROM information_schema__columns LIMIT 0`).all(),!0}catch{return!1}}function B(e){const n=f(e);h.delete(n),b.delete(n),A.delete(n),T.delete(n),u.delete(n),H.delete(n),$.delete(n)}function G(e,n){return Date.now()-(e.get(n)||0)<Z}function y(e){const n=Date.now();H.set(e,n),$.set(e,n)}async function Te(e,n,t,a){const o=new Set(t.map(p=>p.name));for(const[p,l]of a)if(!o.has(p))try{await e.prepare(`ALTER TABLE ${n} ADD COLUMN ${l}`).run(),o.add(p)}catch(s){if(!/duplicate column name/iu.test(s instanceof Error?s.message:String(s))||!(await e.prepare(`PRAGMA table_info('${n}')`).all()).results.some(g=>g.name===p))throw s;o.add(p)}}async function Ae(e){if(!await J(e,"__edgepg_pg_objects")){await e.batch([e.prepare(ee),e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_oid_allocator (
+      is_generated,generation_expression FROM information_schema__columns LIMIT 0`).all(),!0}catch{return!1}}function B(e){const n=f(e);h.delete(n),b.delete(n),A.delete(n),d.delete(n),u.delete(n),H.delete(n),$.delete(n)}function G(e,n){return Date.now()-(e.get(n)||0)<Z}function y(e){const n=Date.now();H.set(e,n),$.set(e,n)}async function de(e,n,t,a){const o=new Set(t.map(p=>p.name));for(const[p,l]of a)if(!o.has(p))try{await e.prepare(`ALTER TABLE ${n} ADD COLUMN ${l}`).run(),o.add(p)}catch(s){if(!/duplicate column name/iu.test(s instanceof Error?s.message:String(s))||!(await e.prepare(`PRAGMA table_info('${n}')`).all()).results.some(g=>g.name===p))throw s;o.add(p)}}async function Ae(e){if(!await q(e,"__edgepg_pg_objects")){await e.batch([e.prepare(ee),e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_oid_allocator (
         id INTEGER PRIMARY KEY CHECK(id=1), next_oid INTEGER NOT NULL)`),e.prepare(`INSERT OR IGNORE INTO __edgepg_oid_allocator(id,next_oid)
         VALUES (1, MAX(
           COALESCE((SELECT MAX(relation_oid)+1 FROM __edgepg_pg_tables),16384),
@@ -1056,7 +1056,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
           UPDATE __edgepg_pg_objects SET relation_oid=(SELECT next_oid FROM __edgepg_oid_allocator WHERE id=1)
             WHERE phase=NEW.phase AND kind=NEW.kind AND schema_name=NEW.schema_name AND object_name=NEW.object_name;
           UPDATE __edgepg_oid_allocator SET next_oid=next_oid+1 WHERE id=1;
-        END`)]);return}await e.prepare(ee).run();const n=await e.prepare("PRAGMA table_info('__edgepg_pg_objects')").all();n.results.some(o=>o.name==="index_nulls_not_distinct")||(await e.prepare("DROP VIEW IF EXISTS pg_catalog__pg_indexes").run(),await e.prepare("DROP VIEW IF EXISTS pg_catalog__pg_index").run()),await Te(e,"__edgepg_pg_objects",n.results,Ne);const t=(await e.prepare(`SELECT phase,schema_name,object_name,view_definition
+        END`)]);return}await e.prepare(ee).run();const n=await e.prepare("PRAGMA table_info('__edgepg_pg_objects')").all();n.results.some(o=>o.name==="index_nulls_not_distinct")||(await e.prepare("DROP VIEW IF EXISTS pg_catalog__pg_indexes").run(),await e.prepare("DROP VIEW IF EXISTS pg_catalog__pg_index").run()),await de(e,"__edgepg_pg_objects",n.results,Ne);const t=(await e.prepare(`SELECT phase,schema_name,object_name,view_definition
     FROM __edgepg_pg_objects WHERE kind='view' AND view_definition IS NOT NULL
       AND compact_view_definition IS NULL`).all()).results;for(const o of t)await e.prepare(`UPDATE __edgepg_pg_objects
     SET compact_view_definition=?4 WHERE phase=?1 AND kind='view' AND schema_name=?2 AND object_name=?3`).bind(o.phase,o.schema_name,o.object_name,le(o.view_definition)).run();await e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_oid_allocator (
@@ -1074,7 +1074,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       UPDATE __edgepg_pg_objects SET relation_oid=(SELECT next_oid FROM __edgepg_oid_allocator WHERE id=1)
         WHERE phase=NEW.phase AND kind=NEW.kind AND schema_name=NEW.schema_name AND object_name=NEW.object_name;
       UPDATE __edgepg_oid_allocator SET next_oid=next_oid+1 WHERE id=1;
-    END`).run()}async function zn(e){await e.batch(k(e,"postgres-catalog-table-storage"))}async function Ze(e){await e.batch(k(e,"postgres-catalog-storage"))}async function en(e){await e.batch(k(e,"postgres-catalog"))}function k(e,n){return[e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_catalog_meta (
+    END`).run()}async function Qn(e){await e.batch(k(e,"postgres-catalog-table-storage"))}async function Ze(e){await e.batch(k(e,"postgres-catalog-storage"))}async function en(e){await e.batch(k(e,"postgres-catalog"))}function k(e,n){return[e.prepare(`CREATE TABLE IF NOT EXISTS __edgepg_catalog_meta (
       key TEXT PRIMARY KEY,
       schema_version INTEGER NOT NULL,
       installed_at TEXT NOT NULL
@@ -1083,23 +1083,40 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       ON CONFLICT(key) DO UPDATE SET
         schema_version=excluded.schema_version,
         installed_at=excluded.installed_at`).bind(n,X)]}async function I(e,n){for(let t=0;t<n.length;t+=50)await e.batch(n.slice(t,t+50))}function nn(){return`CREATE VIEW information_schema__columns AS
-    ${_n()}`}function tn(){return`CREATE VIEW pg_catalog__pg_attrdef AS
+    ${sn()}`}function tn(){return`CREATE VIEW information_schema__views AS
+    SELECT 'app' AS table_catalog,object.schema_name AS table_schema,object.object_name AS table_name,
+      COALESCE(object.view_definition,object.definition) AS view_definition,
+      'NONE' AS check_option,'NO' AS is_updatable,'NO' AS is_insertable_into,
+      'NO' AS is_trigger_updatable,'NO' AS is_trigger_deletable,'NO' AS is_trigger_insertable_into
+    FROM __edgepg_pg_objects AS object WHERE object.kind='view'`}function an(){return`CREATE VIEW pg_catalog__pg_sequences AS
+    SELECT CASE WHEN instr(sequence.name,'__')>0 THEN substr(sequence.name,1,instr(sequence.name,'__')-1)
+        ELSE 'public' END AS schemaname,
+      CASE WHEN instr(sequence.name,'__')>0 THEN substr(sequence.name,instr(sequence.name,'__')+2)
+        ELSE sequence.name END AS sequencename,
+      'edgepg' AS sequenceowner,sequence.data_type AS data_type,
+      CAST(sequence.start_value AS TEXT) AS start_value,
+      CAST(sequence.min_value AS TEXT) AS min_value,
+      CAST(sequence.max_value AS TEXT) AS max_value,
+      CAST(sequence.increment_value AS TEXT) AS increment_by,
+      sequence.cycle AS cycle,CAST(sequence.cache_value AS TEXT) AS cache_size,
+      CASE WHEN sequence.called=1 THEN CAST(sequence.current_value AS TEXT) ELSE NULL END AS last_value
+    FROM __edgepg_sequences AS sequence`}function _n(){return`CREATE VIEW pg_catalog__pg_attrdef AS
     SELECT 2604 AS tableoid,
       tables.relation_oid * 2048 + CAST(column_name.key AS INTEGER) + 1 AS oid,
       tables.relation_oid AS adrelid,
       CAST(column_name.key AS INTEGER) + 1 AS adnum,
-      ${an("json_extract(tables.current_defaults_json, '$[' || column_name.key || ']')","json_extract(COALESCE(tables.current_pg_types_json,tables.pg_types_json), '$[' || column_name.key || ']')")} AS adbin
+      ${on("json_extract(tables.current_defaults_json, '$[' || column_name.key || ']')","json_extract(COALESCE(tables.current_pg_types_json,tables.pg_types_json), '$[' || column_name.key || ']')")} AS adbin
     FROM __edgepg_pg_tables AS tables
     JOIN json_each(COALESCE(tables.current_columns_json,tables.columns_json)) AS column_name
     WHERE json_type(tables.current_defaults_json, '$[' || column_name.key || ']') IS NOT NULL
-      AND json_type(tables.current_defaults_json, '$[' || column_name.key || ']') <> 'null'`}function an(e,n){const t=`CAST(${e} AS TEXT)`;return`CASE ${n?`WHEN lower(replace(trim(CAST(${n} AS TEXT)), 'pg_catalog.', '')) IN ('boolean','bool')
+      AND json_type(tables.current_defaults_json, '$[' || column_name.key || ']') <> 'null'`}function on(e,n){const t=`CAST(${e} AS TEXT)`;return`CASE ${n?`WHEN lower(replace(trim(CAST(${n} AS TEXT)), 'pg_catalog.', '')) IN ('boolean','bool')
         AND lower(trim(${t})) IN ('1','true') THEN 'true'
       WHEN lower(replace(trim(CAST(${n} AS TEXT)), 'pg_catalog.', '')) IN ('boolean','bool')
         AND lower(trim(${t})) IN ('0','false') THEN 'false'
       `:""}WHEN instr(lower(${t}), 'strftime(')>0
       AND instr(lower(${t}), '''now''')>0 THEN 'now()'
     WHEN upper(trim(${t}))='CURRENT_TIMESTAMP' THEN 'now()'
-    ELSE ${t} END`}function _n(){const e="json_extract(tables.current_defaults_json, '$[' || column_name.key || ']')",n="physical_column.dflt_value",t=`COALESCE(json_extract(tables.current_not_null_json,
+    ELSE ${t} END`}function sn(){const e="json_extract(tables.current_defaults_json, '$[' || column_name.key || ']')",n="physical_column.dflt_value",t=`COALESCE(json_extract(tables.current_not_null_json,
       '$[' || column_name.key || ']'), 0)=1
     OR EXISTS (SELECT 1 FROM __edgepg_not_null_constraints AS not_null_constraint
       WHERE not_null_constraint.table_name=tables.physical_name
@@ -1115,7 +1132,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       WHEN COALESCE(physical_column.[notnull],0)=1 THEN 'NO' ELSE 'YES' END`,defaultSql:`CASE WHEN tables.current_defaults_json IS NOT NULL THEN ${e} ELSE ${n} END`,fromSql:`${ue()}
     LEFT JOIN pragma_table_info(tables.physical_name) AS physical_column ON physical_column.name=column_name.value`,whereSql:"WHERE tables.current_not_null_json IS NULL OR tables.current_defaults_json IS NULL"})}
     UNION ALL
-    ${on()}`}function ue(){const e=`CASE WHEN object.schema_name IN ('','public') THEN object.object_name
+    ${En()}`}function ue(){const e=`CASE WHEN object.schema_name IN ('','public') THEN object.object_name
       ELSE object.schema_name || '__' || object.object_name END`,n="CASE WHEN object.relation_natts>0 THEN object.relation_natts ELSE 2147483647 END",t=`(SELECT json_group_array(name) FROM (
       SELECT name FROM pragma_table_info(${e})
       WHERE cid<${n} ORDER BY cid))`,a=`(SELECT json_group_array(CASE WHEN trim(type)='' THEN 'text' ELSE lower(type) END) FROM (
@@ -1142,7 +1159,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     JOIN json_each(COALESCE(tables.current_columns_json,tables.columns_json)) AS column_name
     JOIN json_each(COALESCE(tables.current_pg_types_json,tables.pg_types_json)) AS pg_type ON pg_type.key=column_name.key`}function Le(e){const n="lower(replace(CAST(pg_type.value AS TEXT), 'pg_catalog.', ''))",t=`(CASE WHEN instr(${n}, '(')>0
     THEN trim(substr(${n}, 1, instr(${n}, '(')-1)) ELSE ${n} END)`,a=`(CASE WHEN ${t}='numeric_text' THEN 'numeric' ELSE ${t} END)`,o=`(CASE WHEN ${a}='varchar'
-    THEN 'character varying' ELSE ${a} END)`,p=yn("pg_type.value"),l=Cn("pg_type.value"),s=`(SELECT sequence_default.mode FROM __edgepg_sequence_defaults AS sequence_default
+    THEN 'character varying' ELSE ${a} END)`,p=bn("pg_type.value"),l=Hn("pg_type.value"),s=`(SELECT sequence_default.mode FROM __edgepg_sequence_defaults AS sequence_default
     WHERE sequence_default.table_name=tables.physical_name AND sequence_default.column_name=column_name.value
       AND sequence_default.mode IN ('always','default') LIMIT 1)`,m=`(SELECT sequence_default.sequence_name FROM __edgepg_sequence_defaults AS sequence_default
     WHERE sequence_default.table_name=tables.physical_name AND sequence_default.column_name=column_name.value
@@ -1184,7 +1201,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       (SELECT json_extract(generated.value,'$.expressionSql') FROM json_each(tables.generated_columns_json) AS generated
         WHERE json_extract(generated.value,'$.column')=column_name.value LIMIT 1) AS generation_expression
     ${e.fromSql}
-    ${e.whereSql}`}function on(){const e="upper(trim(COALESCE(physical_column.type,'')))",n=`(CASE
+    ${e.whereSql}`}function En(){const e="upper(trim(COALESCE(physical_column.type,'')))",n=`(CASE
     WHEN ${e} LIKE '%INT%' THEN 'integer'
     WHEN ${e} LIKE '%CHAR%' OR ${e} LIKE '%CLOB%' OR ${e} LIKE '%TEXT%' THEN 'text'
     WHEN ${e} LIKE '%BLOB%' OR ${e}='' THEN 'bytea'
@@ -1207,7 +1224,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     FROM __edgepg_materialized_views AS materialized
     JOIN pragma_table_info(CASE WHEN materialized.populated=1 THEN materialized.name
       ELSE '__edgepg_unpopulated__' || materialized.name END) AS physical_column
-    WHERE materialized.relation_name<>''`}function sn(){const e=w("entry.grantor");return`CREATE VIEW pg_catalog__pg_namespace AS
+    WHERE materialized.relation_name<>''`}function rn(){const e=w("entry.grantor");return`CREATE VIEW pg_catalog__pg_namespace AS
     WITH acl_entries AS (
       SELECT schema.name AS schema_name,schema.owner_name,
         privilege.grantor,privilege.grantee,
@@ -1239,7 +1256,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CASE WHEN schema.acl_initialized=1 THEN
         '{' || COALESCE(acl_text.items, '') || '}'
       ELSE NULL END AS nspacl
-    FROM __edgepg_schemas AS schema LEFT JOIN acl_text ON acl_text.schema_name=schema.name`}function En(){return`CREATE VIEW pg_catalog__pg_proc AS
+    FROM __edgepg_schemas AS schema LEFT JOIN acl_text ON acl_text.schema_name=schema.name`}function ln(){return`CREATE VIEW pg_catalog__pg_proc AS
     SELECT routine.routine_oid AS oid,routine.routine_name AS proname,schema.oid AS pronamespace,
       COALESCE((SELECT role.rowid+20000 FROM __edgepg_roles AS role WHERE role.name=routine.owner_name),10) AS proowner,
       CASE WHEN EXISTS (SELECT 1 FROM __edgepg_aggregates AS aggregate
@@ -1298,7 +1315,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       column3,json_array_length(column4),0,0,column4,NULL,NULL,NULL,NULL,column2,12,column5,'s',
       column6,0,0,0,'','',pg_catalog_type.typname,column2
     FROM (VALUES ${Be.map(([n,t,a,o,p,l])=>`(${n},'${t}',${a},'${JSON.stringify(o)}','${p}',${l?1:0})`).join(",")}) AS builtin_proc
-    LEFT JOIN pg_catalog__pg_type AS pg_catalog_type ON pg_catalog_type.oid=column3`}function rn(){return`CREATE VIEW pg_catalog__pg_aggregate AS
+    LEFT JOIN pg_catalog__pg_type AS pg_catalog_type ON pg_catalog_type.oid=column3`}function pn(){return`CREATE VIEW pg_catalog__pg_aggregate AS
     SELECT aggregate.aggregate_oid AS aggfnoid,'n' AS aggkind,0 AS aggnumdirectargs,
       aggregate.transition_oid AS aggtransfn,0 AS aggfinalfn,0 AS aggcombinefn,
       0 AS aggserialfn,0 AS aggdeserialfn,0 AS aggmtransfn,0 AS aggminvtransfn,
@@ -1307,7 +1324,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       aggregate.transition_type_oid AS aggtranstype,0 AS aggtransspace,
       0 AS aggmtranstype,0 AS aggmtransspace,aggregate.initcond AS agginitval,
       NULL AS aggminitval
-    FROM __edgepg_aggregates AS aggregate`}function ln(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),0)`){const n=w("entry.grantor");return`CREATE VIEW pg_catalog__pg_default_acl AS
+    FROM __edgepg_aggregates AS aggregate`}function cn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),0)`){const n=w("entry.grantor");return`CREATE VIEW pg_catalog__pg_default_acl AS
     WITH privilege_defaults(object_type,privilege_type,privilege_code,ordinal) AS (VALUES
       ('table','INSERT','a',1),('table','SELECT','r',2),('table','UPDATE','w',3),
       ('table','DELETE','d',4),('table','TRUNCATE','D',5),('table','REFERENCES','x',6),
@@ -1396,7 +1413,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     FROM meaningful_groups AS groups
     LEFT JOIN __edgepg_schemas AS schemas ON schemas.name=groups.schema_name
     LEFT JOIN acl_text ON acl_text.owner_role=groups.owner_role AND acl_text.schema_name=groups.schema_name
-      AND acl_text.object_type=groups.object_type`}function pn(){const e=w("entry.grantor");return`CREATE VIEW pg_catalog__pg_database AS
+      AND acl_text.object_type=groups.object_type`}function mn(){const e=w("entry.grantor");return`CREATE VIEW pg_catalog__pg_database AS
     WITH privilege_codes(privilege_type,privilege_code,ordinal) AS (VALUES
       ('CREATE','C',1),('TEMPORARY','T',2),('CONNECT','c',3)),
     ordered_privileges AS (
@@ -1434,7 +1451,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     UNION ALL
     SELECT 5 AS oid,'postgres' AS datname,10 AS datdba,'UTF8' AS encoding,
       'C' AS datcollate,'C' AS datctype,0 AS datistemplate,1 AS datallowconn,-1 AS datconnlimit,NULL AS datacl
-    WHERE NOT EXISTS (SELECT 1 FROM __edgepg_databases WHERE name='postgres')`}function cn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_publication AS
+    WHERE NOT EXISTS (SELECT 1 FROM __edgepg_databases WHERE name='postgres')`}function gn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_publication AS
     SELECT publication.rowid+31000 AS oid,
       publication.name AS pubname,
       ${e("publication.owner_name")} AS pubowner,
@@ -1445,7 +1462,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CASE WHEN EXISTS (SELECT 1 FROM json_each(publication.publish_json) AS item WHERE item.value='truncate') THEN 1 ELSE 0 END AS pubtruncate,
       0 AS pubviaroot,
       CAST('n' AS TEXT) AS pubgencols
-    FROM __edgepg_publications AS publication`}function mn(){return`CREATE VIEW pg_catalog__pg_publication_tables AS
+    FROM __edgepg_publications AS publication`}function Nn(){return`CREATE VIEW pg_catalog__pg_publication_tables AS
     SELECT publication.name AS pubname,
       tables.schema_name AS schemaname,
       tables.table_name AS tablename,
@@ -1460,7 +1477,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       NULL AS attnames,
       NULL AS rowfilter
     FROM __edgepg_publications AS publication,json_each(publication.tables_json) AS entry
-    WHERE publication.all_tables<>1`}function gn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_subscription AS
+    WHERE publication.all_tables<>1`}function Sn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_subscription AS
     SELECT subscription.rowid+32000 AS oid,
       COALESCE((SELECT oid FROM __edgepg_databases WHERE name='app'),16384) AS subdbid,
       0 AS subskiplsn,
@@ -1479,7 +1496,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       subscription.publications_json AS subpublications,
       NULL AS suborigin,
       NULL AS subfailover
-    FROM __edgepg_subscriptions AS subscription`}function Nn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_tablespace AS
+    FROM __edgepg_subscriptions AS subscription`}function Tn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_tablespace AS
     SELECT 1663 AS oid,'pg_default' AS spcname,10 AS spcowner,NULL AS spcacl,NULL AS spcoptions
     UNION ALL
     SELECT 1664 AS oid,'pg_global' AS spcname,10 AS spcowner,NULL AS spcacl,NULL AS spcoptions
@@ -1488,14 +1505,14 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CASE WHEN instr(definition,'(')>0 AND instr(definition,')')>instr(definition,'(')
         THEN json_array(replace(replace(replace(trim(substr(definition,instr(definition,'(')+1,
     instr(definition,')')-instr(definition,'(')-1)), ' = ', '='), '= ', '='), ' =', '=')) ELSE NULL END AS spcoptions
-    FROM __edgepg_catalog_objects WHERE object_type='tablespace'`}function Sn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_foreign_data_wrapper AS
+    FROM __edgepg_catalog_objects WHERE object_type='tablespace'`}function dn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){return`CREATE VIEW pg_catalog__pg_foreign_data_wrapper AS
     SELECT rowid+70000 AS oid,name AS fdwname,${e("owner_name")} AS fdwowner,
       0 AS fdwhandler,0 AS fdwvalidator,NULL AS fdwacl,
       CASE WHEN json_array_length(COALESCE(options_json,'[]'))>0 THEN options_json
         WHEN instr(upper(definition),'OPTIONS (')>0 AND instr(definition,')')>instr(upper(definition),'OPTIONS (')
         THEN json_array(replace(replace(replace(trim(substr(definition,instr(definition,'OPTIONS (')+9,
     instr(definition,')')-instr(definition,'OPTIONS (')-9)), ' = ', '='), '= ', '='), ' =', '=')) ELSE NULL END AS fdwoptions
-    FROM __edgepg_catalog_objects WHERE object_type='foreign_data_wrapper'`}function dn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){const n="'FOREIGN DATA WRAPPER '",t="' OPTIONS '",o=`COALESCE(NULLIF(server.fdw_name,''), ${`trim(CASE
+    FROM __edgepg_catalog_objects WHERE object_type='foreign_data_wrapper'`}function An(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){const n="'FOREIGN DATA WRAPPER '",t="' OPTIONS '",o=`COALESCE(NULLIF(server.fdw_name,''), ${`trim(CASE
     WHEN instr(upper(server.definition), ${n})>0
     THEN substr(server.definition,
       instr(upper(server.definition), ${n}) + length(${n}),
@@ -1513,7 +1530,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     instr(server.definition,')')-instr(server.definition,'OPTIONS (')-9)), ' = ', '='), '= ', '='), ' =', '=')) ELSE NULL END AS srvoptions
     FROM __edgepg_catalog_objects AS server
     LEFT JOIN pg_catalog__pg_foreign_data_wrapper AS fdw ON fdw.fdwname=${o}
-    WHERE server.object_type='foreign_server'`}function Tn(e=n=>`CASE WHEN ${n}='public' THEN 0
+    WHERE server.object_type='foreign_server'`}function un(e=n=>`CASE WHEN ${n}='public' THEN 0
       ELSE COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),0) END`){return`CREATE VIEW pg_catalog__pg_user_mapping AS
     SELECT mapping.rowid+72000 AS oid,${e("json_extract(mapping.name,'$[0]')")} AS umuser,
       COALESCE(server.oid,0) AS umserver,
@@ -1523,7 +1540,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     instr(mapping.definition,')')-instr(mapping.definition,'OPTIONS (')-9)), ' = ', '='), '= ', '='), ' =', '=')) ELSE NULL END AS umoptions
     FROM __edgepg_catalog_objects AS mapping
     LEFT JOIN pg_catalog__pg_foreign_server AS server ON server.srvname=json_extract(mapping.name,'$[1]')
-    WHERE mapping.object_type='user_mapping'`}function An(){const e="json_extract(mapping.name,'$[0]')",n="json_extract(mapping.name,'$[1]')";return`CREATE VIEW pg_catalog__pg_user_mappings AS
+    WHERE mapping.object_type='user_mapping'`}function Ln(){const e="json_extract(mapping.name,'$[0]')",n="json_extract(mapping.name,'$[1]')";return`CREATE VIEW pg_catalog__pg_user_mappings AS
     SELECT mapping.rowid+72000 AS umid,COALESCE(server.oid,0) AS srvid,${n} AS srvname,
       CASE WHEN ${e}='public' THEN 0
         ELSE COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${e}),0) END AS umuser,
@@ -1534,7 +1551,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     instr(mapping.definition,')')-instr(mapping.definition,'OPTIONS (')-9)), ' = ', '='), '= ', '='), ' =', '=')) ELSE NULL END AS umoptions
     FROM __edgepg_catalog_objects AS mapping
     LEFT JOIN pg_catalog__pg_foreign_server AS server ON server.srvname=${n}
-    WHERE mapping.object_type='user_mapping'`}function un(){const e="' SERVER '",n="' OPTIONS '";return`CREATE VIEW pg_catalog__pg_foreign_table AS
+    WHERE mapping.object_type='user_mapping'`}function On(){const e="' SERVER '",n="' OPTIONS '";return`CREATE VIEW pg_catalog__pg_foreign_table AS
     SELECT tables.relation_oid AS ftrelid,COALESCE(server.oid,0) AS ftserver,
       CASE WHEN json_array_length(COALESCE(tables.foreign_options_json,'[]'))>0
         THEN tables.foreign_options_json
@@ -1552,7 +1569,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
           - (instr(upper(tables.definition), ${e}) + length(${e}))
         ELSE length(tables.definition) END)
     ELSE '' END)`})
-    WHERE tables.persistence='foreign'`}function Ln(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){const n=D("domains.base_type"),t=qe.map(o=>`(${o.join(",")})`).join(","),a=`COALESCE(NULLIF(${W(n,!1)},0),
+    WHERE tables.persistence='foreign'`}function yn(e=n=>`COALESCE((SELECT rowid+20000 FROM __edgepg_roles WHERE name=${n}),10)`){const n=D("domains.base_type"),t=Je.map(o=>`(${o.join(",")})`).join(","),a=`COALESCE(NULLIF(${W(n,!1)},0),
     (SELECT CASE WHEN ${n} LIKE '%[]' THEN array_oid ELSE oid END
       FROM __edgepg_type_identities AS base_identity
       WHERE base_identity.name=replace(replace(${n},'.','__'),'[]','')),0)`;return`CREATE VIEW pg_catalog__pg_type AS
@@ -1705,7 +1722,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       CASE WHEN typelem<>0 THEN COALESCE((SELECT element.effective_typcollation FROM effective AS element
         WHERE element.oid=effective.typelem),0) ELSE effective_typcollation END AS typcollation,
       NULL AS typdefaultbin,NULL AS typdefault,NULL AS typacl
-    FROM effective`}function On(){const e=D("json_extract(types.values_json,'$.subtype')"),n=W(e),t=a=>`COALESCE((SELECT routine.routine_oid
+    FROM effective`}function Cn(){const e=D("json_extract(types.values_json,'$.subtype')"),n=W(e),t=a=>`COALESCE((SELECT routine.routine_oid
     FROM __edgepg_routines AS routine
     WHERE routine.routine_name=CASE WHEN instr(json_extract(ranges.values_json,'$.${a}'),'.')>0
       THEN substr(json_extract(ranges.values_json,'$.${a}'),
@@ -1788,10 +1805,10 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     COALESCE(${e}.typalign,'i') AS attalign,
     COALESCE(${e}.typstorage,'x') AS attstorage`}function D(e){const n=`lower(replace(CAST(${e} AS TEXT), 'pg_catalog.', ''))`,t=`(CASE WHEN instr(${n}, '(')>0 AND instr(${n}, ')')>instr(${n}, '(')
     THEN trim(substr(${n}, 1, instr(${n}, '(')-1)
-      || substr(${n}, instr(${n}, ')')+1)) ELSE trim(${n}) END)`;return`(CASE WHEN ${t}='numeric_text' THEN 'numeric' ELSE ${t} END)`}function _e(e){const n=`replace(lower(replace(CAST(${e} AS TEXT), 'pg_catalog.', '')), ' ', '')`,t=`instr(${n}, '(')`,a=`instr(${n}, ',')`,o=`instr(${n}, ')')`,s=`${`${`(CASE WHEN ${t}>0 THEN substr(${n},1,${t}-1) ELSE ${n} END)`} IN ('numeric','numeric_text','decimal')`} AND ${t}>0 AND ${a}>${t} AND ${o}>${a}`,m=`CAST(substr(${n},${t}+1,${a}-${t}-1) AS INTEGER)`,g=`CAST(substr(${n},${a}+1,${o}-${a}-1) AS INTEGER)`;return{valid:s,precision:m,scale:g}}function yn(e){const n=_e(e);return`(CASE WHEN ${n.valid} THEN ${n.precision} ELSE NULL END)`}function Cn(e){const n=_e(e);return`(CASE WHEN ${n.valid} THEN ${n.scale} ELSE NULL END)`}function oe(e){const n=_e(e);return`(CASE WHEN ${n.valid}
+      || substr(${n}, instr(${n}, ')')+1)) ELSE trim(${n}) END)`;return`(CASE WHEN ${t}='numeric_text' THEN 'numeric' ELSE ${t} END)`}function _e(e){const n=`replace(lower(replace(CAST(${e} AS TEXT), 'pg_catalog.', '')), ' ', '')`,t=`instr(${n}, '(')`,a=`instr(${n}, ',')`,o=`instr(${n}, ')')`,s=`${`${`(CASE WHEN ${t}>0 THEN substr(${n},1,${t}-1) ELSE ${n} END)`} IN ('numeric','numeric_text','decimal')`} AND ${t}>0 AND ${a}>${t} AND ${o}>${a}`,m=`CAST(substr(${n},${t}+1,${a}-${t}-1) AS INTEGER)`,g=`CAST(substr(${n},${a}+1,${o}-${a}-1) AS INTEGER)`;return{valid:s,precision:m,scale:g}}function bn(e){const n=_e(e);return`(CASE WHEN ${n.valid} THEN ${n.precision} ELSE NULL END)`}function Hn(e){const n=_e(e);return`(CASE WHEN ${n.valid} THEN ${n.scale} ELSE NULL END)`}function oe(e){const n=_e(e);return`(CASE WHEN ${n.valid}
     THEN 4 + (${n.precision} << 16) + (${n.scale} & 2047) ELSE -1 END)`}function w(e){return`(CASE WHEN ${e}='' OR ${e} GLOB '*[^A-Za-z0-9_]*'
     THEN '"' || replace(replace(${e}, '\\', '\\\\'), '"', '""') || '"'
-    ELSE ${e} END)`}function Kn(e,n){return e.prepare(`INSERT INTO __edgepg_pg_tables
+    ELSE ${e} END)`}function Zn(e,n){return e.prepare(`INSERT INTO __edgepg_pg_tables
     (relation_oid, schema_name, table_name, physical_name, definition, persistence, columns_json, pg_types_json,
       current_columns_json, current_pg_types_json, current_attnums_json, max_attnum, current_not_null_json, current_defaults_json,
       generated_columns_json, export_key_json, reloptions_json, foreign_server_name,
@@ -1810,7 +1827,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       reloptions_json=excluded.reloptions_json,
       foreign_server_name=excluded.foreign_server_name,
       foreign_options_json=excluded.foreign_options_json,
-      foreign_column_options_json=excluded.foreign_column_options_json`).bind(n.schema,n.name,n.physicalName,n.definition,JSON.stringify(n.columns),JSON.stringify(n.pgTypes),JSON.stringify(n.exportKey),JSON.stringify(n.generatedColumns||[]),n.persistence||"permanent",n.foreignServerName||null,JSON.stringify(n.foreignOptions||[]),JSON.stringify(n.foreignColumnOptions||{}),JSON.stringify(n.notNull||n.columns.map(()=>!1)),JSON.stringify(fn(n.pgTypes,n.defaults||n.columns.map(()=>null))),JSON.stringify(n.reloptions||[]),JSON.stringify(n.columns.map((t,a)=>a+1)))}function Qn(e,n){let t="COALESCE(current_columns_json,columns_json)",a="COALESCE(current_pg_types_json,pg_types_json)",o=`COALESCE(current_attnums_json,
+      foreign_column_options_json=excluded.foreign_column_options_json`).bind(n.schema,n.name,n.physicalName,n.definition,JSON.stringify(n.columns),JSON.stringify(n.pgTypes),JSON.stringify(n.exportKey),JSON.stringify(n.generatedColumns||[]),n.persistence||"permanent",n.foreignServerName||null,JSON.stringify(n.foreignOptions||[]),JSON.stringify(n.foreignColumnOptions||{}),JSON.stringify(n.notNull||n.columns.map(()=>!1)),JSON.stringify(In(n.pgTypes,n.defaults||n.columns.map(()=>null))),JSON.stringify(n.reloptions||[]),JSON.stringify(n.columns.map((t,a)=>a+1)))}function et(e,n){let t="COALESCE(current_columns_json,columns_json)",a="COALESCE(current_pg_types_json,pg_types_json)",o=`COALESCE(current_attnums_json,
     (SELECT json_group_array(CAST(key AS INTEGER)+1) FROM json_each(COALESCE(current_columns_json,columns_json))))`,p=`CASE WHEN max_attnum>0 THEN max_attnum
     ELSE COALESCE((SELECT MAX(CAST(value AS INTEGER)) FROM json_each(${o})),0) END`,l=`COALESCE(current_not_null_json,
     (SELECT json_group_array(0) FROM json_each(COALESCE(current_columns_json,columns_json))))`,s=`COALESCE(current_defaults_json,
@@ -1837,7 +1854,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
         current_attnums_json=${o},max_attnum=${p},
         current_not_null_json=${l}, current_defaults_json=${s}, export_key_json=${m},
         generated_columns_json=${g}
-    WHERE schema_name=?1 AND table_name=?2`).bind(n.schema,n.name,n.definition,JSON.stringify(n.shapeChanges))}function Zn(e,n,t="edgepg"){return e.prepare(`INSERT INTO __edgepg_pg_objects(
+    WHERE schema_name=?1 AND table_name=?2`).bind(n.schema,n.name,n.definition,JSON.stringify(n.shapeChanges))}function nt(e,n,t="edgepg"){return e.prepare(`INSERT INTO __edgepg_pg_objects(
       phase,kind,schema_name,object_name,owner_name,definition,view_definition,compact_view_definition,
       relation_natts,relation_pg_types_json,relation_collations_json,
       dependencies_json,routine_dependencies_json,reloptions_json,index_nulls_not_distinct,ordinal)
@@ -1851,7 +1868,7 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
       relation_pg_types_json=excluded.relation_pg_types_json,
       relation_collations_json=excluded.relation_collations_json,
       dependencies_json=excluded.dependencies_json,routine_dependencies_json=excluded.routine_dependencies_json,
-      reloptions_json=excluded.reloptions_json,index_nulls_not_distinct=excluded.index_nulls_not_distinct`).bind(n.phase,n.kind,n.schema,n.name,t,n.definition,n.viewDefinition||null,n.compactViewDefinition||n.viewDefinition||null,n.schema==="public"?n.name:`${n.schema}__${n.name}`,JSON.stringify(n.dependencies||[]),JSON.stringify(n.routineDependencies||[]),JSON.stringify(n.reloptions||[]),n.relationNatts??null,JSON.stringify(n.relationPgTypes||[]),JSON.stringify(n.relationCollations||[]),n.indexNullsNotDistinct?1:0)}function bn(){const e=a=>`'"' || replace(${a}, '"', '""') || '"'`,n=`${e("tables.schema_name")} || '.' || ${e("tables.table_name")}`,t=`(SELECT group_concat(${e("CAST(constraint_column.value AS TEXT)")}, ', ')
+      reloptions_json=excluded.reloptions_json,index_nulls_not_distinct=excluded.index_nulls_not_distinct`).bind(n.phase,n.kind,n.schema,n.name,t,n.definition,n.viewDefinition||null,n.compactViewDefinition||n.viewDefinition||null,n.schema==="public"?n.name:`${n.schema}__${n.name}`,JSON.stringify(n.dependencies||[]),JSON.stringify(n.routineDependencies||[]),JSON.stringify(n.reloptions||[]),n.relationNatts??null,JSON.stringify(n.relationPgTypes||[]),JSON.stringify(n.relationCollations||[]),n.indexNullsNotDistinct?1:0)}function Rn(){const e=a=>`'"' || replace(${a}, '"', '""') || '"'`,n=`${e("tables.schema_name")} || '.' || ${e("tables.table_name")}`,t=`(SELECT group_concat(${e("CAST(constraint_column.value AS TEXT)")}, ', ')
     FROM json_each(unique_constraint.columns_json) AS constraint_column)`;return`CREATE VIEW pg_catalog__pg_indexes AS
     SELECT tables.schema_name AS schemaname,tables.table_name AS tablename,
       unique_constraint.constraint_name AS indexname,NULL AS tablespace,
@@ -1865,10 +1882,10 @@ import{quoteCatalogIdentifier as be}from"./sql-quoting";import{ensureRoleSchema 
     FROM __edgepg_pg_objects AS object
     JOIN json_each(object.dependencies_json) AS dependency
     JOIN __edgepg_pg_tables AS tables ON tables.physical_name=CAST(dependency.value AS TEXT)
-    WHERE object.kind='index' AND object.relation_oid IS NOT NULL`}function et(e,n){const t=JSON.parse(e);if(!Array.isArray(t)||!t.every(a=>typeof a=="string"))throw new TypeError(`${n} is not a string array`);return t}async function Hn(e){const n=await e.prepare(`SELECT schema_name,table_name,physical_name,
+    WHERE object.kind='index' AND object.relation_oid IS NOT NULL`}function tt(e,n){const t=JSON.parse(e);if(!Array.isArray(t)||!t.every(a=>typeof a=="string"))throw new TypeError(`${n} is not a string array`);return t}async function jn(e){const n=await e.prepare(`SELECT schema_name,table_name,physical_name,
     columns_json,pg_types_json,shape_changes_json,current_columns_json,current_pg_types_json,
     current_attnums_json,max_attnum,current_not_null_json,current_defaults_json
-    FROM __edgepg_pg_tables ORDER BY ordinal`).all(),t=[];for(const a of n.results){const o=`${a.schema_name}.${a.table_name}`,p=V(a.columns_json),l=V(a.pg_types_json);let s;if(p&&l&&p.length===l.length)try{s=jn(p,l,a.shape_changes_json,o)}catch{s=void 0}const g=(await e.prepare(`PRAGMA table_info(${be(a.physical_name)})`).all()).results.filter(_=>!_.name.startsWith("__edgepg_")),E=g.map(_=>_.name),i=V(a.current_columns_json),r=V(a.current_pg_types_json),L=Rn(a.current_attnums_json),C=!!(i&&r&&i.length===r.length&&(!E.length||ie(i,E)));let N,d,S,c;if(C)N=i,d=r,L&&L.length===N.length&&L.every(_=>Number.isSafeInteger(_)&&_>0)?(S=L,c=Math.max(Number(a.max_attnum)||0,...S,0)):s&&ie(N,s.columns)?(S=s.attnums,c=s.maxAttnum):(S=N.map((_,z)=>z+1),c=S.length);else if(s&&(!E.length||ie(s.columns,E)))({columns:N,pgTypes:d,attnums:S,maxAttnum:c}=s);else{N=E.length?E:p||[];const _=se(i,r),z=s?se(s.columns,s.pgTypes):new Map,ye=se(p,l);d=g.length?g.map(M=>_.get(M.name)||z.get(M.name)||ye.get(M.name)||String(M.type||"text").toLowerCase()):l||[],S=N.map((M,Ce)=>Ce+1),c=S.length}if(!N.length||N.length!==d.length)continue;const R=P(a.current_not_null_json),j=P(a.current_defaults_json),U=!C||!L||L.length!==N.length||L.some(_=>!Number.isSafeInteger(_)||_<=0)||Number(a.max_attnum)<Math.max(...S,0),Y=U||!R||R.length!==N.length||!j||j.length!==N.length;if(!U&&!Y)continue;const x=new Map(g.map(_=>[_.name,_])),v=R?.length===N.length?R:N.map(_=>Number(x.get(_)?.notnull||0)===1),Ee=j?.length===N.length?j:N.map(_=>Oe(x.get(_)?.dflt_value??null));t.push(e.prepare(`UPDATE __edgepg_pg_tables SET
+    FROM __edgepg_pg_tables ORDER BY ordinal`).all(),t=[];for(const a of n.results){const o=`${a.schema_name}.${a.table_name}`,p=V(a.columns_json),l=V(a.pg_types_json);let s;if(p&&l&&p.length===l.length)try{s=hn(p,l,a.shape_changes_json,o)}catch{s=void 0}const g=(await e.prepare(`PRAGMA table_info(${be(a.physical_name)})`).all()).results.filter(_=>!_.name.startsWith("__edgepg_")),E=g.map(_=>_.name),i=V(a.current_columns_json),r=V(a.current_pg_types_json),L=fn(a.current_attnums_json),C=!!(i&&r&&i.length===r.length&&(!E.length||ie(i,E)));let N,T,S,c;if(C)N=i,T=r,L&&L.length===N.length&&L.every(_=>Number.isSafeInteger(_)&&_>0)?(S=L,c=Math.max(Number(a.max_attnum)||0,...S,0)):s&&ie(N,s.columns)?(S=s.attnums,c=s.maxAttnum):(S=N.map((_,z)=>z+1),c=S.length);else if(s&&(!E.length||ie(s.columns,E)))({columns:N,pgTypes:T,attnums:S,maxAttnum:c}=s);else{N=E.length?E:p||[];const _=se(i,r),z=s?se(s.columns,s.pgTypes):new Map,ye=se(p,l);T=g.length?g.map(M=>_.get(M.name)||z.get(M.name)||ye.get(M.name)||String(M.type||"text").toLowerCase()):l||[],S=N.map((M,Ce)=>Ce+1),c=S.length}if(!N.length||N.length!==T.length)continue;const R=P(a.current_not_null_json),j=P(a.current_defaults_json),U=!C||!L||L.length!==N.length||L.some(_=>!Number.isSafeInteger(_)||_<=0)||Number(a.max_attnum)<Math.max(...S,0),Y=U||!R||R.length!==N.length||!j||j.length!==N.length;if(!U&&!Y)continue;const x=new Map(g.map(_=>[_.name,_])),v=R?.length===N.length?R:N.map(_=>Number(x.get(_)?.notnull||0)===1),Ee=j?.length===N.length?j:N.map(_=>Oe(x.get(_)?.dflt_value??null));t.push(e.prepare(`UPDATE __edgepg_pg_tables SET
       current_columns_json=?3,current_pg_types_json=?4,current_attnums_json=?5,max_attnum=?6,
       current_not_null_json=?7,current_defaults_json=?8
-      WHERE schema_name=?1 AND table_name=?2`).bind(a.schema_name,a.table_name,JSON.stringify(N),JSON.stringify(d),JSON.stringify(S),c,JSON.stringify(v),JSON.stringify(Ee)))}t.length&&await e.batch(t)}function P(e){if(typeof e=="string")try{const n=JSON.parse(e);return Array.isArray(n)?n:void 0}catch{return}}function V(e){const n=P(e);return n?.every(t=>typeof t=="string")?n:void 0}function Rn(e){const n=P(e);return n?.every(t=>typeof t=="number")?n:void 0}function ie(e,n){return e.length===n.length&&e.every((t,a)=>t===n[a])}function se(e,n){const t=new Map;if(!e||!n||e.length!==n.length)return t;for(const[a,o]of e.entries())t.set(o,n[a]);return t}function jn(e,n,t,a){if(e.length!==n.length)throw new TypeError(`${a} initial column/type width mismatch`);const o=JSON.parse(t);if(!Array.isArray(o))throw new TypeError(`${a} shape changes are not an array`);const p=o.flatMap(i=>Array.isArray(i)?i:[i]),l=[...e],s=[...n],m=e.map((i,r)=>r+1);let g=m.length+1;const E=new Map;for(const i of p){if(!i||typeof i!="object"||typeof i.action!="string"||typeof i.column!="string")throw new TypeError(`${a} contains an invalid shape change`);const r=l.indexOf(i.column);if(i.action==="add"){if(typeof i.pgType!="string"||l.includes(i.column))throw new TypeError(`${a} contains an invalid added column`);l.push(i.column),s.push(i.pgType),m.push(g++)}else if(i.action==="drop"){if(r<0)throw new TypeError(`${a} drops an unknown column ${i.column}`);l.splice(r,1),s.splice(r,1),m.splice(r,1)}else if(i.action==="rename"){if(r<0||typeof i.newColumn!="string"||l.includes(i.newColumn))throw new TypeError(`${a} contains an invalid column rename`);l[r]=i.newColumn;for(const[L,C]of E)C===i.column&&E.set(L,i.newColumn);E.set(i.column,i.newColumn)}else if(i.action==="type"){if(r<0||typeof i.pgType!="string")throw new TypeError(`${a} changes an unknown column type`);s[r]=i.pgType}else{if(["set-not-null","drop-not-null","set-default","drop-default"].includes(String(i.action)))continue;throw new TypeError(`${a} contains an unsupported shape change`)}}return{columns:l,pgTypes:s,attnums:m,maxAttnum:g-1,renames:E}}function O(e){return`'${e.replaceAll("'","''")}'`}function Oe(e){return e===null?null:/\bstrftime\s*\([^)]*['"]now['"]/iu.test(e)||e.toUpperCase()==="CURRENT_TIMESTAMP"?"now()":/^\(?\s*\(?random\(\)\s*&\s*9223372036854775807\)?\s*\/\s*9223372036854775808\.0\s*\)?\s*\)?$/iu.test(e.trim())?"random()":e}function fn(e,n){return n.map((t,a)=>hn(t,e[a]||""))}function hn(e,n){if(e===null)return null;e=Oe(e);const t=n.toLowerCase().replace(/^pg_catalog\./u,"");if(t==="boolean"||t==="bool"){const a=e.trim().toLowerCase();if(a==="1"||a==="true")return"true";if(a==="0"||a==="false")return"false"}return/^bit(?:\s+varying)?(?:\s*\(\s*\d+\s*\))?$/iu.test(t)&&!/::(?:"bit"|bit\s+varying)$/iu.test(e.trim())?`${e}::${/^bit\s+varying\b/iu.test(t)?"bit varying":'"bit"'}`:e}export{F as RELATION_TYPE_OID_OFFSET,Yn as ensurePostgresObjectCatalogStorage,Ve as ensurePostgresTableCatalogStorage,_n as informationSchemaColumnsBodySql,nn as informationSchemaColumnsViewSql,Ye as installPostgresCatalog,fn as normalizeCatalogDefaults,rn as pgAggregateViewSql,tn as pgAttributeDefaultViewSql,yn as pgAttributeNumericPrecisionSql,Cn as pgAttributeNumericScaleSql,ae as pgAttributePhysicalMetadataSql,oe as pgAttributeTypeModSql,D as pgAttributeTypeNameSql,pn as pgDatabaseViewSql,ln as pgDefaultAclViewSql,Sn as pgForeignDataWrapperViewSql,dn as pgForeignServerViewSql,un as pgForeignTableViewSql,bn as pgIndexesViewSql,sn as pgNamespaceViewSql,En as pgProcViewSql,mn as pgPublicationTablesViewSql,cn as pgPublicationViewSql,On as pgRangeViewSql,gn as pgSubscriptionViewSql,Nn as pgTablespaceViewSql,W as pgTypeOidSql,Ln as pgTypeViewSql,Tn as pgUserMappingViewSql,An as pgUserMappingsViewSql,Qn as postgresCatalogAlterationStatement,an as postgresCatalogDefaultExpressionSql,Zn as postgresCatalogObjectStatement,Kn as postgresCatalogTableStatement,Vn as postgresRelationCatalogStorageCached};
+      WHERE schema_name=?1 AND table_name=?2`).bind(a.schema_name,a.table_name,JSON.stringify(N),JSON.stringify(T),JSON.stringify(S),c,JSON.stringify(v),JSON.stringify(Ee)))}t.length&&await e.batch(t)}function P(e){if(typeof e=="string")try{const n=JSON.parse(e);return Array.isArray(n)?n:void 0}catch{return}}function V(e){const n=P(e);return n?.every(t=>typeof t=="string")?n:void 0}function fn(e){const n=P(e);return n?.every(t=>typeof t=="number")?n:void 0}function ie(e,n){return e.length===n.length&&e.every((t,a)=>t===n[a])}function se(e,n){const t=new Map;if(!e||!n||e.length!==n.length)return t;for(const[a,o]of e.entries())t.set(o,n[a]);return t}function hn(e,n,t,a){if(e.length!==n.length)throw new TypeError(`${a} initial column/type width mismatch`);const o=JSON.parse(t);if(!Array.isArray(o))throw new TypeError(`${a} shape changes are not an array`);const p=o.flatMap(i=>Array.isArray(i)?i:[i]),l=[...e],s=[...n],m=e.map((i,r)=>r+1);let g=m.length+1;const E=new Map;for(const i of p){if(!i||typeof i!="object"||typeof i.action!="string"||typeof i.column!="string")throw new TypeError(`${a} contains an invalid shape change`);const r=l.indexOf(i.column);if(i.action==="add"){if(typeof i.pgType!="string"||l.includes(i.column))throw new TypeError(`${a} contains an invalid added column`);l.push(i.column),s.push(i.pgType),m.push(g++)}else if(i.action==="drop"){if(r<0)throw new TypeError(`${a} drops an unknown column ${i.column}`);l.splice(r,1),s.splice(r,1),m.splice(r,1)}else if(i.action==="rename"){if(r<0||typeof i.newColumn!="string"||l.includes(i.newColumn))throw new TypeError(`${a} contains an invalid column rename`);l[r]=i.newColumn;for(const[L,C]of E)C===i.column&&E.set(L,i.newColumn);E.set(i.column,i.newColumn)}else if(i.action==="type"){if(r<0||typeof i.pgType!="string")throw new TypeError(`${a} changes an unknown column type`);s[r]=i.pgType}else{if(["set-not-null","drop-not-null","set-default","drop-default"].includes(String(i.action)))continue;throw new TypeError(`${a} contains an unsupported shape change`)}}return{columns:l,pgTypes:s,attnums:m,maxAttnum:g-1,renames:E}}function O(e){return`'${e.replaceAll("'","''")}'`}function Oe(e){return e===null?null:/\bstrftime\s*\([^)]*['"]now['"]/iu.test(e)||e.toUpperCase()==="CURRENT_TIMESTAMP"?"now()":/^\(?\s*\(?random\(\)\s*&\s*9223372036854775807\)?\s*\/\s*9223372036854775808\.0\s*\)?\s*\)?$/iu.test(e.trim())?"random()":e}function In(e,n){return n.map((t,a)=>Wn(t,e[a]||""))}function Wn(e,n){if(e===null)return null;e=Oe(e);const t=n.toLowerCase().replace(/^pg_catalog\./u,"");if(t==="boolean"||t==="bool"){const a=e.trim().toLowerCase();if(a==="1"||a==="true")return"true";if(a==="0"||a==="false")return"false"}return/^bit(?:\s+varying)?(?:\s*\(\s*\d+\s*\))?$/iu.test(t)&&!/::(?:"bit"|bit\s+varying)$/iu.test(e.trim())?`${e}::${/^bit\s+varying\b/iu.test(t)?"bit varying":'"bit"'}`:e}export{F as RELATION_TYPE_OID_OFFSET,Kn as ensurePostgresObjectCatalogStorage,Ve as ensurePostgresTableCatalogStorage,sn as informationSchemaColumnsBodySql,nn as informationSchemaColumnsViewSql,tn as informationSchemaViewsViewSql,Ye as installPostgresCatalog,In as normalizeCatalogDefaults,pn as pgAggregateViewSql,_n as pgAttributeDefaultViewSql,bn as pgAttributeNumericPrecisionSql,Hn as pgAttributeNumericScaleSql,ae as pgAttributePhysicalMetadataSql,oe as pgAttributeTypeModSql,D as pgAttributeTypeNameSql,mn as pgDatabaseViewSql,cn as pgDefaultAclViewSql,dn as pgForeignDataWrapperViewSql,An as pgForeignServerViewSql,On as pgForeignTableViewSql,Rn as pgIndexesViewSql,rn as pgNamespaceViewSql,ln as pgProcViewSql,Nn as pgPublicationTablesViewSql,gn as pgPublicationViewSql,Cn as pgRangeViewSql,an as pgSequencesViewSql,Sn as pgSubscriptionViewSql,Tn as pgTablespaceViewSql,W as pgTypeOidSql,yn as pgTypeViewSql,un as pgUserMappingViewSql,Ln as pgUserMappingsViewSql,et as postgresCatalogAlterationStatement,on as postgresCatalogDefaultExpressionSql,nt as postgresCatalogObjectStatement,Zn as postgresCatalogTableStatement,zn as postgresRelationCatalogStorageCached};

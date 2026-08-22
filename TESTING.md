@@ -8,7 +8,7 @@ This page separates three different claims that are easy to confuse:
 
 A small fixture is never counted as a complete official-file pass. A command-family golden means the documented EdgePG contract and its fail-closed boundary passed; it does not mean every grammar permutation in the corresponding PostgreSQL manual page is implemented.
 
-Current public release: `edgepg@0.8.3`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
+Current public release: `edgepg@0.8.4`. Function-level results are maintained separately in [FUNCTIONS.md](FUNCTIONS.md).
 
 ## How results are compared
 
@@ -123,6 +123,14 @@ The PostgreSQL 18 documentation lists **183 SQL command families**. EdgePG maint
 | COPY/PGWire | ✅ | 53/53 PGWire tests plus independent chunked commit and atomic failure rollback |
 | Backup/restore | ✅ | Standard PostgreSQL 18 `pg_dump -Fc` and isolated fresh `pg_restore` paths |
 | Full server internals | ➖ | WAL, backend processes, physical tablespaces, server files and arbitrary C extensions |
+
+## 0.8.4 final release gate
+
+- Exact TGZ `d0685e29a1d58028ad31918fa1601f4c6cb43c4092fca925a0ce5e82768a8435`; formal full-capability Database Worker build `05ec991fdb429a3e3424cdff3945406daf479e41553da0c0d7fae7db3f78550a`.
+- Twelve official root clusters and 46/46 official-gap cases passed locally; exact package install/exports and customer Worker dry run passed.
+- Real Cloudflare retained two-Worker LIKE INCLUDING ALL, typed tables, catalog/restart, rules, NULL ordering and existing lock/DML baselines passed.
+- Independent DISABLE/ENABLE TRIGGER ALL requests and restart returned ALTER TABLE; unrelated managed trigger remained functional.
+- Better Auth 1.7, Auth.js, Drizzle, Prisma, node-postgres, SQLSTATE, RPC limits, concurrency and cleanup passed.
 
 ## 0.8.3 final release gate
 

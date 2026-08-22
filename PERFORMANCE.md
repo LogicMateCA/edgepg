@@ -12,7 +12,7 @@ Performance results are kept as a time series so each optimization can be compar
 
 ## Daily read/write baseline — current line
 
-The 0.8.3 release is a correctness release and makes no speedup claim. In its independent real Cloudflare retained fixture, `ALTER TABLE ... ADD COLUMN` rollback measured `12.170 s`; the complete rollback request measured `13.263 s`; and the production-shaped four-row migration measured `18.041 s` for rollback and `16.614 s` for commit. These are fixed-fixture evidence points, not a global latency SLA. The 0.8.2 CPU planner baseline remains the current planner comparison: query p50/p95 `1.351/1.835 ms`, write `0.699/0.901 ms`, prepared `1.045/1.391 ms`, and transaction planning `1.021/1.398 ms`.
+The 0.8.4 release is compatibility-focused and makes no production speedup claim. Its exact local workerd diagnostic measured point read p50/p95 `56/66 ms`, tenant join `56/69 ms`, auth existence `65/94 ms`, prepared filter `57/70 ms`, write `254/552 ms`, transaction `961/2789 ms`, COPY rollback workload `653/706 ms`, 500-row batch `4574 ms`, and eight-client query wall `1602 ms`. These fixed-fixture diagnostics are not a global latency SLA.
 
 The ordinary workload baseline is presented before optimization deltas. It answers the practical question: how long do common reads, writes and transactions take in the isolated EdgePG runtime?
 

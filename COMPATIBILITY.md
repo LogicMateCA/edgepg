@@ -63,7 +63,7 @@ For the exhaustive PostgreSQL 18.4 official-file inventory and all 183 SQL comma
 | Views and materialized views | ✅ | Lifecycle, reads, comments, transaction rollback |
 | RLS policy lifecycle | ✅ | Create/alter/comment/drop and transaction behavior |
 | Inheritance and common partition routing | ✅ | Catalog and row-routing cases |
-| Retained in-place upgrades | ✅ | rc.20→0.8.3 same-D1/same-DO repair, structural catalog-view reconciliation, concurrent readers, Auth/ORM/migration and Worker-restart persistence |
+| Retained in-place upgrades | ✅ | rc.20→0.8.4 same-D1/same-DO repair, structural catalog reconciliation, Auth/ORM/migration, typed/LIKE DDL and Worker-restart persistence |
 | Full ORM native PostgreSQL differential | 🟨 | Complete per-framework matrix remains open |
 | Multi-organization SaaS concurrency | 🟨 | Targeted gates passed; broader load matrix planned |
 | OAuth/token-refresh concurrency | 🟨 | Application evidence exists; expanded stress planned |

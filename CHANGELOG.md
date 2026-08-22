@@ -2,6 +2,21 @@
 
 Every package release is immutable and identified by version, product commit, byte size, SHA-256, and source fingerprint.
 
+## 0.8.4 — 2026-08-22
+
+### Stable release
+
+- Resolved 46 official-gap cases across scalar cardinality/OIDs, grouping sets, windows, arrays/SRF, JSONPath, aggregates, temporal/regexp and catalogs.
+- Added typed tables and `CREATE TABLE LIKE INCLUDING ALL`, preserving generated/identity/default/constraint/index/statistics/comment metadata.
+- Corrected ordinary PostgreSQL NULL ordering and exact ordinary-table ON SELECT rule `42809`/`25P02` behavior.
+- Made empty-table `DISABLE/ENABLE TRIGGER ALL` a bounded table-scoped no-op while retaining the strong managed-trigger and explicit-transaction paths.
+
+### Verified
+
+- Real Cloudflare rc.20→0.8.4 retained two-Worker gate, restarts, LIKE ALL, typed tables, rule and NULL ordering passed.
+- Independent DISABLE/ENABLE requests returned `ALTER TABLE`; restart and unrelated managed-trigger isolation passed, and the managed trigger still executed.
+- Better Auth 1.7, Auth.js, Drizzle, Prisma, node-postgres, RPC/SQLSTATE/concurrency and cleanup passed.
+
 ## 0.8.3 — 2026-08-22
 
 ### Stable release

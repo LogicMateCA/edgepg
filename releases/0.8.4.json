@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "product": "EdgePG",
+  "version": "0.8.4",
+  "releasedAt": "2026-08-22",
+  "channel": "stable",
+  "sourceStatus": "commercial-closed-source",
+  "identity": {
+    "productCommit": "2e58fc47a9cb9e587490112333b5849ff6feaf26",
+    "evidenceHead": "2d1679317c078c309316fa7f12fd9dfbae1e5d8d",
+    "artifactFile": "edgepg-0.8.4.tgz",
+    "artifactBytes": 1237074,
+    "artifactSha256": "d0685e29a1d58028ad31918fa1601f4c6cb43c4092fca925a0ce5e82768a8435",
+    "sourceFingerprint": "14e976c5a7a81d21252fbcdb41d323befaca81031ec2a6e002b8d60a0b67a097",
+    "libpgQueryWasmSha256": "a1d0fc0cca913a12a2403233b70a26b56b694f38e9604962ad108e605e6e0c79",
+    "databaseWorkerBundleFingerprint": "05ec991fdb429a3e3424cdff3945406daf479e41553da0c0d7fae7db3f78550a"
+  },
+  "production": {
+    "coreRelease": "0.6.132",
+    "coreCommit": "a925be2cd594020e96609ad29eae30e7e144bf0a",
+    "coreVersionId": "29eb4b8b-ec93-4352-b6cc-098f93ca8890",
+    "databaseWorkerVersionId": "d3255535-6c89-405a-937a-441bc86c4457",
+    "databaseWorkerDeploymentId": "bf0b9453-a975-4022-b907-30efdb022b74"
+  },
+  "releaseGates": {
+    "officialGap": "46/46",
+    "cloudflareRetainedTwoWorker": "passed",
+    "likeIncludingAll": "passed",
+    "typedTables": "passed",
+    "triggerAllHotfix": "passed",
+    "selectRuleAndNullOrdering": "passed",
+    "betterAuth17": "passed",
+    "authJs": "passed",
+    "drizzlePrismaNodePg": "passed",
+    "cleanup": "passed"
+  },
+  "evidence": {
+    "suiteHotfixSha256": "c935037eee9c6786f0755b58fff85a7e7af56296ec70dcedaaf44427ba9bd2eb",
+    "copyProofSha256": "e38a5275f6028ec65dd5cba10eeb3643b6c7532bbe373c73284952c1585c467b",
+    "cloudflarePrimarySha256": "09efaa8bd4c16b2aab4634d955bb250f152da369f9fae266bf60f1e250505a54",
+    "cloudflareResumeSha256": "f6f1d4b5e051ab2ec58e5c41d0a0e1404f61a5064d52a6841ae74b66a62825a9",
+    "betterAuth17Sha256": "f7fa01266ad3ce318e311f0de0cf78395345906ab874b159bd3f2333313e13c7",
+    "authJsSha256": "d5e65fb579bb03f5ad689ac0b227a15664bde3607bd1c5d7053734d9b530a5b2",
+    "ormSha256": "b02625193f48a153a22dc0606347593cc24256753b7a5620d065008de73403f1",
+    "productionHealthSha256": "dc131b07245ccb0940359c3d7905f46706c654bf642224acb7e80decd44ef9b0",
+    "productionServiceBindingSha256": "cf428b241f747b30f19e372abf9f23284ddb2902051043a1dc363c3ef72df94e"
+  },
+  "rollback": {
+    "version": "0.8.3",
+    "versionId": "8a160b6f-8e74-4ff6-a6de-f57bac93bff3",
+    "deploymentId": "3647be16-ceca-4815-b8f6-dd4c1fa7d9e8",
+    "buildFingerprint": "f439ce61db79691dffda81e8f01dc3bb1e248cb359bd13eb78b2679cd256ac9f"
+  }
+}
